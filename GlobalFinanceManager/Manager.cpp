@@ -21,5 +21,6 @@ Manager& Manager::Instance()
 	else
 	{
 		instance = new Manager();
+		return *instance;
 	}
 }

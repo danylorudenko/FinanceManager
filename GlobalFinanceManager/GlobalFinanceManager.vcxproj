@@ -74,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <XMLDocumentationFileName>$(IntDir)DOC</XMLDocumentationFileName>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -111,23 +112,28 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CommandHandler.cpp" />
-    <ClCompile Include="FinanceDay.cpp" />
-    <ClCompile Include="FinanceMounth.cpp" />
+    <ClCompile Include="Enums\Months.cpp" />
+    <ClCompile Include="ExpenceRecord.cpp" />
     <ClCompile Include="FinanceRecord.cpp" />
-    <ClCompile Include="FinanceYear.cpp" />
+    <ClCompile Include="IncomeRecord.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="TimeHolder.cpp" />
+    <ClCompile Include="unit_finRecord.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommandHandler.h" />
-    <ClInclude Include="CommandType.h" />
-    <ClInclude Include="FinanceDay.h" />
-    <ClInclude Include="FinanceMounth.h" />
+    <ClInclude Include="Enums\CommandType.h" />
+    <ClInclude Include="Enums\Months.h" />
+    <ClInclude Include="ExpenceRecord.h" />
     <ClInclude Include="FinanceRecord.h" />
-    <ClInclude Include="FinanceYear.h" />
+    <ClInclude Include="IncomeRecord.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="Enums\RecordType.h" />
     <ClInclude Include="TimeHolder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestExpencesTest.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

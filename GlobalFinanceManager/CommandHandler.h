@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 #include <array>
-#include "CommandType.h"
+#include "Enums\CommandType.h"
 
 
 class CommandHandler
@@ -24,7 +24,7 @@ private:
 	void AddCommandArg(std::string& argument) const;
 
 	CommandType PickCommandType(std::string commandWord) const;
-
+	
 	void Implement(CommandType commandType, std::list<std::string> secondaryArguments) const;
 
 	CommandHandler();

@@ -2,23 +2,29 @@
 #define __TIME_HOLDER__
 
 #include <string>
+#include <fstream>
+#include "Enums\Months.h"
 
 class TimeHolder
 {
 public:
-	static TimeHolder* WriteCurrentTime();
+	TimeHolder();
+	TimeHolder(TimeHolder& otherHolder) = default;
+	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900);
+	TimeHolder(char* buffer);
+
+	TimeHolder& operator=(TimeHolder&) = default;
+
 	std::string GetTimeString() const;
-	void EditDate(int mDay, int mounth, int year);
-	bool IsToday(TimeHolder toCheck) const;
+	void EditDate(int mDay, int month, int year);
+	bool IsToday() const;
 
 private:
-	TimeHolder(int min, int hour, int mDay, int month, int yearSince1900);
-	TimeHolder();
 
 	int minutes;
 	int hours;
 	int mDay;
-	int month;
+	Month month;
 	int year;
 };
 

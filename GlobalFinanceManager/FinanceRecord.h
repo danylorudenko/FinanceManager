@@ -3,27 +3,30 @@
 
 #include <string>
 #include "TimeHolder.h"
+#include "Enums\RecordType.h"
 
 class FinanceRecord
 {
 public:
-	static FinanceRecord* CreateRecord(bool expence, std::string category, float sum, std::string description);
-	void EditCategory(std::string newCategory);
-	void EditSum(float newSum);
-	void EditDescription(std::string newDescription);
+	static FinanceRecord* CreateRecord(const RecordType type, const std::string& category, const float sum, const std::string& description);
+	virtual void EditCategory(const std::string& categoryNew);
+	virtual void EditSum(const float newSum);
+	virtual void EditDescription(const std::string& newDescription);
 
-private:
-	TimeHolder* time;
+	virtual void TestDisplay() const;
 
-	bool expence;
-	std::string category;
-	float sum;
-	std::string description;
-
-private:
-	FinanceRecord();
-	FinanceRecord(bool expence, std::string category, float sum, std::string description);
+	virtual bool Write() = 0;
+	virtual bool Read() = 0;
+	FinanceRecord(const FinanceRecord& anotherRecord);
 	~FinanceRecord();
+
+protected:
+	FinanceRecord(const std::string& category, float sum, const std::string& description);
+
+	TimeHolder* time = nullptr;
+	float sum;
+	std::string category;
+	std::string description;
 };
 
 #endif

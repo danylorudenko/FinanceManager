@@ -1,55 +1,77 @@
 #include "TimeHolder.h"
 #include <ctime>
+#include <iostream>
+#include <sstream>
 
-TimeHolder::TimeHolder(int min, int hour, int mDay, int month, int yearSince1900)
-{
-	minutes = min;
-	hours = hour;
-	this->mDay = mDay;
-	this->month = month;
-	year = yearSince1900;
-}
-
-TimeHolder* TimeHolder::WriteCurrentTime()
+TimeHolder::TimeHolder()
 {
 	time_t timeInSeconds = time(0);
 	struct tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
-	TimeHolder *holder = new TimeHolder(currentTime.tm_min,
-										currentTime.tm_hour,
-										currentTime.tm_mday, 
-										currentTime.tm_mon, 
-										currentTime.tm_year + 1900);
-	return holder;
+	minutes = currentTime.tm_min;
+	hours = currentTime.tm_hour;
+	mDay = currentTime.tm_mday;
+	month = static_cast<Month>(currentTime.tm_mon);
+	year = currentTime.tm_year + 1900;
+}
+
+TimeHolder::TimeHolder(int _min, int _hour, int _mDay, Month _month, int _yearSince1900)
+{
+	minutes = _min;
+	hours = _hour;
+	mDay = _mDay;
+	month = _month;
+	year = _yearSince1900;
+}
+
+TimeHolder::TimeHolder(char * buffer)
+{
+	int readPosition = 0;
+	minutes = *(reinterpret_cast<int*>(readPosition));
+	readPosition += sizeof(int);
+
+	hours = *(reinterpret_cast<int*>(readPosition));
+	readPosition += sizeof(int);
+
+	mDay = *(reinterpret_cast<int*>(readPosition));
+	readPosition += sizeof(int);
+
+	month = *(reinterpret_cast<Month*>(readPosition));
+	readPosition += sizeof(Month);
+
+	year = *(reinterpret_cast<int*>(readPosition));
 }
 
 std::string TimeHolder::GetTimeString() const
 {
-	std::string timeString = hours + ":" + minutes;
-	timeString += ",  " + mDay;
-	timeString += "." + month;
-	timeString += "." + year;
+	std::ostringstream timeStrStream;
 
-	return timeString;
+	timeStrStream << hours << ":" << 
+		minutes << ", " << 
+		mDay <<  "." <<
+		MonthConverter::MonthToInt(month) << "." << 
+		year;
+
+	return timeStrStream.str();
 }
 
-void TimeHolder::EditDate(int mDay, int month, int year)
+void TimeHolder::EditDate(int _mDay, int _month, int _year)
 {
-	this->mDay = mDay;
-	this->month = month;
-	this->year = year;
+	mDay = _mDay;
+	month = MonthConverter::IntToMonth(_month);
+	year = _year;
 }
 
-bool TimeHolder::IsToday(TimeHolder toCheck) const
+bool TimeHolder::IsToday() const
 {
 	time_t timeInSeconds = time(0);
 	struct tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
-	if (currentTime.tm_mday == toCheck.mDay &&
-		currentTime.tm_mon == toCheck.month &&
-		(currentTime.tm_year + 1900) == toCheck.year)
+	if (currentTime.tm_mday == mDay &&
+		MonthConverter::IntToMonth(currentTime.tm_mon + 1) == month &&
+		(currentTime.tm_year + 1900) == year)
 	{
 		return true;
 	}

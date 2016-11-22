@@ -100,29 +100,29 @@ CommandType CommandHandler::PickCommandType(std::string commandWord) const
 		}
 	}
 
-	return BAD_COMMAND;
+	return CommandType::BAD_COMMAND;
 }
 
 void CommandHandler::Implement(CommandType commandType, std::list<std::string> secondaryArguments) const
 {
 	switch (commandType)
 	{
-	case HELP:
+	case CommandType::HELP:
 		std::cout << "HELP!" << std::endl;
 		break;
-	case DISPLAY_FINANCES:
+	case CommandType::DISPLAY_FINANCES:
 		std::cout << "DISPLAY_FINANCES!" << std::endl;
 		break;
-	case ADD_SPENDINGS:
+	case CommandType::ADD_SPENDINGS:
 		std::cout << "ADD_SPENDINGS!" << std::endl;
 		break;
-	case ADD_INCOME:
+	case CommandType::ADD_INCOME:
 		std::cout << "ADD_INCOME!" << std::endl;
 		break;
-	case BAD_COMMAND:
+	case CommandType::BAD_COMMAND:
 		std::cout << "COMMAND ARGUMENT ERROR" << std::endl;
 		break;
-	case EXIT:
+	case CommandType::EXIT:
 		std::cout << "EXIT!" << std::endl;
 		break;
 	}
