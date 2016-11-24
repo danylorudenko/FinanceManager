@@ -4,6 +4,9 @@
 #include "ExpenceRecord.h"
 #include "IncomeRecord.h"
 
+const char* FinanceRecord::fileName = "ExpencesTest.bin";
+const char FinanceRecord::stringSeparator = static_cast<char>(234); // greek OMEGA character
+
 FinanceRecord* FinanceRecord::CreateRecord(const RecordType type, const std::string& category, float sum, const std::string& description = "")
 {
 	switch (type)

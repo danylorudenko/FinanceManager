@@ -4,8 +4,6 @@
 #include <algorithm>
 #include <iterator>
 
-char * fileName = "ExpencesTest.bin";
-
 ExpenceRecord::ExpenceRecord(const ExpenceRecord & anotherRecord) : FinanceRecord(anotherRecord) { }
 
 ExpenceRecord::ExpenceRecord(const std::string & category, float sum, const std::string & description) :
@@ -31,37 +29,37 @@ bool ExpenceRecord::Write()
 	std::ofstream outFile(fileName, std::ios_base::out | std::ios_base::binary | std::ios_base::trunc);
 	if (outFile.is_open())
 	{
-		std::cout << "File " << fileName << " was opened." << std::endl;
+		std::cout << "File " << fileName << " was opened for writing." << std::endl;
 	}
 	else
 	{
-		std::cout << "Failed to open file" << std::endl;
+		std::cout << "Failed to open file " << fileName << " for writing." << std::endl;
 		return false;
 	}
 
 	outFile.write(reinterpret_cast<char *>(time), sizeof(decltype(*time)));
-	outFile.write("\0", sizeof(char));
 
 	outFile.write(reinterpret_cast<char *>(&sum), sizeof(decltype(sum)));
-	outFile.write("\0", sizeof(char));
 
 	int writtenSize = category.size();
+	outFile.write(reinterpret_cast<char*>(&writtenSize), sizeof(int)); // here I'm writing the size of my string, so i MUST READ IT BEFORE READING THE std::string
+
 	char* tempString = new char[writtenSize];
-	stdext::checked_array_iterator<decltype(tempString)> tempStringBeginIterator(tempString, writtenSize);
-	std::copy(category.begin(), category.end(), tempStringBeginIterator); //here I copy the c-string of the std::string to the char* 
+	stdext::checked_array_iterator<decltype(tempString)> tempCategoryStringBeginIterator(tempString, writtenSize);
+	std::copy(category.begin(), category.end(), tempCategoryStringBeginIterator); //here I copy the c-string of the std::string to the char* 
 	outFile.write(tempString, writtenSize);					 //to write it to the file
-	outFile.write("\0", sizeof(char)); // this is a marker tells when the string is over
 	delete[] tempString;
 	
 	writtenSize = description.size();
+	outFile.write(reinterpret_cast<char*>(&writtenSize), sizeof(int));
+
 	tempString = new char[writtenSize];
-	stdext::checked_array_iterator<decltype(tempString)> tempStringBeginIterator2(tempString, writtenSize);
-	std::copy(description.begin(), description.end(), tempStringBeginIterator2); //same thing for another std::string
+	stdext::checked_array_iterator<decltype(tempString)> tempDescriptionStringBeginIterator(tempString, writtenSize);
+	std::copy(description.begin(), description.end(), tempDescriptionStringBeginIterator); //same thing for another std::string
 	outFile.write(tempString, writtenSize);
-	outFile.write("\0", sizeof(char));
 	delete[] tempString;
 
-	std::cout << "File was written.\n";
+	std::cout << "File was successfully written.\n";
 
 	return true;
 }
@@ -79,18 +77,22 @@ bool ExpenceRecord::Read()
 		return false;
 	}
 
-	size_t bufferSize = sizeof(TimeHolder);
-	char* buffer = new char[bufferSize];
-	inFile.read(buffer, bufferSize); //reading complete buffer for the TimeHolder
+	char timeHolderBuffer[sizeof(TimeHolder)];
+	inFile.read(timeHolderBuffer, sizeof(TimeHolder)); //reading complete buffer for the TimeHolder
 
-	delete time;
-	time = new TimeHolder(buffer); // initializing TimeHolder with buffer;
-	delete[] buffer;
+	int readingPosition = 0;
+	delete time; // deallocating the memory the old TimeHolder
+	time = new TimeHolder(timeHolderBuffer, readingPosition); // initializing TimeHolder with buffer. Returns bytes have read by ref(readingPosition)
 
-	buffer = new char[sizeof(float)];
-	inFile.read(buffer, sizeof(float));
-	sum = *(reinterpret_cast<float*>(buffer)); // reading float SUM
+	char floatBuffer[sizeof(float)];
+	inFile.read(floatBuffer, sizeof(float));
+	sum = *(reinterpret_cast<float*>(floatBuffer)); // reading float SUM
 
+	int readStringSize;
+	const size_t intSize = sizeof(int);
+	char intBuffer[intSize];
+	inFile.read(intBuffer, intSize);
+	readStringSize = *(reinterpret_cast<int*>(intBuffer));
 
 	return true;
 }

@@ -11,7 +11,7 @@ public:
 	TimeHolder();
 	TimeHolder(TimeHolder& otherHolder) = default;
 	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900);
-	TimeHolder(char* buffer);
+	TimeHolder(char* buffer, int& readingPosition);
 
 	TimeHolder& operator=(TimeHolder&) = default;
 

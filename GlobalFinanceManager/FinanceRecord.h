@@ -21,6 +21,9 @@ public:
 	~FinanceRecord();
 
 protected:
+	static const char* fileName;
+	static const char stringSeparator; // not sure, if I still need it. May use this symbol in sth else later
+	
 	FinanceRecord(const std::string& category, float sum, const std::string& description);
 
 	TimeHolder* time = nullptr;

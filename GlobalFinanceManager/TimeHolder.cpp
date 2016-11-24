@@ -25,9 +25,8 @@ TimeHolder::TimeHolder(int _min, int _hour, int _mDay, Month _month, int _yearSi
 	year = _yearSince1900;
 }
 
-TimeHolder::TimeHolder(char * buffer)
+TimeHolder::TimeHolder(char * buffer, int& readPosition)
 {
-	int readPosition = 0;
 	minutes = *(reinterpret_cast<int*>(readPosition));
 	readPosition += sizeof(int);
 
@@ -41,6 +40,7 @@ TimeHolder::TimeHolder(char * buffer)
 	readPosition += sizeof(Month);
 
 	year = *(reinterpret_cast<int*>(readPosition));
+	readPosition += sizeof(int);
 }
 
 std::string TimeHolder::GetTimeString() const
