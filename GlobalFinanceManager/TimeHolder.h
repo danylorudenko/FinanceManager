@@ -19,6 +19,8 @@ public:
 	void EditDate(int mDay, int month, int year);
 	bool IsToday() const;
 
+	void Write(std::ofstream& fileStream);
+
 private:
 
 	int minutes;

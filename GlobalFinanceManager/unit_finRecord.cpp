@@ -10,7 +10,10 @@ int main()
 	std::string descr("MySescription");
 
 	FinanceRecord* record = FinanceRecord::CreateRecord(RecordType::Expence, cat, 100.0f, descr);
+	record->TestDisplay();
+
 	record->Write();
+
 	system("PAUSE");
 	return 0;
 }

@@ -37,29 +37,50 @@ bool ExpenceRecord::Write()
 		return false;
 	}
 
-	outFile.write(reinterpret_cast<char *>(time), sizeof(decltype(*time)));
+	int categorySize = category.size();
+	int descriptionSize = description.size();
 
-	outFile.write(reinterpret_cast<char *>(&sum), sizeof(decltype(sum)));
+	// Length of data after TimeHolder
+	int variateDataLengh = sizeof(decltype(sum))
+						 + sizeof(decltype(categorySize))
+						 + categorySize
+						 + sizeof(decltype(descriptionSize))
+						 + descriptionSize;
 
-	int writtenSize = category.size();
-	outFile.write(reinterpret_cast<char*>(&writtenSize), sizeof(int)); // here I'm writing the size of my string, so i MUST READ IT BEFORE READING THE std::string
-
-	char* tempString = new char[writtenSize];
-	stdext::checked_array_iterator<decltype(tempString)> tempCategoryStringBeginIterator(tempString, writtenSize);
-	std::copy(category.begin(), category.end(), tempCategoryStringBeginIterator); //here I copy the c-string of the std::string to the char* 
-	outFile.write(tempString, writtenSize);					 //to write it to the file
-	delete[] tempString;
+	// Writing length-variated data length...
+	outFile.write(reinterpret_cast<const char*>(&variateDataLengh), sizeof(decltype(variateDataLengh)));
 	
-	writtenSize = description.size();
-	outFile.write(reinterpret_cast<char*>(&writtenSize), sizeof(int));
+	// TimeHolder self-writing
+	time->Write(outFile);
 
-	tempString = new char[writtenSize];
-	stdext::checked_array_iterator<decltype(tempString)> tempDescriptionStringBeginIterator(tempString, writtenSize);
-	std::copy(description.begin(), description.end(), tempDescriptionStringBeginIterator); //same thing for another std::string
-	outFile.write(tempString, writtenSize);
-	delete[] tempString;
+	// Writing the sum value
+	outFile.write(reinterpret_cast<const char *>(&sum), sizeof(decltype(sum)));
 
-	std::cout << "File was successfully written.\n";
+	// Writing category length
+	outFile.write(reinterpret_cast<const char*>(&categorySize), sizeof(int));
+
+	// Writing category string
+	outFile.write(category.c_str(), categorySize);
+
+	//char* tempString = new char[categorySize];
+	//stdext::checked_array_iterator<decltype(tempString)> tempCategoryStringBeginIterator(tempString, writtenSize);
+	//std::copy(category.begin(), category.end(), tempCategoryStringBeginIterator); //here I copy the c-string of the std::string to the char* 
+	//outFile.write(tempString, writtenSize);					 //to write it to the file
+	//delete[] tempString;
+	
+	// Writing description length
+	outFile.write(reinterpret_cast<char*>(&descriptionSize), sizeof(decltype(descriptionSize)));
+
+	// Writing description string
+	outFile.write(description.c_str(), descriptionSize);
+
+	//tempString = new char[writtenSize];
+	//stdext::checked_array_iterator<decltype(tempString)> tempDescriptionStringBeginIterator(tempString, writtenSize);
+	//std::copy(description.begin(), description.end(), tempDescriptionStringBeginIterator); //same thing for another std::string
+	//outFile.write(tempString, writtenSize);
+	//delete[] tempString;
+
+	//std::cout << "File was successfully written.\n";
 
 	return true;
 }

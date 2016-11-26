@@ -80,3 +80,13 @@ bool TimeHolder::IsToday() const
 		return false;
 	}
 }
+
+void TimeHolder::Write(std::ofstream& fileStream)
+{
+	//minutes, hours, mDay, month, year
+	fileStream.write(reinterpret_cast<const char*>(&minutes), sizeof(decltype(minutes)));
+	fileStream.write(reinterpret_cast<const char*>(&hours), sizeof(decltype(hours)));
+	fileStream.write(reinterpret_cast<const char*>(&mDay), sizeof(decltype(mDay)));
+	fileStream.write(reinterpret_cast<const char*>(&month), sizeof(decltype(month)));
+	fileStream.write(reinterpret_cast<const char*>(&year), sizeof(decltype(hours)));
+}
