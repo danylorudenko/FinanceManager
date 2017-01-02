@@ -2,6 +2,7 @@
 #define __FINANCE_RECORD__
 
 #include <string>
+#include <fstream>
 #include "..\..\Include\Record\Time\TimeHolder.h"
 #include "..\..\Include\Enums\RecordType.h"
 
@@ -15,16 +16,17 @@ public:
 
 	virtual void TestDisplay() const;
 
-	virtual bool Write() = 0;
-	virtual bool Read() = 0;
-	FinanceRecord(const FinanceRecord& anotherRecord);
+	virtual void Write(std::ofstream& outFile) = 0;
+	virtual void Read(std::ifstream& inFile) = 0;
 	~FinanceRecord();
 
 protected:
-	static const char* fileName;
-	static const unsigned char stringSeparator; // not sure, if I still need it. May use this symbol in sth else later
+	static const int categoryLimit;
+	static const int descriptionLimit;
+	static const int totalRecordLength;
 	
 	FinanceRecord(const std::string& category, float sum, const std::string& description);
+	static void WriteString(std::ofstream& outFile, std::string str, int limit);
 
 	TimeHolder* time = nullptr;
 	float sum;

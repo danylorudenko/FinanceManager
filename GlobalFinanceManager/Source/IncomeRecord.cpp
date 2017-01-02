@@ -20,14 +20,14 @@ void IncomeRecord::EditDescription(const std::string & descriptionNew)
 	FinanceRecord::EditDescription(descriptionNew);
 }
 
-bool IncomeRecord::Write()
+void IncomeRecord::Write(std::ofstream& outFile)
 {
-	return false;
+
 }
 
-bool IncomeRecord::Read()
+void IncomeRecord::Read(std::ifstream& inFile)
 {
-	return false;
+	
 }
 
 

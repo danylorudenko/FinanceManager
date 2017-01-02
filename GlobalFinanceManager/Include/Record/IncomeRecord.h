@@ -13,8 +13,8 @@ public:
 	virtual void EditCategory(const std::string& categotyNew) override;
 	virtual void EditDescription(const std::string& descriptionNew) override;
 
-	virtual bool Write() override;
-	virtual bool Read() override;
+	virtual void Write(std::ofstream& outFile) override;
+	virtual void Read(std::ifstream& inFile) override;
 };
 
 #endif

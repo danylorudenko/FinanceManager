@@ -20,6 +20,7 @@ public:
 	bool IsToday() const;
 
 	void Write(std::ofstream& fileStream);
+	void Read(std::ifstream& fileStream);
 
 private:
 

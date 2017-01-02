@@ -26,7 +26,7 @@ TimeHolder::TimeHolder(int _min, int _hour, int _mDay, Month _month, int _yearSi
 	year = _yearSince1900;
 }
 
-TimeHolder::TimeHolder(char * buffer, int& readPosition)
+TimeHolder::TimeHolder(char* buffer, int& readPosition)
 {
 	minutes = *(reinterpret_cast<int*>(readPosition));
 	readPosition += sizeof(int);
@@ -90,4 +90,9 @@ void TimeHolder::Write(std::ofstream& fileStream)
 	fileStream.write(reinterpret_cast<const char*>(&mDay), sizeof(decltype(mDay)));
 	fileStream.write(reinterpret_cast<const char*>(&month), sizeof(decltype(month)));
 	fileStream.write(reinterpret_cast<const char*>(&year), sizeof(decltype(hours)));
+}
+
+void TimeHolder::Read(std::ifstream& fileStream)
+{
+
 }
