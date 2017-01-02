@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 #include <array>
-#include "Enums\CommandType.h"
+#include "..\..\Include\Enums\CommandType.h"
 
 
 class CommandHandler

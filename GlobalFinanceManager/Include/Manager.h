@@ -3,8 +3,8 @@
 
 #include <memory>
 #include <map>
-#include "FinanceRecord.h"
-#include "Enums\Months.h"
+#include "..\Include\Record\FinanceRecord.h"
+#include "..\Include\Enums\Month.h"
 
 class Manager
 {

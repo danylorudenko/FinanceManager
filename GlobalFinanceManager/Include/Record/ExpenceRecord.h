@@ -1,7 +1,7 @@
 #ifndef __EXPENCE_RECORD_H__
 #define __EXPENCE_RECORD_H__
 
-#include "FinanceRecord.h"
+#include "..\..\Include\Record\FinanceRecord.h"
 
 class ExpenceRecord : public FinanceRecord
 {

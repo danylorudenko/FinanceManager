@@ -2,7 +2,7 @@
 #define __INCOME_RECORD_H__
 
 #include <string>
-#include "FinanceRecord.h"
+#include "..\..\Include\Record\FinanceRecord.h"
 
 class IncomeRecord : public FinanceRecord
 {

@@ -1,11 +1,11 @@
 #include <iostream>
 #include <exception>
-#include "FinanceRecord.h"
-#include "ExpenceRecord.h"
-#include "IncomeRecord.h"
+#include "..\Include\Record\FinanceRecord.h"
+#include "..\Include\Record\ExpenceRecord.h"
+#include "..\Include\Record\IncomeRecord.h"
 
 const char* FinanceRecord::fileName = "ExpencesTest.bin";
-const char FinanceRecord::stringSeparator = static_cast<char>(234); // greek OMEGA character
+const unsigned char FinanceRecord::stringSeparator = static_cast<unsigned char>(234); // greek OMEGA character
 
 FinanceRecord* FinanceRecord::CreateRecord(const RecordType type, const std::string& category, float sum, const std::string& description = "")
 {

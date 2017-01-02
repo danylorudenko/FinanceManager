@@ -1,4 +1,4 @@
-#include "IncomeRecord.h"
+#include "..\Include\Record\IncomeRecord.h"
 
 IncomeRecord::IncomeRecord(const IncomeRecord & anotherRecord) : FinanceRecord(anotherRecord) { }
 

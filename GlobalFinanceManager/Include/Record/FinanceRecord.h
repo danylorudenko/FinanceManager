@@ -2,8 +2,8 @@
 #define __FINANCE_RECORD__
 
 #include <string>
-#include "TimeHolder.h"
-#include "Enums\RecordType.h"
+#include "..\..\Include\Record\Time\TimeHolder.h"
+#include "..\..\Include\Enums\RecordType.h"
 
 class FinanceRecord
 {
@@ -22,7 +22,7 @@ public:
 
 protected:
 	static const char* fileName;
-	static const char stringSeparator; // not sure, if I still need it. May use this symbol in sth else later
+	static const unsigned char stringSeparator; // not sure, if I still need it. May use this symbol in sth else later
 	
 	FinanceRecord(const std::string& category, float sum, const std::string& description);
 

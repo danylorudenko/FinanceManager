@@ -1,4 +1,4 @@
-#include "Manager.h"
+#include "..\Include\Manager.h"
 
 Manager* Manager::instance = nullptr;
 

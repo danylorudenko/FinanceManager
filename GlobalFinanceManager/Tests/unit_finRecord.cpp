@@ -1,6 +1,6 @@
-#include "FinanceRecord.h"
-#include "ExpenceRecord.h"
-#include "Enums\RecordType.h"
+#include "..\Include\Record\FinanceRecord.h"
+#include "..\Include\Record\ExpenceRecord.h"
+#include "..\Include\Enums\RecordType.h"
 #include <iostream>
 #include <iomanip>
 
