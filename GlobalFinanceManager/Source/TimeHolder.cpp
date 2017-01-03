@@ -1,5 +1,5 @@
-#include "..\Include\Record\Time\TimeHolder.h"
-#include "..\Include\Record\Time\MonthConverter.h"
+#include "..\Include\Entry\Time\TimeHolder.h"
+#include "..\Include\Entry\Time\MonthConverter.h"
 #include <ctime>
 #include <iostream>
 #include <sstream>

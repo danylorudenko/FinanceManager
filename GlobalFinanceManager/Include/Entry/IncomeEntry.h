@@ -2,13 +2,13 @@
 #define __INCOME_RECORD_H__
 
 #include <string>
-#include "..\..\Include\Record\FinanceRecord.h"
+#include "..\..\Include\Entry\FinanceEntry.h"
 
-class IncomeRecord : public FinanceRecord
+class IncomeEntry : public FinanceEntry
 {
 public:
-	IncomeRecord(const IncomeRecord& anotherRecord);
-	IncomeRecord(const std::string& category, float sum, const std::string& description);
+	IncomeEntry(IncomeEntry& anotherEntry);
+	IncomeEntry(const std::string& category, float sum, const std::string& description);
 	virtual void EditSum(const float sumNew) override;
 	virtual void EditCategory(const std::string& categotyNew) override;
 	virtual void EditDescription(const std::string& descriptionNew) override;

@@ -1,5 +1,5 @@
-#ifndef __TIME_HOLDER__
-#define __TIME_HOLDER__
+#ifndef __TIME_HOLDER_H__
+#define __TIME_HOLDER_H__
 
 #include <string>
 #include <fstream>

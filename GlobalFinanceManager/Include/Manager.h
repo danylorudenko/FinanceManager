@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <map>
-#include "..\Include\Record\FinanceRecord.h"
+#include "..\Include\Entry\FinanceEntry.h"
 #include "..\Include\Enums\Month.h"
 
 class Manager
@@ -19,7 +19,7 @@ public:
 private:
 	static Manager* instance;
 
-	using BufferMap = std::map< int, std::shared_ptr<FinanceRecord> >;
+	using BufferMap = std::map< int, std::shared_ptr<FinanceEntry> >;
 	using BufferPair = BufferMap::value_type;
 
 	BufferMap recordsBuffer;

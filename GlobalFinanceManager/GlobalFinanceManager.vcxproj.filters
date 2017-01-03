@@ -21,15 +21,6 @@
     <ClCompile Include="Source\TimeHolder.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ExpenceRecord.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\FinanceRecord.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\IncomeRecord.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Source\CommandHandler.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
@@ -42,24 +33,21 @@
     <ClCompile Include="Source\MonthConverter.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Tests\regexTest.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ExpenceEntry.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FinanceEntry.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\IncomeEntry.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\CommandType.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Enums\RecordType.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Record\Time\TimeHolder.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Record\ExpenceRecord.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Record\FinanceRecord.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Record\IncomeRecord.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Include\UserInterface\CommandHandler.h">
@@ -68,10 +56,25 @@
     <ClInclude Include="Include\Manager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Record\Time\MonthConverter.h">
+    <ClInclude Include="Include\Enums\Month.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Enums\Month.h">
+    <ClInclude Include="Include\Entry\Time\MonthConverter.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entry\Time\TimeHolder.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entry\ExpenceEntry.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entry\FinanceEntry.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Entry\IncomeEntry.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Enums\EntryType.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

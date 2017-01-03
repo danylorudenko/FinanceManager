@@ -1,13 +1,13 @@
-#ifndef __EXPENCE_RECORD_H__
-#define __EXPENCE_RECORD_H__
+#ifndef __EXPENCE_ENTRY_H__
+#define __EXPENCE_ENTRY_H__
 
-#include "..\..\Include\Record\FinanceRecord.h"
+#include "..\..\Include\Entry\FinanceEntry.h"
 
-class ExpenceRecord : public FinanceRecord
+class ExpenceEntry : public FinanceEntry
 {
 public:
-	ExpenceRecord(const ExpenceRecord& anotherRecord);
-	ExpenceRecord(const std::string& category, float sum, const std::string& description);
+	ExpenceEntry(ExpenceEntry& anotherEntry);
+	ExpenceEntry(const std::string& category, float sum, const std::string& description);
 	virtual void EditSum(const float sumNew) override;
 	virtual void EditCategory(const std::string& categotyNew) override;
 	virtual void EditDescription(const std::string& descriptionNew) override;
