@@ -3,7 +3,7 @@
 
 #include <string>
 #include <fstream>
-#include "..\..\..\Include\Enums\Month.h"
+#include "..\..\Include\Enums\Month.h"
 
 class TimeHolder
 {
@@ -16,19 +16,19 @@ public:
 	TimeHolder& operator=(TimeHolder&) = default;
 
 	std::string GetTimeString() const;
+	std::string Serialize() const;
 	void EditDate(int mDay, int month, int year);
 	bool IsToday() const;
 
-	void Write(std::ofstream& fileStream);
-	void Read(std::ifstream& fileStream);
+	std::string Serialize();
 
 private:
 
-	int minutes;
-	int hours;
-	int mDay;
-	Month month;
-	int year;
+	int minutes_;
+	int hours_;
+	int mDay_;
+	Month month_;
+	int year_;
 };
 
 //ctime::strftime - may be useful!

@@ -1,5 +1,5 @@
-#include "..\Include\Entry\Time\TimeHolder.h"
-#include "..\Include\Entry\Time\MonthConverter.h"
+#include "..\Include\Time\TimeHolder.h"
+#include "..\Include\Time\MonthConverter.h"
 #include <ctime>
 #include <iostream>
 #include <sstream>
@@ -10,37 +10,37 @@ TimeHolder::TimeHolder()
 	struct tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
-	minutes = currentTime.tm_min;
-	hours = currentTime.tm_hour;
-	mDay = currentTime.tm_mday;
-	month = static_cast<Month>(currentTime.tm_mon);
-	year = currentTime.tm_year + 1900;
+	minutes_ = currentTime.tm_min;
+	hours_ = currentTime.tm_hour;
+	mDay_ = currentTime.tm_mday;
+	month_ = static_cast<Month>(currentTime.tm_mon);
+	year_ = currentTime.tm_year + 1900;
 }
 
-TimeHolder::TimeHolder(int _min, int _hour, int _mDay, Month _month, int _yearSince1900)
+TimeHolder::TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900)
 {
-	minutes = _min;
-	hours = _hour;
-	mDay = _mDay;
-	month = _month;
-	year = _yearSince1900;
+	minutes_ = min;
+	hours_ = hour;
+	mDay_ = mDay;
+	month_ = month;
+	year_ = yearSince1900;
 }
 
 TimeHolder::TimeHolder(char* buffer, int& readPosition)
 {
-	minutes = *(reinterpret_cast<int*>(readPosition));
+	minutes_ = *(reinterpret_cast<int*>(readPosition));
 	readPosition += sizeof(int);
 
-	hours = *(reinterpret_cast<int*>(readPosition));
+	hours_ = *(reinterpret_cast<int*>(readPosition));
 	readPosition += sizeof(int);
 
-	mDay = *(reinterpret_cast<int*>(readPosition));
+	mDay_ = *(reinterpret_cast<int*>(readPosition));
 	readPosition += sizeof(int);
 
-	month = *(reinterpret_cast<Month*>(readPosition));
+	month_ = *(reinterpret_cast<Month*>(readPosition));
 	readPosition += sizeof(Month);
 
-	year = *(reinterpret_cast<int*>(readPosition));
+	year_ = *(reinterpret_cast<int*>(readPosition));
 	readPosition += sizeof(int);
 }
 
@@ -48,20 +48,34 @@ std::string TimeHolder::GetTimeString() const
 {
 	std::ostringstream timeStrStream;
 
-	timeStrStream << hours << ":" << 
-		minutes << ", " << 
-		mDay <<  "." <<
-		MonthConverter::MonthToInt(month) << "." << 
-		year;
+	timeStrStream << hours_ << ":" << 
+		minutes_ << ", " << 
+		mDay_ <<  "." <<
+		MonthConverter::MonthToInt(month_) << "." << 
+		year_;
 
 	return timeStrStream.str();
 }
 
-void TimeHolder::EditDate(int _mDay, int _month, int _year)
+std::string TimeHolder::Serialize() const
 {
-	mDay = _mDay;
-	month = MonthConverter::IntToMonth(_month);
-	year = _year;
+	std::ostringstream serializedStringStream;
+
+	serializedStringStream 
+		<< minutes_ << "." 
+		<< hours_ << "." 
+		<< mDay_ << "." 
+		<< MonthConverter::MonthToInt(month_) << "." 
+		<< year_;
+
+	return serializedStringStream.str();
+}
+
+void TimeHolder::EditDate(int mDay, int month, int year)
+{
+	mDay_ = mDay;
+	month_ = MonthConverter::IntToMonth(month);
+	year_ = year;
 }
 
 bool TimeHolder::IsToday() const
@@ -70,9 +84,9 @@ bool TimeHolder::IsToday() const
 	struct tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
-	if (currentTime.tm_mday == mDay &&
-		MonthConverter::IntToMonth(currentTime.tm_mon + 1) == month &&
-		(currentTime.tm_year + 1900) == year)
+	if (currentTime.tm_mday == mDay_ &&
+		MonthConverter::IntToMonth(currentTime.tm_mon + 1) == month_ &&
+		(currentTime.tm_year + 1900) == year_)
 	{
 		return true;
 	}
@@ -82,17 +96,12 @@ bool TimeHolder::IsToday() const
 	}
 }
 
-void TimeHolder::Write(std::ofstream& fileStream)
+std::string TimeHolder::Serialize()
 {
 	//minutes, hours, mDay, month, year
-	fileStream.write(reinterpret_cast<const char*>(&minutes), sizeof(decltype(minutes)));
-	fileStream.write(reinterpret_cast<const char*>(&hours), sizeof(decltype(hours)));
-	fileStream.write(reinterpret_cast<const char*>(&mDay), sizeof(decltype(mDay)));
-	fileStream.write(reinterpret_cast<const char*>(&month), sizeof(decltype(month)));
-	fileStream.write(reinterpret_cast<const char*>(&year), sizeof(decltype(hours)));
-}
+	std::string serializedTimeHolder;
 
-void TimeHolder::Read(std::ifstream& fileStream)
-{
+	
 
+	return serializedTimeHolder;
 }

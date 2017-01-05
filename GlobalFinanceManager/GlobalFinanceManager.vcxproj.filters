@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Tests\unit_finRecord.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Source\TimeHolder.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
@@ -36,13 +33,16 @@
     <ClCompile Include="Tests\regexTest.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ExpenceEntry.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Source\FinanceEntry.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Source\IncomeEntry.cpp">
+    <ClCompile Include="Tests\entryWriteTest.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\entryCreateTest.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
+    <ClCompile Include="Tests\streamFormattingTest.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,22 +59,16 @@
     <ClInclude Include="Include\Enums\Month.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Entry\Time\MonthConverter.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Entry\Time\TimeHolder.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\Entry\ExpenceEntry.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Entry\FinanceEntry.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Entry\IncomeEntry.h">
+    <ClInclude Include="Include\Enums\EntryType.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Enums\EntryType.h">
+    <ClInclude Include="Include\Time\MonthConverter.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Time\TimeHolder.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

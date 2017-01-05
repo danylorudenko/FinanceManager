@@ -1,7 +1,7 @@
 #ifndef __MONTH_CONVERTER_H__
 #define __MONTH_CONVERTER_H__
 
-#include "..\..\..\Include\Enums\Month.h"
+#include "..\..\Include\Enums\Month.h"
 
 class MonthConverter
 {

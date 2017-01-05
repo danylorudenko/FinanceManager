@@ -1,4 +1,4 @@
-#include "..\Include\Entry\Time\MonthConverter.h"
+#include "..\Include\Time\MonthConverter.h"
 #include <exception>
 
 Month MonthConverter::IntToMonth(int month)

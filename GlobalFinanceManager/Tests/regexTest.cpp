@@ -3,7 +3,7 @@
 #include <regex>
 #include <string>
 
-int main()
+int a()
 {
 	std::string strObj;
 	

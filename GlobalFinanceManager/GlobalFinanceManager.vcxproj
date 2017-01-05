@@ -113,26 +113,24 @@
   <ItemGroup>
     <ClCompile Include="Source\CommandHandler.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
-    <ClCompile Include="Source\ExpenceEntry.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
-    <ClCompile Include="Source\IncomeEntry.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Manager.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
+    <ClCompile Include="Tests\entryCreateTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
-    <ClCompile Include="Tests\unit_finRecord.cpp" />
+    <ClCompile Include="Tests\entryWriteTest.cpp" />
+    <ClCompile Include="Tests\streamFormattingTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
-    <ClInclude Include="Include\Entry\Time\MonthConverter.h" />
+    <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\UserInterface\CommandHandler.h" />
     <ClInclude Include="Include\Enums\CommandType.h" />
-    <ClInclude Include="Include\Entry\ExpenceEntry.h" />
     <ClInclude Include="Include\Entry\FinanceEntry.h" />
-    <ClInclude Include="Include\Entry\IncomeEntry.h" />
     <ClInclude Include="Include\Manager.h" />
     <ClInclude Include="Include\Enums\EntryType.h" />
-    <ClInclude Include="Include\Entry\Time\TimeHolder.h" />
+    <ClInclude Include="Include\Time\TimeHolder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />
