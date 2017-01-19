@@ -1,25 +1,25 @@
 #include <algorithm>
-#include "..\Include\UserInterface\CommandHandler.h"
+#include "..\Include\Managers\CommandManager.h"
 #include <iostream>
 #include <cctype>
 
-CommandHandler* CommandHandler::instance = nullptr; //statacs are initialized in .cpp files
+CommandManager* CommandManager::instance = nullptr; //statacs are initialized in .cpp files
 
-CommandHandler::CommandHandler()
+CommandManager::CommandManager()
 {
 	commandArgs = new std::list<std::string>;
 }
 
-CommandHandler::~CommandHandler()
+CommandManager::~CommandManager()
 {
 	delete commandArgs;
 }
 
-CommandHandler& CommandHandler::Instance()
+CommandManager& CommandManager::Instance()
 {
 	if (instance == nullptr)
 	{
-		instance = new CommandHandler();
+		instance = new CommandManager();
 		return *instance;
 	}
 	else
@@ -28,7 +28,7 @@ CommandHandler& CommandHandler::Instance()
 	}
 }
 
-std::string CommandHandler::GetUserCommand()
+std::string CommandManager::GetUserCommand()
 {
 	Instance().commandArgs->clear();
 
@@ -84,13 +84,13 @@ std::string CommandHandler::GetUserCommand()
 	return "";
 }
 
-void CommandHandler::AddCommandArg(std::string& argument) const
+void CommandManager::AddCommandArg(std::string& argument) const
 {
 	Instance().commandArgs->push_back(argument);
 	argument.clear();
 }
 
-CommandType CommandHandler::PickCommandType(std::string commandWord) const
+CommandType CommandManager::PickCommandType(std::string commandWord) const
 {
 	for (unsigned int i = 0; i < validCommands.size(); ++i)
 	{
@@ -103,7 +103,7 @@ CommandType CommandHandler::PickCommandType(std::string commandWord) const
 	return CommandType::BAD_COMMAND;
 }
 
-void CommandHandler::Implement(CommandType commandType, std::list<std::string> secondaryArguments) const
+void CommandManager::Implement(CommandType commandType, std::list<std::string> secondaryArguments) const
 {
 	switch (commandType)
 	{

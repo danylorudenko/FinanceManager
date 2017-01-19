@@ -62,10 +62,10 @@ std::string TimeHolder::Serialize() const
 	std::ostringstream serializedStringStream;
 
 	serializedStringStream 
-		<< minutes_ << "." 
-		<< hours_ << "." 
-		<< mDay_ << "." 
-		<< MonthConverter::MonthToInt(month_) << "." 
+		<< minutes_ << '.' 
+		<< hours_ << '.' 
+		<< mDay_ << '.' 
+		<< MonthConverter::MonthToInt(month_) << '.'
 		<< year_;
 
 	return serializedStringStream.str();
@@ -94,14 +94,4 @@ bool TimeHolder::IsToday() const
 	{
 		return false;
 	}
-}
-
-std::string TimeHolder::Serialize()
-{
-	//minutes, hours, mDay, month, year
-	std::string serializedTimeHolder;
-
-	
-
-	return serializedTimeHolder;
 }

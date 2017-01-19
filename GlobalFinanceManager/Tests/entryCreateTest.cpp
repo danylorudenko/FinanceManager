@@ -3,7 +3,7 @@
 
 int notmain156()
 {
-	FinanceEntry testEntry(EntryType::Expence, "MyCategory", 50.0f, "MyDescription");
+	FinanceEntry testEntry(EntryType::Expence, "MyCategory", 500, "MyDescription");
 
 	testEntry.TestDisplay();
 

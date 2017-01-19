@@ -7,17 +7,17 @@
 #include "..\..\Include\Enums\CommandType.h"
 
 
-class CommandHandler
+class CommandManager
 {
 
 public:
-	static CommandHandler& Instance(); // singletone access
+	static CommandManager& Instance(); // singletone access
 
 	std::string GetUserCommand(); //Recieving list of words in line command.
 
 private:
 	const std::array<std::string, 5> validCommands = { "help", "display_finances", "add_income", "add_spendings", "exit" };
-	static CommandHandler* instance; //singletone instance
+	static CommandManager* instance; //singletone instance
 
 	std::list<std::string>* commandArgs; //list of the command arguments
 
@@ -27,8 +27,8 @@ private:
 	
 	void Implement(CommandType commandType, std::list<std::string> secondaryArguments) const;
 
-	CommandHandler();
-	~CommandHandler();
+	CommandManager();
+	~CommandManager();
 };
 
 #endif

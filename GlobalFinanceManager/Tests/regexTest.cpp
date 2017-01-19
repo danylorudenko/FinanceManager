@@ -3,7 +3,7 @@
 #include <regex>
 #include <string>
 
-int a()
+int notmain4627()
 {
 	std::string strObj;
 	

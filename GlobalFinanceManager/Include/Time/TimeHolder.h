@@ -19,11 +19,9 @@ public:
 	std::string Serialize() const;
 	void EditDate(int mDay, int month, int year);
 	bool IsToday() const;
-
-	std::string Serialize();
+	bool IsLaterThan(const TimeHolder& other_holder) const;
 
 private:
-
 	int minutes_;
 	int hours_;
 	int mDay_;
