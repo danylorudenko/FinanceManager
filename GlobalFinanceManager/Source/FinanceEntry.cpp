@@ -5,8 +5,8 @@
 
 const char FinanceEntry::entryStringTerminator = '\0';
 
-FinanceEntry::FinanceEntry(const EntryType type, const std::string& category, const int sum, const std::string& description) :
-	type_(type), category_(category), sum_(sum), description_(description) { }
+FinanceEntry::FinanceEntry(const std::string& category, const int sum, const std::string& description) :
+	category_(category), sum_(sum), description_(description) { }
 
 void FinanceEntry::EditCategory(const std::string& category)
 {
@@ -52,6 +52,21 @@ bool FinanceEntry::IsLaterThan(const FinanceEntry& anotherEntry) const
 	return time_.IsLaterThan(anotherEntry.time_);
 }
 
+bool FinanceEntry::IsLaterThan(const TimeHolder& anotherTime) const
+{
+	return time_.IsLaterThan(anotherTime);
+}
+
+bool FinanceEntry::IsEarlierThan(const FinanceEntry& anotherEntry) const
+{
+	return !(FinanceEntry::IsLaterThan(anotherEntry));
+}
+
+bool FinanceEntry::IsEarlierThan(const TimeHolder& anotherTime) const
+{
+	return !(time_.IsLaterThan(anotherTime));
+}
+
 std::string FinanceEntry::Serialize() const
 {
 	std::ostringstream serailizedStringStream;
@@ -70,4 +85,41 @@ std::string FinanceEntry::Serialize() const
 
 	serailizedStringStream << ']';
 	return serailizedStringStream.str();
+}
+
+void FinanceEntry::Read(std::fstream& fileStream)
+{
+	std::string line;
+	std::string buffer(20, 'Z');
+	std::getline(fileStream, line);
+	
+	// Skipping first '[' symbol
+	int index = 1;
+	while (line[index] != '|') {
+		buffer += line[index++];
+	}
+	time_ = TimeHolder(buffer);
+	buffer.clear();
+	index++;
+
+	// Initializing category_
+	while (line[index] != '|') {
+		buffer += line[index++];
+	}
+	category_ = buffer;
+	buffer.clear();
+	index++;
+
+	// Initializing sum_
+	while (line[index] != '|') {
+		buffer += line[index++];
+	}
+	sum_ = std::stoi(buffer);
+	buffer.clear();
+
+	// Initializing description_
+	while (line[index] != ']') {
+		buffer += line[index++];
+	}
+	description_ = buffer;
 }

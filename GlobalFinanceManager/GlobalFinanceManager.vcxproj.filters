@@ -48,6 +48,9 @@
     <ClCompile Include="Source\MonthFileManager.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DataManager.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\CommandType.h">
@@ -74,7 +77,10 @@
     <ClInclude Include="Include\Managers\CommandManager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Managers\Request.h">
+    <ClInclude Include="Include\Misc\Request.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Managers\DataManager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,6 +3,7 @@
 #include <ctime>
 #include <iostream>
 #include <sstream>
+#include <climits>
 
 TimeHolder::TimeHolder()
 {
@@ -26,22 +27,51 @@ TimeHolder::TimeHolder(int min, int hour, int mDay, Month month, int yearSince19
 	year_ = yearSince1900;
 }
 
-TimeHolder::TimeHolder(char* buffer, int& readPosition)
+TimeHolder::TimeHolder(const std::string& file_string)
 {
-	minutes_ = *(reinterpret_cast<int*>(readPosition));
-	readPosition += sizeof(int);
+	std::string buffer;
+	buffer.reserve(4);
 
-	hours_ = *(reinterpret_cast<int*>(readPosition));
-	readPosition += sizeof(int);
+	size_t string_length = file_string.size();
+	int index = 0;
 
-	mDay_ = *(reinterpret_cast<int*>(readPosition));
-	readPosition += sizeof(int);
+	//Initializing minutes
+	while (index < string_length && file_string[index] != '.') {
+		buffer += file_string[index++];
+	}
+	minutes_ = std::stoi(buffer);
+	buffer.clear();
+	index++;
 
-	month_ = *(reinterpret_cast<Month*>(readPosition));
-	readPosition += sizeof(Month);
+	//Initializing hours
+	while (index < string_length && file_string[index] != '.') {
+		buffer += file_string[index++];
+	}
+	hours_ = std::stoi(buffer);
+	buffer.clear();
+	index++;
 
-	year_ = *(reinterpret_cast<int*>(readPosition));
-	readPosition += sizeof(int);
+	//Initializing day
+	while (index < string_length && file_string[index] != '.') {
+		buffer += file_string[index++];
+	}
+	mDay_ = std::stoi(buffer);
+	buffer.clear();
+	index++;
+
+	//Initializing Month
+	while (index < string_length && file_string[index] != '.') {
+		buffer += file_string[index++];
+	}
+	month_ = static_cast<Month>(std::stoi(buffer));
+	buffer.clear();
+	index++;
+
+	//Initializing year
+	while (index < string_length && file_string[index] != '|') {
+		buffer += file_string[index++];
+	}
+	year_ = std::stoi(buffer);
 }
 
 std::string TimeHolder::GetTimeString() const
@@ -94,4 +124,38 @@ bool TimeHolder::IsToday() const
 	{
 		return false;
 	}
+}
+
+bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
+{
+	if (year_ > other_holder.year_) return true;
+	if (month_ > other_holder.month_) return true;
+	if (mDay_ > other_holder.mDay_) return true;
+	if (hours_ > other_holder.hours_) return true;
+	if (minutes_ > other_holder.minutes_) return true;
+
+	return false;
+}
+
+bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
+{
+	return !(TimeHolder::IsLaterThan(other_holder));
+}
+
+void TimeHolder::ToZero()
+{
+	minutes_ = INT_MIN;
+	hours_ = INT_MIN;
+	mDay_ = INT_MIN;
+	month_ = Month::NO_MONTH;
+	year_ = INT_MIN;
+}
+
+void TimeHolder::ToMax()
+{
+	minutes_ = INT_MAX;
+	hours_ = INT_MAX;
+	mDay_ = INT_MAX;
+	month_ = Month::Dec;
+	year_ = INT_MAX;
 }

@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CommandManager.cpp" />
+    <ClCompile Include="Source\DataManager.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -125,8 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
+    <ClInclude Include="Include\Managers\DataManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
-    <ClInclude Include="Include\Managers\Request.h" />
+    <ClInclude Include="Include\Misc\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />
     <ClInclude Include="Include\Enums\CommandType.h" />

@@ -1,8 +1,12 @@
-#include "..\Include\Managers\Request.h"
+#include "..\Include\Misc\Request.h"
 
 #include <exception>
 
-Request::Request(TimeHolder& first_edge, TimeHolder& last_edge) : first_edge_(first_edge), last_edge_(last_edge) { }
+Request::Request(TimeHolder& first_edge, TimeHolder& last_edge) : 
+	first_edge_(first_edge), 
+	last_edge_(last_edge),
+	predicate_(nullptr)
+{ }
 
 Request::Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate predicate) :
 	first_edge_(first_edge), 
@@ -10,7 +14,7 @@ Request::Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate
 	predicate_(predicate) 
 { }
 
-Request::Request(TimeHolder& edge, int direction)
+Request::Request(TimeHolder& edge, int direction) : predicate_(nullptr)
 {
 	if (direction > 0)
 	{
@@ -44,4 +48,33 @@ Request::Request(TimeHolder& edge, int direction, FinancePredicate predicate) : 
 	{
 		throw std::invalid_argument("Direction of the request may be only \"1\" or \"two\"");
 	}
+}
+
+Request::Request(FinancePredicate predicate) : predicate_(predicate) 
+{
+	first_edge_.ToZero();
+	last_edge_.ToMax();
+}
+
+Request::Request() : predicate_(nullptr)
+{
+	first_edge_.ToZero();
+	last_edge_.ToMax();
+}
+
+bool Request::IsValid(const FinanceEntry& entry) const {
+	
+	if (predicate_ != nullptr && !predicate_(entry)) {
+		return false;
+	}
+
+	if (entry.IsEarlierThan(first_edge_)) {
+		return false;
+	}
+
+	if (entry.IsLaterThan(last_edge_)) {
+		return false;
+	}
+
+	return true;
 }

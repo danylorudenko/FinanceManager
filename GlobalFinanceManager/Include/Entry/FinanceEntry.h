@@ -11,25 +11,30 @@
 class FinanceEntry
 {
 public:
-	FinanceEntry(const EntryType type, const std::string& category, const int sum,  const std::string& description);
-	FinanceEntry(FinanceEntry& anotherEntry) = default;
+	FinanceEntry() = default;
+	FinanceEntry(const FinanceEntry& anotherEntry) = default;
+	FinanceEntry(const std::string& category, const int sum,  const std::string& description);
 
-	virtual void EditCategory(const std::string& categoryNew);
-	virtual void EditSum(const int newSum);
-	virtual void EditDescription(const std::string& newDescription);
+	void EditCategory(const std::string& categoryNew);
+	void EditSum(const int newSum);
+	void EditDescription(const std::string& newDescription);
 
-	virtual void TestDisplay() const;
-	virtual void TestDisplayTime() const;
+	void TestDisplay() const;
+	void TestDisplayTime() const;
 
-	virtual bool IsExpence() const;
-	virtual bool IsLaterThan(const FinanceEntry& anotherEntry) const;
+	bool IsExpence() const;
+	bool IsLaterThan(const FinanceEntry& anotherEntry) const;
+	bool IsLaterThan(const TimeHolder& time) const;
+	bool IsEarlierThan(const FinanceEntry& anotherEntry) const;
+	bool IsEarlierThan(const TimeHolder& time) const;
 
-	virtual std::string Serialize() const;
+	void Read(std::fstream& fileStream);
+
+	std::string Serialize() const;
 
 private:
 	static const char entryStringTerminator;
 	
-	EntryType type_;
 	TimeHolder time_;
 	int sum_;
 	std::string category_;

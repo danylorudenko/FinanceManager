@@ -9,9 +9,9 @@ class TimeHolder
 {
 public:
 	TimeHolder();
-	TimeHolder(TimeHolder& otherHolder) = default;
+	TimeHolder(const TimeHolder& otherHolder) = default;
 	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900);
-	TimeHolder(char* buffer, int& readingPosition);
+	TimeHolder(const std::string& file_string);
 
 	TimeHolder& operator=(TimeHolder&) = default;
 
@@ -20,6 +20,10 @@ public:
 	void EditDate(int mDay, int month, int year);
 	bool IsToday() const;
 	bool IsLaterThan(const TimeHolder& other_holder) const;
+	bool IsEarlierThan(const TimeHolder& other_holder) const;
+
+	void ToZero();
+	void ToMax();
 
 private:
 	int minutes_;

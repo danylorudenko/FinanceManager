@@ -7,8 +7,8 @@
 class Request
 {
 private:
-	using FinancePredicate = bool(*)(FinanceEntry& entry);
-
+	using FinancePredicate = bool(*)(const FinanceEntry& entry);
+	
 	TimeHolder first_edge_;
 	TimeHolder last_edge_;
 	FinancePredicate predicate_;
@@ -18,6 +18,10 @@ public:
 	Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate predicate);
 	Request(TimeHolder& edge, int direction);
 	Request(TimeHolder& edge, int direction, FinancePredicate predicate);
+	Request(FinancePredicate predicate);
+	Request();
+
+	bool IsValid(const FinanceEntry& entry) const;
 };
 
 #endif

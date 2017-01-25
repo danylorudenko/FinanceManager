@@ -1,8 +1,0 @@
-<expences>
-// Time oreder is from the shortest unit to longest (minute.hour.day...)
-[05.13.16.03.2016|Sample category|35.45|Sample description]
-[31.20.16.03.2016|Sample category|40.00|Sample description]
-</expences>
-
-<incomes>
-</incomes>
