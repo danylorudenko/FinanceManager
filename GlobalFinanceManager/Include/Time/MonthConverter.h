@@ -3,6 +3,9 @@
 
 #include "..\..\Include\Enums\Month.h"
 
+/*
+	Utilite class to help converting data between types Month, int, std::string
+*/
 class MonthConverter
 {
 public:

@@ -62,9 +62,6 @@
     <ClInclude Include="Include\Entry\FinanceEntry.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Enums\EntryType.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Time\MonthConverter.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>

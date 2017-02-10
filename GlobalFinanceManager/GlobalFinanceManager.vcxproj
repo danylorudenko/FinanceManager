@@ -133,7 +133,6 @@
     <ClInclude Include="Include\Managers\CommandManager.h" />
     <ClInclude Include="Include\Enums\CommandType.h" />
     <ClInclude Include="Include\Entry\FinanceEntry.h" />
-    <ClInclude Include="Include\Enums\EntryType.h" />
     <ClInclude Include="Include\Time\TimeHolder.h" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,10 @@
 
 #include <string>
 
+
+/*
+	Class represents basic finance entry
+*/
 class FinanceEntry
 {
 public:
@@ -22,6 +26,7 @@ public:
 	void TestDisplay() const;
 	void TestDisplayTime() const;
 
+	// Does this record has negative sum value?
 	bool IsExpence() const;
 	bool IsLaterThan(const FinanceEntry& anotherEntry) const;
 	bool IsLaterThan(const TimeHolder& time) const;

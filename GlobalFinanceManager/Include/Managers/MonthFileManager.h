@@ -9,6 +9,14 @@
 #include "..\..\Include\Entry\FinanceEntry.h"
 #include "..\..\Include\Misc\Request.h"
 
+/*
+	This class represent an interface to the single file that should contain all finance records
+	for one month.
+
+	This manager has to understand the request and provide an answer for the requests
+	
+	Additional functionality: - editing existring recrods in the file (temp files, rewriting)
+*/
 class MonthFileManager
 {
 private:

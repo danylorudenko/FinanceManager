@@ -5,6 +5,10 @@
 #include <fstream>
 #include "..\..\Include\Enums\Month.h"
 
+/*
+	Class that holds data to describe single time point.
+	The maximum precision is one minute
+*/
 class TimeHolder
 {
 public:

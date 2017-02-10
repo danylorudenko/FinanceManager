@@ -3,6 +3,10 @@
 
 #include <string>
 
+/*
+	Enumerates all month of the year.
+	Invalid month is represented as NO_MONTH = 0
+*/
 enum struct Month
 {
 	NO_MONTH = 0,

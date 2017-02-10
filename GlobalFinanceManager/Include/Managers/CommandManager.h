@@ -11,21 +11,32 @@ class CommandManager
 {
 
 public:
-	static CommandManager& Instance(); // singletone access
+	// Access to the singletone instance
+	static CommandManager& Instance();
 
-	std::string GetUserCommand(); //Recieving list of words in line command.
+	// Inviting the user to write a command by the '$' symbol
+	// Recieving list of words in line command.
+	// Interpreting command args and calling appropriate command
+	std::string GetUserCommand(); 
 
 private:
+	// Array of valid commands keywords
 	const std::array<std::string, 5> validCommands = { "help", "display_finances", "add_income", "add_spendings", "exit" };
-	static CommandManager* instance; //singletone instance
 
-	std::list<std::string>* commandArgs; //list of the command arguments
+	// Singletone instance
+	static CommandManager* instance;
 
+	// Buffer for the arguments from the command prompt
+	std::list<std::string>* commandArgsBuffer; 
+
+	// Adding new argument from the command line to the commandArgBuffer
 	void AddCommandArg(std::string& argument) const;
 
-	CommandType PickCommandType(std::string commandWord) const;
+	// Picking appropriate command according to the starting command keyword
+	CommandType PickCommandType(std::string& commandWord) const;
 	
-	void Implement(CommandType commandType, std::list<std::string> secondaryArguments) const;
+	// Implementing parsed CommandType and parsing secondary arguments to the operation
+	void Implement(CommandType commandType, std::list<std::string>& secondaryArguments) const;
 
 	CommandManager();
 	~CommandManager();

@@ -4,6 +4,13 @@
 #include "..\..\Include\Time\TimeHolder.h"
 #include "..\..\Include\Entry\FinanceEntry.h"
 
+/*
+	This class represents a user request to the manager.
+	Main elements:
+		- first time edge
+		- second time edge
+		- predicate to define if the FinanceRecord suits the request
+*/
 class Request
 {
 private:

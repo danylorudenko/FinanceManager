@@ -7,12 +7,12 @@ CommandManager* CommandManager::instance = nullptr; //statacs are initialized in
 
 CommandManager::CommandManager()
 {
-	commandArgs = new std::list<std::string>;
+	commandArgsBuffer = new std::list<std::string>;
 }
 
 CommandManager::~CommandManager()
 {
-	delete commandArgs;
+	delete commandArgsBuffer;
 }
 
 CommandManager& CommandManager::Instance()
@@ -30,7 +30,7 @@ CommandManager& CommandManager::Instance()
 
 std::string CommandManager::GetUserCommand()
 {
-	Instance().commandArgs->clear();
+	Instance().commandArgsBuffer->clear();
 
 	std::string commandLine = "";
 	std::cout << "$ ";
@@ -61,7 +61,7 @@ std::string CommandManager::GetUserCommand()
 		}
 		else
 		{
-			Instance().commandArgs->clear();
+			Instance().commandArgsBuffer->clear();
 			
 			std::cout << "\n\n------- Bad argument! --------\n"
 				<< "Type HELP to see all available commands\n"
@@ -70,12 +70,12 @@ std::string CommandManager::GetUserCommand()
 		}
 	}
 
-	if (!(Instance().commandArgs->empty()))
+	if (!(Instance().commandArgsBuffer->empty()))
 	{
-		std::string firstArg = *(Instance().commandArgs->begin());
+		std::string firstArg = *(Instance().commandArgsBuffer->begin());
 		CommandType currentCommand = Instance().PickCommandType(firstArg);
 
-		Instance().Implement(currentCommand, *commandArgs);
+		Instance().Implement(currentCommand, *commandArgsBuffer);
 
 		return firstArg;
 	}
@@ -86,11 +86,11 @@ std::string CommandManager::GetUserCommand()
 
 void CommandManager::AddCommandArg(std::string& argument) const
 {
-	Instance().commandArgs->push_back(argument);
+	Instance().commandArgsBuffer->push_back(argument);
 	argument.clear();
 }
 
-CommandType CommandManager::PickCommandType(std::string commandWord) const
+CommandType CommandManager::PickCommandType(std::string& commandWord) const
 {
 	for (unsigned int i = 0; i < validCommands.size(); ++i)
 	{
@@ -103,7 +103,7 @@ CommandType CommandManager::PickCommandType(std::string commandWord) const
 	return CommandType::BAD_COMMAND;
 }
 
-void CommandManager::Implement(CommandType commandType, std::list<std::string> secondaryArguments) const
+void CommandManager::Implement(CommandType commandType, std::list<std::string>& secondaryArguments) const
 {
 	switch (commandType)
 	{
