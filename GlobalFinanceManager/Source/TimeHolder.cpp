@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <climits>
+#include <regex>
 
 TimeHolder::TimeHolder()
 {
@@ -27,51 +28,83 @@ TimeHolder::TimeHolder(int min, int hour, int mDay, Month month, int yearSince19
 	year_ = yearSince1900;
 }
 
-TimeHolder::TimeHolder(const std::string& file_string)
+TimeHolder::TimeHolder(const std::string& source_string)
 {
-	std::string buffer;
-	buffer.reserve(4);
+	std::regex regular_expression
+	(
+		"(\\d{1,2})"	   // 1
+		"(\\.)"			   // 2
+		"(\\d{1,2})"	   // 3
+		"(\\.)"			   // 4
+		"(\\d{1,2})"	   // 5
+		"(\\.)"			   // 6
+		"(\\d{1,2})"	   // 7
+		"(\\.)"			   // 8
+		"(\\d{4})"		   // 9
+	);
 
-	int string_length = file_string.size();
-	int index = 0;
+	std::cmatch result;
 
-	//Initializing minutes
-	while (index < string_length && file_string[index] != '.') {
-		buffer += file_string[index++];
+	std::regex_search(source_string.c_str(), result, regular_expression);
+
+	if (result.size() > 0) {
+		minutes_ = std::stoi(result[1].str());
+
+		hours_ = std::stoi(result[3].str());
+
+		mDay_ = std::stoi(result[5].str());
+
+		month_ = static_cast<Month>(std::stoi(result[7].str()));
+
+		year_ = std::stoi(result[9].str());
 	}
-	minutes_ = std::stoi(buffer);
-	buffer.clear();
-	index++;
-
-	//Initializing hours
-	while (index < string_length && file_string[index] != '.') {
-		buffer += file_string[index++];
+	else {
+		throw std::invalid_argument("TimeHolder constructor recieved ivalid serialized string.");
 	}
-	hours_ = std::stoi(buffer);
-	buffer.clear();
-	index++;
-
-	//Initializing day
-	while (index < string_length && file_string[index] != '.') {
-		buffer += file_string[index++];
-	}
-	mDay_ = std::stoi(buffer);
-	buffer.clear();
-	index++;
-
-	//Initializing Month
-	while (index < string_length && file_string[index] != '.') {
-		buffer += file_string[index++];
-	}
-	month_ = static_cast<Month>(std::stoi(buffer));
-	buffer.clear();
-	index++;
-
-	//Initializing year
-	while (index < string_length && file_string[index] != '|') {
-		buffer += file_string[index++];
-	}
-	year_ = std::stoi(buffer);
+	
+	//std::string buffer;
+	//buffer.reserve(4);
+	//
+	//int string_length = file_string.size();
+	//int index = 0;
+	//
+	////Initializing minutes
+	//while (index < string_length && file_string[index] != '.') {
+	//	buffer += file_string[index++];
+	//}
+	//minutes_ = std::stoi(buffer);
+	//buffer.clear();
+	//index++;
+	//
+	////Initializing hours
+	//while (index < string_length && file_string[index] != '.') {
+	//	buffer += file_string[index++];
+	//}
+	//hours_ = std::stoi(buffer);
+	//buffer.clear();
+	//index++;
+	//
+	////Initializing day
+	//while (index < string_length && file_string[index] != '.') {
+	//	buffer += file_string[index++];
+	//}
+	//mDay_ = std::stoi(buffer);
+	//buffer.clear();
+	//index++;
+	//
+	////Initializing Month
+	//while (index < string_length && file_string[index] != '.') {
+	//	buffer += file_string[index++];
+	//}
+	//month_ = static_cast<Month>(std::stoi(buffer));
+	//buffer.clear();
+	//index++;
+	//
+	////Initializing year
+	//while (index < string_length && file_string[index] != '|') {
+	//	buffer += file_string[index++];
+	//}
+	//year_ = std::stoi(buffer);
 }
 
 std::string TimeHolder::GetTimeString() const

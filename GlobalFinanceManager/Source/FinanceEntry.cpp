@@ -24,7 +24,7 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 		"(\\d{1,2})"				//8		  These sould be passed as a single string to the TimeHolder contstructor
 		"(\\.)"						//9		  These sould be passed as a single string to the TimeHolder contstructor
 		"(\\d{4})"					//10	  These sould be passed as a single string to the TimeHolder contstructor
-		"(\\|)"						//11	  These sould be passed as a single string to the TimeHolder contstructor
+		"(\\|)"						//11
 		"(.+)"						//12
 		"(\\|)"						//13
 		"(\\d{3,})"					//14
@@ -40,7 +40,7 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 	if (result.size() > 0) {
 		
 		// TimeHolder initialization
-		for (int i = 2; i <= 11; i++) {
+		for (int i = 2; i <= 10; i++) {
 			buffer += result[i].str();
 		}
 
