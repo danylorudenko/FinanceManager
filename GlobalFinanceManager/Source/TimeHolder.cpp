@@ -32,7 +32,7 @@ TimeHolder::TimeHolder(const std::string& file_string)
 	std::string buffer;
 	buffer.reserve(4);
 
-	size_t string_length = file_string.size();
+	int string_length = file_string.size();
 	int index = 0;
 
 	//Initializing minutes

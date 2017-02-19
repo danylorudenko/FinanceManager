@@ -1,9 +1,9 @@
 #include <iostream>
 #include "..\Include\Entry\FinanceEntry.h"
 
-int notmain156()
+int main()
 {
-	FinanceEntry testEntry("MyCategory", 500, "MyDescription");
+	FinanceEntry testEntry("[5.13.16.3.2016|Sample category|3545|Sample description]");
 
 	testEntry.TestDisplay();
 

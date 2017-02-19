@@ -1,5 +1,4 @@
 #include "..\Include\Entry\FinanceEntry.h"
-#include "..\Include\Enums\EntryType.h"
 #include <iostream>
 #include <iomanip>
 

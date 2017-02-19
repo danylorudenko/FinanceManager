@@ -4,7 +4,6 @@
 #include <string>
 #include <fstream>
 #include "..\..\Include\Time\TimeHolder.h"
-#include "..\..\Include\Enums\EntryType.h"
 
 #include <string>
 
@@ -18,6 +17,7 @@ public:
 	FinanceEntry() = default;
 	FinanceEntry(const FinanceEntry& anotherEntry) = default;
 	FinanceEntry(const std::string& category, const int sum,  const std::string& description);
+	FinanceEntry(const std::string& source_string);
 
 	void EditCategory(const std::string& categoryNew);
 	void EditSum(const int newSum);

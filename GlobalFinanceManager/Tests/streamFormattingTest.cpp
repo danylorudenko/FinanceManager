@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-int main()
+int notmain123465()
 {
 	printf_s("lol\n");
 

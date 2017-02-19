@@ -20,18 +20,17 @@
 class MonthFileManager
 {
 private:
-	using LineEntryPair = typename std::pair<int, FinanceEntry>;
 
 	bool is_dirty_;
 	std::string file_name_;
 	std::fstream file_stream_;
 
-	std::vector<LineEntryPair> entries_buffer_;
-	std::vector<LineEntryPair> dirty_entries_;
+	std::vector<FinanceEntry> entries_buffer_;
 
 public:
 	MonthFileManager(const std::string& file_name);
 
+	void ReadFileToBuffer();
 	void AccessEntries(const Request& request);
 	void UpdateFile();
 	void SortFile();
