@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include "..\..\Include\Entry\FinanceEntry.h"
-#include "..\..\Include\Misc\Request.h"
+#include "..\..\Include\Util\Request.h"
 
 /*
 	This class represent an interface to the single file that should contain all finance records
@@ -22,7 +22,7 @@ class MonthFileManager
 private:
 
 	bool is_dirty_;
-	std::string file_name_;
+	const std::string file_name_;
 	std::fstream file_stream_;
 
 	std::vector<FinanceEntry> entries_buffer_;
@@ -32,8 +32,10 @@ public:
 
 	void ReadFileToBuffer();
 	void AccessEntries(const Request& request);
-	void UpdateFile();
+	void RewriteFileFromBuffer();
 	void SortFile();
+
+	void TestDisplay() const;
 };
 
 #endif

@@ -1,13 +1,11 @@
 #include <iostream>
-#include "..\Include\Entry\FinanceEntry.h"
-
+#include "..\Include\Managers\MonthFileManager.h"
 int main()
 {
-	FinanceEntry testEntry("[5.13.16.3.2016|Sample category|3545|Sample description]");
+	MonthFileManager *manager = new MonthFileManager("file_to_read.txt");
+	manager->ReadFileToBuffer();
 
-	testEntry.TestDisplay();
-
-	testEntry.TestDisplayTime();
+	manager->TestDisplay();
 
 	system("PAUSE");
 	return 0;

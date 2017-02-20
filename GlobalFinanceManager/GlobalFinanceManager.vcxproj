@@ -128,7 +128,7 @@
     <ClInclude Include="Include\Enums\Month.h" />
     <ClInclude Include="Include\Managers\DataManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
-    <ClInclude Include="Include\Misc\Request.h" />
+    <ClInclude Include="Include\Util\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />
     <ClInclude Include="Include\Enums\CommandType.h" />

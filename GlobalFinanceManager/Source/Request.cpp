@@ -1,4 +1,4 @@
-#include "..\Include\Misc\Request.h"
+#include "..\Include\Util\Request.h"
 
 #include <exception>
 
@@ -14,32 +14,32 @@ Request::Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate
 	predicate_(predicate) 
 { }
 
-Request::Request(TimeHolder& edge, int direction) : predicate_(nullptr)
+Request::Request(TimeHolder& edge, Direction direction) : predicate_(nullptr)
 {
-	if (direction > 0)
+	if (direction == Direction::Backward)
 	{
 		first_edge_ = edge;
 		last_edge_ = TimeHolder();
 	}
-	else if (direction < 0)
+	else if (direction == Direction::Forward)
 	{
 		first_edge_ = TimeHolder();
 		last_edge_ = edge;
 	}
 	else
 	{
-		throw std::invalid_argument("Direction of the request may be only \"1\" or \"two\"");
+		throw std::invalid_argument("Direction of the request may be only \"-1\" or \"two\"");
 	}
 }
 
-Request::Request(TimeHolder& edge, int direction, FinancePredicate predicate) : predicate_(predicate)
+Request::Request(TimeHolder& edge, Direction direction, FinancePredicate predicate) : predicate_(predicate)
 {
-	if (direction > 0)
+	if (direction == Direction::Backward)
 	{
 		first_edge_ = edge;
 		last_edge_ = TimeHolder();
 	}
-	else if (direction < 0)
+	else if (direction == Direction::Forward)
 	{
 		first_edge_ = TimeHolder();
 		last_edge_ = edge;

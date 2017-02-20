@@ -61,50 +61,6 @@ TimeHolder::TimeHolder(const std::string& source_string)
 	else {
 		throw std::invalid_argument("TimeHolder constructor recieved ivalid serialized string.");
 	}
-	
-	//std::string buffer;
-	//buffer.reserve(4);
-	//
-	//int string_length = file_string.size();
-	//int index = 0;
-	//
-	////Initializing minutes
-	//while (index < string_length && file_string[index] != '.') {
-	//	buffer += file_string[index++];
-	//}
-	//minutes_ = std::stoi(buffer);
-	//buffer.clear();
-	//index++;
-	//
-	////Initializing hours
-	//while (index < string_length && file_string[index] != '.') {
-	//	buffer += file_string[index++];
-	//}
-	//hours_ = std::stoi(buffer);
-	//buffer.clear();
-	//index++;
-	//
-	////Initializing day
-	//while (index < string_length && file_string[index] != '.') {
-	//	buffer += file_string[index++];
-	//}
-	//mDay_ = std::stoi(buffer);
-	//buffer.clear();
-	//index++;
-	//
-	////Initializing Month
-	//while (index < string_length && file_string[index] != '.') {
-	//	buffer += file_string[index++];
-	//}
-	//month_ = static_cast<Month>(std::stoi(buffer));
-	//buffer.clear();
-	//index++;
-	//
-	////Initializing year
-	//while (index < string_length && file_string[index] != '|') {
-	//	buffer += file_string[index++];
-	//}
-	//year_ = std::stoi(buffer);
 }
 
 std::string TimeHolder::GetTimeString() const

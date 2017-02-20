@@ -2,7 +2,7 @@
 #define __DATA_MANAGER_H__
 
 #include <vector>
-#include "..\..\Include\Misc\Request.h"
+#include "..\..\Include\Util\Request.h"
 
 /*
 	This class is entended to give interface to access file system of the manager.

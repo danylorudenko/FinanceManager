@@ -33,8 +33,6 @@ public:
 	bool IsEarlierThan(const FinanceEntry& anotherEntry) const;
 	bool IsEarlierThan(const TimeHolder& time) const;
 
-	void Read(std::fstream& fileStream);
-
 	std::string Serialize() const;
 
 private:

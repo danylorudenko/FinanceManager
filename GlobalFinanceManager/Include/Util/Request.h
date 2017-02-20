@@ -21,10 +21,16 @@ private:
 	FinancePredicate predicate_;
 
 public:
+	enum struct Direction
+	{
+		Forward = 1,
+		Backward = -1
+	};
+
 	Request(TimeHolder& first_edge, TimeHolder& last_edge);
 	Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate predicate);
-	Request(TimeHolder& edge, int direction);
-	Request(TimeHolder& edge, int direction, FinancePredicate predicate);
+	Request(TimeHolder& edge, Direction direction);
+	Request(TimeHolder& edge, Direction direction, FinancePredicate predicate);
 	Request(FinancePredicate predicate);
 	Request();
 

@@ -74,10 +74,10 @@
     <ClInclude Include="Include\Managers\CommandManager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Misc\Request.h">
+    <ClInclude Include="Include\Managers\DataManager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Managers\DataManager.h">
+    <ClInclude Include="Include\Util\Request.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>
