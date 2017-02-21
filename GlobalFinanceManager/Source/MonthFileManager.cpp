@@ -36,14 +36,28 @@ void MonthFileManager::ReadFileToBuffer()
 	file_stream.close();
 }
 
-void MonthFileManager::AccessEntries(const Request& request)
+std::vector<EntryID>* MonthFileManager::RequestEntries(const Request& request)
 {
-	if (entries_buffer_.size() > 0) {
-		std::cout << "Warning: entries buffer is not empty.\n";
+	std::vector<EntryID>* entry_selection = new std::vector<EntryID>();
+
+	int entry_buffer_size = entries_buffer_.size();
+	for (int i = 0; i < entry_buffer_size; i++) {
+		if (request.IsValid(entries_buffer_[i])) {
+			entry_selection->push_back(i);
+		}
 	}
 
-	// std::count_if(entries_buffer_.begin(), entries_buffer_.end, [&](FinanceEntry entry) {});
+	return entry_selection;
 }
+
+//const FinanceEntry& MonthFileManager::AccessEntry(const EntryID entry_id)
+//{
+//	if (entry_id > entries_buffer_.size()) {
+//		throw std::out_of_range("There is no entry by index " + std::to_string(entry_id) + " in this file");
+//	}
+//
+//	return entries_buffer_[entry_id];
+//}
 
 void MonthFileManager::RewriteFileFromBuffer()
 {
@@ -64,7 +78,7 @@ void MonthFileManager::SortFile()
 	std::cout << "MonthFileManager::SortFile() is not ready yet!\n";
 }
 
-void MonthFileManager::EditEntrySum(int buffer_index, int new_sum)
+void MonthFileManager::EditEntrySum(EntryID buffer_index, int new_sum)
 {
 	try {
 		FinanceEntry& entry_reference = entries_buffer_.at(buffer_index);
@@ -75,7 +89,7 @@ void MonthFileManager::EditEntrySum(int buffer_index, int new_sum)
 	}
 }
 
-void MonthFileManager::EditEntryDescription(int buffer_index, std::string& new_description)
+void MonthFileManager::EditEntryDescription(EntryID buffer_index, std::string& new_description)
 {
 	try {
 		FinanceEntry& entry_reference = entries_buffer_.at(buffer_index);
@@ -86,7 +100,7 @@ void MonthFileManager::EditEntryDescription(int buffer_index, std::string& new_d
 	}
 }
 
-void MonthFileManager::EditEntryCategory(int buffer_index, std::string& new_category)
+void MonthFileManager::EditEntryCategory(EntryID buffer_index, std::string& new_category)
 {
 	try {
 		FinanceEntry& entry_reference = entries_buffer_.at(buffer_index);

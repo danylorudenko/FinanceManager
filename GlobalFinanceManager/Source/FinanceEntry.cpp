@@ -27,7 +27,7 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 		"(\\|)"						//11
 		"(.+)"						//12
 		"(\\|)"						//13
-		"(\\d{3,})"					//14
+		"(\\d+)"					//14
 		"(\\|)"						//15
 		"(.+)"						//16
 		"(\\])"						//17
@@ -76,7 +76,7 @@ void FinanceEntry::TestDisplay() const
 		<< time_.GetTimeString() << std::endl
 		<< "Sum: " << sum_ / 100 << '.' << sum_ % 100 << std::endl
 		<< category_ << std::endl
-		<< description_ << std::endl;
+		<< description_ << std::endl << std::endl;
 }
 
 void FinanceEntry::TestDisplayTime() const
