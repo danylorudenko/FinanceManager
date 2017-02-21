@@ -2,7 +2,6 @@
 #define __MONTH_FILE_MANAGER_H__
 
 #include <string>
-#include <fstream>
 #include <vector>
 #include <iostream>
 
@@ -23,7 +22,6 @@ private:
 
 	bool is_dirty_;
 	const std::string file_name_;
-	std::fstream file_stream_;
 
 	std::vector<FinanceEntry> entries_buffer_;
 
@@ -34,6 +32,10 @@ public:
 	void AccessEntries(const Request& request);
 	void RewriteFileFromBuffer();
 	void SortFile();
+
+	void EditEntrySum(int buffer_index, int new_sum);
+	void EditEntryCategory(int buffer_index, std::string& new_category);
+	void EditEntryDescription(int buffer_index, std::string& new_description);
 
 	void TestDisplay() const;
 };

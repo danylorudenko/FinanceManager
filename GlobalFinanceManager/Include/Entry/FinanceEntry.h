@@ -2,7 +2,6 @@
 #define __FINANCE_ENTRY_H__
 
 #include <string>
-#include <fstream>
 #include "..\..\Include\Time\TimeHolder.h"
 
 #include <string>
