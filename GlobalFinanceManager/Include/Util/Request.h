@@ -1,6 +1,7 @@
 #ifndef __REQUEST_H__
 #define __REQUEST_H__
 
+#include "..\..\Include\Enums\Direction.h"
 #include "..\..\Include\Time\TimeHolder.h"
 #include "..\..\Include\Entry\FinanceEntry.h"
 
@@ -21,12 +22,6 @@ private:
 	FinancePredicate predicate_;
 
 public:
-	enum struct Direction
-	{
-		Forward = 1,
-		Backward = -1
-	};
-
 	Request(TimeHolder& first_edge, TimeHolder& last_edge);
 	Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate predicate);
 	Request(TimeHolder& edge, Direction direction);
@@ -35,6 +30,9 @@ public:
 	Request();
 
 	bool IsValid(const FinanceEntry& entry) const;
+
+	const TimeHolder& GetFirstEdge() const;
+	const TimeHolder& GetLastEdge() const;
 };
 
 #endif

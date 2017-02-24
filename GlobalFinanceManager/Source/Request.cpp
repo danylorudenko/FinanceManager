@@ -6,13 +6,21 @@ Request::Request(TimeHolder& first_edge, TimeHolder& last_edge) :
 	first_edge_(first_edge), 
 	last_edge_(last_edge),
 	predicate_(nullptr)
-{ }
+{
+	if (first_edge_.IsLaterThan(last_edge_)) {
+		throw std::invalid_argument("First edge of the request can't be earlier than the last edge.\n");
+	}
+}
 
 Request::Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate predicate) :
 	first_edge_(first_edge), 
 	last_edge_(last_edge), 
 	predicate_(predicate) 
-{ }
+{
+	if (first_edge_.IsLaterThan(last_edge_)) {
+		throw std::invalid_argument("First edge of the request can't be earlier than the last edge.\n");
+	}
+}
 
 Request::Request(TimeHolder& edge, Direction direction) : predicate_(nullptr)
 {
@@ -77,4 +85,14 @@ bool Request::IsValid(const FinanceEntry& entry) const {
 	}
 
 	return true;
+}
+
+const TimeHolder& Request::GetFirstEdge() const
+{
+	return first_edge_;
+}
+
+const TimeHolder& Request::GetLastEdge() const
+{
+	return last_edge_;
 }

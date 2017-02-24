@@ -29,6 +29,12 @@ public:
 	void ToZero();
 	void ToMax();
 
+	int GetMinutes() const;
+	int GetHours() const;
+	int GetDay() const;
+	Month GetMonth() const;
+	int GetYear() const;
+
 private:
 	int minutes_;
 	int hours_;

@@ -148,3 +148,28 @@ void TimeHolder::ToMax()
 	month_ = Month::Dec;
 	year_ = INT_MAX;
 }
+
+int TimeHolder::GetMinutes() const
+{
+	return minutes_;
+}
+
+int TimeHolder::GetHours() const
+{
+	return hours_;
+}
+
+int TimeHolder::GetDay() const
+{
+	return mDay_;
+}
+
+Month TimeHolder::GetMonth() const
+{
+	return month_;
+}
+
+int TimeHolder::GetYear() const
+{
+	return year_;
+}

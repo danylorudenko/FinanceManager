@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\DataManager.cpp" />
+    <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -125,9 +126,11 @@
     <ClCompile Include="Tests\streamFormattingTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Enums\Direction.h" />
     <ClInclude Include="Include\Enums\Month.h" />
     <ClInclude Include="Include\Managers\DataManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
+    <ClInclude Include="Include\Util\FileNames.h" />
     <ClInclude Include="Include\Util\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />
