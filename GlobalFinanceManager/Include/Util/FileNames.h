@@ -24,9 +24,12 @@ private:
 	static const char* nov_file_name;
 	static const char* dec_file_name;
 
-	static std::string* ConstructMonthFileName(Month month);
-	static std::string* ConstructMonthFileNamesBeforeDec(Month first_month, int* names_count);
-	static std::string* ConstructMonthFileNamesFromJan(Month last_month, int* names_count);
+	static std::string* ConstructMonthFileNamePart(Month month);
+	static std::string* ConstructMonthFileNamePartsBetween(Month first_month, Month second_month, int* names_count);
+	static std::string* ConstructMonthFileNamePartsBeforeDec(Month first_month, int* names_count);
+	static std::string* ConstructMonthFileNamePartsFromJan(Month last_month, int* names_count);
+	
+	static std::string* ConstructFileName(std::string* month_name, int year);
 
 public:
 	static StringVector* ConstructFileNames(const Request& request);
