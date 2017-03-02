@@ -17,7 +17,9 @@ public:
 	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900);
 	TimeHolder(const std::string& file_string);
 
-	TimeHolder& operator=(TimeHolder&) = default;
+	TimeHolder& operator=(const TimeHolder&) = default;
+	TimeHolder& operator+(const TimeHolder& rhs) const;
+	TimeHolder& operator-(const TimeHolder& rhs) const;
 
 	std::string GetTimeString() const;
 	std::string Serialize() const;
@@ -35,7 +37,11 @@ public:
 	Month GetMonth() const;
 	int GetYear() const;
 
-private:
+protected:
+	static int GetMinutesInYear(int year);
+	unsigned long long ToLongLong() const;
+
+protected:
 	int minutes_;
 	int hours_;
 	int mDay_;

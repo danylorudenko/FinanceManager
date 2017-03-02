@@ -34,7 +34,7 @@ public:
 
 	std::string Serialize() const;
 
-private:
+protected:
 	static const char entryStringTerminator;
 	
 	TimeHolder time_;

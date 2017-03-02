@@ -20,13 +20,6 @@ using EntryID = unsigned int;
 */
 class MonthFileManager
 {
-private:
-
-	bool is_dirty_;
-	const std::string file_name_;
-
-	std::vector<FinanceEntry> entries_buffer_;
-
 public:
 	MonthFileManager(const std::string& file_name);
 
@@ -41,6 +34,11 @@ public:
 	void EditEntryDescription(EntryID buffer_index, std::string& new_description);
 
 	void TestDisplay() const;
+
+private:
+	const std::string file_name_;
+
+	std::vector<FinanceEntry> entries_buffer_;
 };
 
 #endif

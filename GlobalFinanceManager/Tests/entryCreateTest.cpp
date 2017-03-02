@@ -1,24 +1,13 @@
 #include <iostream>
-#include <algorithm>
-#include "..\Include\Managers\MonthFileManager.h"
+#include <limits>
 int main()
 {
-	MonthFileManager *manager = new MonthFileManager("file_to_read.txt");
-	manager->ReadFileToBuffer();
+	std::cout << "Hello, world\n";
 
-	// manager->TestDisplay();
+	std::cout << "unsigned long long size: " << sizeof(unsigned long long) << std::endl;
 
-	//Request* request = new Request(TimeHolder(0, 0, 0, Month::Jan, 116), Request::Direction::Forward);
-	Request* request = new Request();
+	std::cout << "unsigned long long max size: " << std::numeric_limits<unsigned long long>::max() << std::endl;
 
-	auto selection = manager->RequestEntries(*request);
-
-	manager->EditEntrySum((*selection)[0], 1000);
-
-	manager->RewriteFileFromBuffer();
-	manager->ReadFileToBuffer();
-	manager->TestDisplay();
-
-	system("PAUSE");
+	system("pause");
 	return 0;
 }

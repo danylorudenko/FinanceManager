@@ -14,12 +14,7 @@
 */
 class Request
 {
-private:
-	using FinancePredicate = bool(*)(const FinanceEntry& entry);
-	
-	TimeHolder first_edge_;
-	TimeHolder last_edge_;
-	FinancePredicate predicate_;
+using FinancePredicate = bool(*)(const FinanceEntry& entry);
 
 public:
 	Request(TimeHolder& first_edge, TimeHolder& last_edge);
@@ -33,6 +28,11 @@ public:
 
 	const TimeHolder& GetFirstEdge() const;
 	const TimeHolder& GetLastEdge() const;
+
+protected:
+	TimeHolder first_edge_;
+	TimeHolder last_edge_;
+	FinancePredicate predicate_;
 };
 
 #endif

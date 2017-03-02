@@ -3,7 +3,7 @@
 
 #include "..\Include\Managers\MonthFileManager.h"
 
-MonthFileManager::MonthFileManager(const std::string& file_name) : file_name_(file_name), is_dirty_(false) { }
+MonthFileManager::MonthFileManager(const std::string& file_name) : file_name_(file_name) { }
 
 void MonthFileManager::ReadFileToBuffer()
 {
@@ -40,7 +40,7 @@ std::vector<EntryID>* MonthFileManager::RequestEntries(const Request& request)
 {
 	std::vector<EntryID>* entry_selection = new std::vector<EntryID>();
 
-	int entry_buffer_size = entries_buffer_.size();
+	size_t entry_buffer_size = entries_buffer_.size();
 	for (int i = 0; i < entry_buffer_size; i++) {
 		if (request.IsValid(entries_buffer_[i])) {
 			entry_selection->push_back(i);

@@ -1,22 +1,22 @@
-#include "..\Include\Util\FileNames.h"
+#include "..\Include\Util\SFileNames.h"
 #include "..\Include\Time\MonthConverter.h"
 
 #include <sstream>
 
-const char* FileNames::jan_file_name = "JAN";
-const char* FileNames::feb_file_name = "FEB";
-const char* FileNames::mar_file_name = "MAR";
-const char* FileNames::apr_file_name = "APR";
-const char* FileNames::may_file_name = "MAY";
-const char* FileNames::jun_file_name = "JUN";
-const char* FileNames::jul_file_name = "JUL";
-const char* FileNames::aug_file_name = "AUG";
-const char* FileNames::sep_file_name = "SEP";
-const char* FileNames::oct_file_name = "OCT";
-const char* FileNames::nov_file_name = "NOV";
-const char* FileNames::dec_file_name = "DEC";
+const char* SFileNames::jan_file_name = "JAN";
+const char* SFileNames::feb_file_name = "FEB";
+const char* SFileNames::mar_file_name = "MAR";
+const char* SFileNames::apr_file_name = "APR";
+const char* SFileNames::may_file_name = "MAY";
+const char* SFileNames::jun_file_name = "JUN";
+const char* SFileNames::jul_file_name = "JUL";
+const char* SFileNames::aug_file_name = "AUG";
+const char* SFileNames::sep_file_name = "SEP";
+const char* SFileNames::oct_file_name = "OCT";
+const char* SFileNames::nov_file_name = "NOV";
+const char* SFileNames::dec_file_name = "DEC";
 
-StringVector* FileNames::ConstructFileNames(const Request& request)
+StringVector* SFileNames::ConstructFileNames(const Request& request)
 {
 	StringVector* file_names = new StringVector();
 
@@ -44,7 +44,7 @@ StringVector* FileNames::ConstructFileNames(const Request& request)
 
 			std::string* temp_file_name = nullptr;
 			for (int i = 0; i < names_count; i++) {
-				temp_file_name = FileNames::ConstructFileName(month_file_names + i, first_year);
+				temp_file_name = SFileNames::ConstructFileName(month_file_names + i, first_year);
 				file_names->push_back(*temp_file_name);
 
 				delete temp_file_name;
@@ -99,16 +99,14 @@ StringVector* FileNames::ConstructFileNames(const Request& request)
 			delete file_name_temp;
 		}
 
-
 		delete[] first_year_months;
 		delete[] last_year_months;
-
 	}
 
 	return file_names;
 }
 
-std::string* FileNames::ConstructFileName(std::string* month_name, int year)
+std::string* SFileNames::ConstructFileName(std::string* month_name, int year)
 {
 	std::stringstream* string_stream = new std::stringstream;
 	*string_stream << year << "_" << month_name->c_str() << ".txt";
@@ -118,7 +116,7 @@ std::string* FileNames::ConstructFileName(std::string* month_name, int year)
 	return result_string_p;
 }
 
-std::string* FileNames::ConstructMonthFileNamePart(Month month)
+std::string* SFileNames::ConstructMonthFileNamePart(Month month)
 {
 	switch (month)
 	{
@@ -151,7 +149,7 @@ std::string* FileNames::ConstructMonthFileNamePart(Month month)
 	}
 }
 
-std::string* FileNames::ConstructMonthFileNamePartsBetween(Month first_month, Month last_month, int* names_count)
+std::string* SFileNames::ConstructMonthFileNamePartsBetween(Month first_month, Month last_month, int* names_count)
 {
 	int first_month_int = MonthConverter::MonthToInt(first_month);
 	int last_month_int = MonthConverter::MonthToInt(last_month);
@@ -167,7 +165,7 @@ std::string* FileNames::ConstructMonthFileNamePartsBetween(Month first_month, Mo
 	// This loop is incrementing temporary pointer and month value safely,
 	// because it uses names_count as a limiter
 	for (int i = 0; i < *names_count; i++) {
-		iterator_pointer = FileNames::ConstructMonthFileNamePart(MonthConverter::IntToMonth(month_toadd));
+		iterator_pointer = SFileNames::ConstructMonthFileNamePart(MonthConverter::IntToMonth(month_toadd));
 		month_toadd++;
 		iterator_pointer++;
 	}
@@ -175,12 +173,12 @@ std::string* FileNames::ConstructMonthFileNamePartsBetween(Month first_month, Mo
 	return month_file_names;
 }
 
-std::string* FileNames::ConstructMonthFileNamePartsFromJan(Month last_month, int* names_count)
+std::string* SFileNames::ConstructMonthFileNamePartsFromJan(Month last_month, int* names_count)
 {
-	return FileNames::ConstructMonthFileNamePartsBetween(Month::Jan, last_month, names_count);
+	return SFileNames::ConstructMonthFileNamePartsBetween(Month::Jan, last_month, names_count);
 }
 
-std::string* FileNames::ConstructMonthFileNamePartsBeforeDec(Month first_month, int* names_count)
+std::string* SFileNames::ConstructMonthFileNamePartsBeforeDec(Month first_month, int* names_count)
 {
-	return FileNames::ConstructMonthFileNamePartsBetween(first_month, Month::Dec, names_count);
+	return SFileNames::ConstructMonthFileNamePartsBetween(first_month, Month::Dec, names_count);
 }

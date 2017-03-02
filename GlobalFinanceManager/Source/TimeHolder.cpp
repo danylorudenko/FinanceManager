@@ -25,7 +25,7 @@ TimeHolder::TimeHolder(int min, int hour, int mDay, Month month, int yearSince19
 	hours_ = hour;
 	mDay_ = mDay;
 	month_ = month;
-	year_ = yearSince1900;
+	year_ = yearSince1900 + 1900;
 }
 
 TimeHolder::TimeHolder(const std::string& source_string)
@@ -129,6 +129,21 @@ bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
 {
 	return !(TimeHolder::IsLaterThan(other_holder));
+}
+
+TimeHolder& TimeHolder::operator+(const TimeHolder& rhs) const
+{
+	throw std::exception();
+}
+
+TimeHolder& TimeHolder::operator-(const TimeHolder& rhs) const
+{
+	throw std::exception();
+}
+
+unsigned long long TimeHolder::ToLongLong() const
+{
+	throw std::exception();
 }
 
 void TimeHolder::ToZero()
