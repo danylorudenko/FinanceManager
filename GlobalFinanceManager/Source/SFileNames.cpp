@@ -120,8 +120,6 @@ std::string* SFileNames::ConstructMonthFileNamePart(Month month)
 {
 	switch (month)
 	{
-	case Month::NO_MONTH:
-		return new std::string("NO_MONTH");
 	case Month::Jan:
 		return new std::string(jan_file_name);
 	case Month::Feb:
@@ -146,6 +144,8 @@ std::string* SFileNames::ConstructMonthFileNamePart(Month month)
 		return new std::string(nov_file_name);
 	case Month::Dec:
 		return new std::string(dec_file_name);
+	default:
+		return new std::string("NO_MONTH");
 	}
 }
 

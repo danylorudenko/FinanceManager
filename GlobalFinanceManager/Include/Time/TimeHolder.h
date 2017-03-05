@@ -16,6 +16,7 @@ public:
 	TimeHolder(const TimeHolder& otherHolder) = default;
 	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900);
 	TimeHolder(const std::string& file_string);
+	TimeHolder(unsigned long long minutes);
 
 	TimeHolder& operator=(const TimeHolder&) = default;
 	TimeHolder& operator+(const TimeHolder& rhs) const;
@@ -28,7 +29,10 @@ public:
 	bool IsLaterThan(const TimeHolder& other_holder) const;
 	bool IsEarlierThan(const TimeHolder& other_holder) const;
 
-	void ToZero();
+	// Set all data to minimum values
+	void ToMin();
+
+	// Set all data to maximum values
 	void ToMax();
 
 	int GetMinutes() const;
@@ -37,14 +41,24 @@ public:
 	Month GetMonth() const;
 	int GetYear() const;
 
+	static const int minutes_in_leap_year = 366 * 24 * 60;
+	static const int minutes_in_regular_year = 365 * 24 * 60;
+	static const int minutes_in_day = 24 * 60;
+	static const int minutes_in_hour = 60;
+
 protected:
-	static int GetMinutesInYear(int year);
-	unsigned long long ToLongLong() const;
+
+	// Get amount of minutes in all years from 0 to year argument
+	static unsigned long long GetMinutesPassedInYear(const int year);
+
+public:
+	// Get minutes representation of date in the TimeHolder
+	unsigned long long ToMinutes() const;
 
 protected:
 	int minutes_;
 	int hours_;
-	int mDay_;
+	int day_in_month_;
 	Month month_;
 	int year_;
 };

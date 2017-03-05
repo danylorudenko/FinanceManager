@@ -14,18 +14,18 @@ TimeHolder::TimeHolder()
 
 	minutes_ = currentTime.tm_min;
 	hours_ = currentTime.tm_hour;
-	mDay_ = currentTime.tm_mday;
-	month_ = static_cast<Month>(currentTime.tm_mon);
+	day_in_month_ = currentTime.tm_mday;
+	month_ = static_cast<Month>(currentTime.tm_mon + 1); // tm_mon begins months from 0. But my struct Month - from 1
 	year_ = currentTime.tm_year + 1900;
 }
 
-TimeHolder::TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900)
+TimeHolder::TimeHolder(int min, int hour, int day_in_month, Month month, int year_since_1900)
 {
 	minutes_ = min;
 	hours_ = hour;
-	mDay_ = mDay;
+	day_in_month_ = day_in_month;
 	month_ = month;
-	year_ = yearSince1900 + 1900;
+	year_ = year_since_1900 + 1900;
 }
 
 TimeHolder::TimeHolder(const std::string& source_string)
@@ -52,7 +52,7 @@ TimeHolder::TimeHolder(const std::string& source_string)
 
 		hours_ = std::stoi(result[3].str());
 
-		mDay_ = std::stoi(result[5].str());
+		day_in_month_ = std::stoi(result[5].str());
 
 		month_ = static_cast<Month>(std::stoi(result[7].str()));
 
@@ -63,13 +63,30 @@ TimeHolder::TimeHolder(const std::string& source_string)
 	}
 }
 
+TimeHolder::TimeHolder(const unsigned long long minutes)
+{
+	unsigned long long seconds_since_1900 = (minutes * 60ULL) - (GetMinutesPassedInYear(1969ULL) * 60);
+
+	time_t timeInSeconds = seconds_since_1900;
+	struct tm currentTime;
+	localtime_s(&currentTime, &timeInSeconds);
+
+	minutes_ = currentTime.tm_min;
+	hours_ = currentTime.tm_hour;
+	day_in_month_ = currentTime.tm_mday;
+	month_ = static_cast<Month>(currentTime.tm_mon + 1); // tm_mon begins months from 0. But my struct Month - from 1
+	year_ = currentTime.tm_year + 1900;
+
+	throw std::exception();
+}
+
 std::string TimeHolder::GetTimeString() const
 {
 	std::ostringstream timeStrStream;
 
 	timeStrStream << hours_ << ":" << 
 		minutes_ << ", " << 
-		mDay_ <<  "." <<
+		day_in_month_ <<  "." <<
 		MonthConverter::MonthToInt(month_) << "." << 
 		year_;
 
@@ -83,7 +100,7 @@ std::string TimeHolder::Serialize() const
 	serializedStringStream 
 		<< minutes_ << '.' 
 		<< hours_ << '.' 
-		<< mDay_ << '.' 
+		<< day_in_month_ << '.' 
 		<< MonthConverter::MonthToInt(month_) << '.'
 		<< year_;
 
@@ -92,7 +109,7 @@ std::string TimeHolder::Serialize() const
 
 void TimeHolder::EditDate(int mDay, int month, int year)
 {
-	mDay_ = mDay;
+	day_in_month_ = mDay;
 	month_ = MonthConverter::IntToMonth(month);
 	year_ = year;
 }
@@ -103,7 +120,7 @@ bool TimeHolder::IsToday() const
 	struct tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
-	if (currentTime.tm_mday == mDay_ &&
+	if (currentTime.tm_mday == day_in_month_ &&
 		MonthConverter::IntToMonth(currentTime.tm_mon + 1) == month_ &&
 		(currentTime.tm_year + 1900) == year_)
 	{
@@ -119,7 +136,7 @@ bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 {
 	if (year_ > other_holder.year_) return true;
 	if (month_ > other_holder.month_) return true;
-	if (mDay_ > other_holder.mDay_) return true;
+	if (day_in_month_ > other_holder.day_in_month_) return true;
 	if (hours_ > other_holder.hours_) return true;
 	if (minutes_ > other_holder.minutes_) return true;
 
@@ -141,16 +158,43 @@ TimeHolder& TimeHolder::operator-(const TimeHolder& rhs) const
 	throw std::exception();
 }
 
-unsigned long long TimeHolder::ToLongLong() const
+unsigned long long TimeHolder::ToMinutes() const
 {
-	throw std::exception();
+	unsigned long long result = GetMinutesPassedInYear(year_ - 1); // - 1 => not inlcuding current year
+
+	// Month which is previous to current
+	Month last_iter_month = static_cast<Month>(static_cast<int>(month_) - 1);
+	for (Month i = Month::Jan; i <= last_iter_month; i++) {
+		result += (MonthConverter::MonthToDays(i, year_) * minutes_in_day);
+	}
+
+	result += ((day_in_month_ - 1) * minutes_in_day);
+	result += (hours_ * minutes_in_hour);
+	result += minutes_;
+
+	return result;
 }
 
-void TimeHolder::ToZero()
+unsigned long long TimeHolder::GetMinutesPassedInYear(const int year)
+{
+	unsigned long long result = 0ULL;
+	
+	// Amount of leap-years (366 days) in passed years
+	int leap_years = year / 4;
+	// Amount of regular years (365 days) in passed years
+	int regular_years = year - leap_years;
+
+	result += leap_years * minutes_in_leap_year;
+	result += regular_years * minutes_in_regular_year;
+
+	return result;
+}
+
+void TimeHolder::ToMin()
 {
 	minutes_ = INT_MIN;
 	hours_ = INT_MIN;
-	mDay_ = INT_MIN;
+	day_in_month_ = INT_MIN;
 	month_ = Month::NO_MONTH;
 	year_ = INT_MIN;
 }
@@ -159,7 +203,7 @@ void TimeHolder::ToMax()
 {
 	minutes_ = INT_MAX;
 	hours_ = INT_MAX;
-	mDay_ = INT_MAX;
+	day_in_month_ = INT_MAX;
 	month_ = Month::Dec;
 	year_ = INT_MAX;
 }
@@ -176,7 +220,7 @@ int TimeHolder::GetHours() const
 
 int TimeHolder::GetDay() const
 {
-	return mDay_;
+	return day_in_month_;
 }
 
 Month TimeHolder::GetMonth() const

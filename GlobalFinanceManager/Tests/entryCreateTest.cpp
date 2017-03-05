@@ -1,13 +1,21 @@
 #include <iostream>
-#include <limits>
-int main()
+#include "..\Include\Time\TimeHolder.h"
+
+int lolmain()
 {
-	std::cout << "Hello, world\n";
+	TimeHolder* holder = new TimeHolder();
 
-	std::cout << "unsigned long long size: " << sizeof(unsigned long long) << std::endl;
+	std::cout << holder->Serialize() << std::endl;
 
-	std::cout << "unsigned long long max size: " << std::numeric_limits<unsigned long long>::max() << std::endl;
+	unsigned long long minutes = holder->ToMinutes();
+	std::cout << minutes << std::endl;
 
+	TimeHolder* holder2 = new TimeHolder(minutes);
+	std::cout << holder2->Serialize() << std::endl;
+	std::cout << holder2->ToMinutes() << std::endl;
+
+	delete holder;
+	delete holder2;
 	system("pause");
 	return 0;
 }

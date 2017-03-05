@@ -60,13 +60,13 @@ Request::Request(TimeHolder& edge, Direction direction, FinancePredicate predica
 
 Request::Request(FinancePredicate predicate) : predicate_(predicate) 
 {
-	first_edge_.ToZero();
+	first_edge_.ToMin();
 	last_edge_.ToMax();
 }
 
 Request::Request() : predicate_(nullptr)
 {
-	first_edge_.ToZero();
+	first_edge_.ToMin();
 	last_edge_.ToMax();
 }
 

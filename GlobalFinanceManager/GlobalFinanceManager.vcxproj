@@ -120,7 +120,9 @@
     <ClCompile Include="Source\MonthFileManager.cpp" />
     <ClCompile Include="Source\Request.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
+    <ClCompile Include="Tests\chronoTest.cpp" />
     <ClCompile Include="Tests\entryCreateTest.cpp" />
+    <ClCompile Include="Tests\monthToDaysTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
     <ClCompile Include="Tests\entryWriteTest.cpp" />
     <ClCompile Include="Tests\streamFormattingTest.cpp" />
