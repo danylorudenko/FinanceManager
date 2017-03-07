@@ -30,12 +30,6 @@
     <ClCompile Include="Source\FinanceEntry.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="Tests\entryWriteTest.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Tests\entryCreateTest.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="Tests\streamFormattingTest.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>

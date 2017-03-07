@@ -20,13 +20,10 @@ TimeHolder::TimeHolder()
 	year_ = currentTime.tm_year;
 }
 
-TimeHolder::TimeHolder(int min, int hour, int day_in_month, Month month, int year_since_1970)
+TimeHolder::TimeHolder(int min, int hour, int day_in_month, Month month, int year_since_1900) :
+	minutes_(min), hours_(hour), day_in_month_(day_in_month), month_(month), year_(year_since_1900)
 {
-	minutes_ = min;
-	hours_ = hour;
-	day_in_month_ = day_in_month;
-	month_ = month;
-	year_ = year_since_1970;
+
 }
 
 TimeHolder::TimeHolder(const std::string& source_string)
@@ -41,7 +38,7 @@ TimeHolder::TimeHolder(const std::string& source_string)
 		"(\\.)"			   // 6
 		"(\\d{1,2})"	   // 7
 		"(\\.)"			   // 8
-		"(\\d{4})"		   // 9
+		"(\\d{3})"		   // 9
 	);
 
 	std::cmatch result;
@@ -64,13 +61,11 @@ TimeHolder::TimeHolder(const std::string& source_string)
 	}
 }
 
-TimeHolder::TimeHolder(const long long minutes_since_1970)
+TimeHolder::TimeHolder(const long long minutes_since_epoch)
 {
-	long long seconds_since_1970 = (minutes_since_1970 * 60);
-
-	time_t timeInSeconds = seconds_since_1970;
-	struct tm currentTime;
-	localtime_s(&currentTime, &timeInSeconds);
+	time_t since_epoch = (minutes_since_epoch * 60);
+	tm currentTime;
+	localtime_s(&currentTime, &since_epoch);
 
 	minutes_ = currentTime.tm_min;
 	hours_ = currentTime.tm_hour;
@@ -79,6 +74,26 @@ TimeHolder::TimeHolder(const long long minutes_since_1970)
 	year_ = currentTime.tm_year;
 
 	throw std::exception();
+}
+
+TimeHolder TimeHolder::Hour()
+{
+	return TimeHolder(0, 1, 0, Month::Jan, 0);
+}
+
+TimeHolder TimeHolder::Day()
+{
+	return TimeHolder(0, 0, 1, Month::Jan, 0);
+}
+
+TimeHolder TimeHolder::Week()
+{
+	return TimeHolder(0, 0, 7, Month::Jan, 0);
+}
+
+TimeHolder TimeHolder::Month30()
+{
+	return TimeHolder(0, 0, 30, Month::Jan, 0);
 }
 
 std::string TimeHolder::GetTimeString() const
@@ -118,7 +133,7 @@ void TimeHolder::EditDate(int mDay, int month, int year)
 bool TimeHolder::IsToday() const
 {
 	time_t timeInSeconds = time(0);
-	struct tm currentTime;
+	tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
 	if (currentTime.tm_mday == day_in_month_ &&
@@ -149,56 +164,42 @@ bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
 	return !(TimeHolder::IsLaterThan(other_holder));
 }
 
-TimeHolder& TimeHolder::operator+(const TimeHolder& rhs) const
+time_t TimeHolder::GetSecondsSinceEpoch() const
 {
-	tm this_tm;
-	this_tm.tm_min = minutes_;
-	this_tm.tm_hour = hours_;
-	this_tm.tm_mon = MonthConverter::MonthToInt(month_);
-	this_tm.tm_year = year_;
-
-	time_t since_epoch = mktime(&this_tm);
-
-	dfgh
-
-	throw std::exception();
-}
-
-TimeHolder& TimeHolder::operator-(const TimeHolder& rhs) const
-{
-	throw std::exception();
-}
-
-long long TimeHolder::ToMinutes() const
-{
-	unsigned long long result = GetMinutesPassedInYear(year_ - 1); // - 1 => not inlcuding current year
-
-	// Month which is previous to current
-	Month last_iter_month = static_cast<Month>(static_cast<int>(month_) - 1);
-	for (Month i = Month::Jan; i <= last_iter_month; i++) {
-		result += (MonthConverter::MonthToDays(i, year_) * minutes_in_day);
-	}
-
-	result += ((day_in_month_ - 1) * minutes_in_day);
-	result += (hours_ * minutes_in_hour);
-	result += minutes_;
-
-	return result;
-}
-
-long long TimeHolder::GetMinutesPassedInYear(const int year)
-{
-	long long result = 0LL;
+	tm tm_temp;
 	
-	// Amount of leap-years (366 days) in passed years
-	int leap_years = year / 4;
-	// Amount of regular years (365 days) in passed years
-	int regular_years = year - leap_years;
+	tm_temp.tm_sec = 0;
+	tm_temp.tm_min = minutes_;
+	tm_temp.tm_hour = hours_;
+	tm_temp.tm_mday = day_in_month_;
+	tm_temp.tm_mon = MonthConverter::MonthToInt(month_);
+	tm_temp.tm_year = year_;
 
-	result += leap_years * minutes_in_leap_year;
-	result += regular_years * minutes_in_regular_year;
+	return mktime(&tm_temp);
+}
 
-	return result;
+TimeHolder TimeHolder::operator+(const TimeHolder& rhs) const
+{
+	time_t this_since_epoch = GetSecondsSinceEpoch();
+	time_t rhs_since_epoch = rhs.GetSecondsSinceEpoch();
+
+	return TimeHolder(this_since_epoch + rhs_since_epoch);
+}
+
+TimeHolder TimeHolder::operator-(const TimeHolder& rhs) const
+{
+	time_t this_since_epoch = GetSecondsSinceEpoch();
+	time_t rhs_since_epoch = rhs.GetSecondsSinceEpoch();
+	
+	return TimeHolder(this_since_epoch - rhs_since_epoch);
+}
+
+TimeHolder TimeHolder::operator*(const TimeHolder& rhs) const
+{
+	time_t this_since_epoch = GetSecondsSinceEpoch();
+	time_t rhs_since_epoch = rhs.GetSecondsSinceEpoch();
+
+	return TimeHolder(this_since_epoch * rhs_since_epoch);
 }
 
 void TimeHolder::ToMin()
