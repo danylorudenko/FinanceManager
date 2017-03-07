@@ -5,6 +5,7 @@
 #include <sstream>
 #include <climits>
 #include <regex>
+#include <chrono>
 
 TimeHolder::TimeHolder()
 {
@@ -15,17 +16,17 @@ TimeHolder::TimeHolder()
 	minutes_ = currentTime.tm_min;
 	hours_ = currentTime.tm_hour;
 	day_in_month_ = currentTime.tm_mday;
-	month_ = static_cast<Month>(currentTime.tm_mon + 1); // tm_mon begins months from 0. But my struct Month - from 1
-	year_ = currentTime.tm_year + 1900;
+	month_ = static_cast<Month>(currentTime.tm_mon); 
+	year_ = currentTime.tm_year;
 }
 
-TimeHolder::TimeHolder(int min, int hour, int day_in_month, Month month, int year_since_1900)
+TimeHolder::TimeHolder(int min, int hour, int day_in_month, Month month, int year_since_1970)
 {
 	minutes_ = min;
 	hours_ = hour;
 	day_in_month_ = day_in_month;
 	month_ = month;
-	year_ = year_since_1900 + 1900;
+	year_ = year_since_1970;
 }
 
 TimeHolder::TimeHolder(const std::string& source_string)
@@ -63,19 +64,19 @@ TimeHolder::TimeHolder(const std::string& source_string)
 	}
 }
 
-TimeHolder::TimeHolder(const unsigned long long minutes)
+TimeHolder::TimeHolder(const long long minutes_since_1970)
 {
-	unsigned long long seconds_since_1900 = (minutes * 60ULL) - (GetMinutesPassedInYear(1969ULL) * 60);
+	long long seconds_since_1970 = (minutes_since_1970 * 60);
 
-	time_t timeInSeconds = seconds_since_1900;
+	time_t timeInSeconds = seconds_since_1970;
 	struct tm currentTime;
 	localtime_s(&currentTime, &timeInSeconds);
 
 	minutes_ = currentTime.tm_min;
 	hours_ = currentTime.tm_hour;
 	day_in_month_ = currentTime.tm_mday;
-	month_ = static_cast<Month>(currentTime.tm_mon + 1); // tm_mon begins months from 0. But my struct Month - from 1
-	year_ = currentTime.tm_year + 1900;
+	month_ = MonthConverter::IntToMonth(currentTime.tm_mon); // tm_mon begins months from 0. But my struct Month - from 1
+	year_ = currentTime.tm_year;
 
 	throw std::exception();
 }
@@ -122,7 +123,7 @@ bool TimeHolder::IsToday() const
 
 	if (currentTime.tm_mday == day_in_month_ &&
 		MonthConverter::IntToMonth(currentTime.tm_mon + 1) == month_ &&
-		(currentTime.tm_year + 1900) == year_)
+		(currentTime.tm_year) == year_)
 	{
 		return true;
 	}
@@ -150,6 +151,16 @@ bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
 
 TimeHolder& TimeHolder::operator+(const TimeHolder& rhs) const
 {
+	tm this_tm;
+	this_tm.tm_min = minutes_;
+	this_tm.tm_hour = hours_;
+	this_tm.tm_mon = MonthConverter::MonthToInt(month_);
+	this_tm.tm_year = year_;
+
+	time_t since_epoch = mktime(&this_tm);
+
+	dfgh
+
 	throw std::exception();
 }
 
@@ -158,7 +169,7 @@ TimeHolder& TimeHolder::operator-(const TimeHolder& rhs) const
 	throw std::exception();
 }
 
-unsigned long long TimeHolder::ToMinutes() const
+long long TimeHolder::ToMinutes() const
 {
 	unsigned long long result = GetMinutesPassedInYear(year_ - 1); // - 1 => not inlcuding current year
 
@@ -175,9 +186,9 @@ unsigned long long TimeHolder::ToMinutes() const
 	return result;
 }
 
-unsigned long long TimeHolder::GetMinutesPassedInYear(const int year)
+long long TimeHolder::GetMinutesPassedInYear(const int year)
 {
-	unsigned long long result = 0ULL;
+	long long result = 0LL;
 	
 	// Amount of leap-years (366 days) in passed years
 	int leap_years = year / 4;
@@ -195,7 +206,7 @@ void TimeHolder::ToMin()
 	minutes_ = INT_MIN;
 	hours_ = INT_MIN;
 	day_in_month_ = INT_MIN;
-	month_ = Month::NO_MONTH;
+	month_ = Month::Jan;
 	year_ = INT_MIN;
 }
 

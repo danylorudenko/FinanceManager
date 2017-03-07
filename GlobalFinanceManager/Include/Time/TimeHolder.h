@@ -14,9 +14,9 @@ class TimeHolder
 public:
 	TimeHolder();
 	TimeHolder(const TimeHolder& otherHolder) = default;
-	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1900);
+	TimeHolder(int min, int hour, int mDay, Month month, int yearSince1970);
 	TimeHolder(const std::string& file_string);
-	TimeHolder(unsigned long long minutes);
+	TimeHolder(const long long minutes);
 
 	TimeHolder& operator=(const TimeHolder&) = default;
 	TimeHolder& operator+(const TimeHolder& rhs) const;
@@ -49,18 +49,18 @@ public:
 protected:
 
 	// Get amount of minutes in all years from 0 to year argument
-	static unsigned long long GetMinutesPassedInYear(const int year);
+	static long long GetMinutesPassedInYear(const int year);
 
 public:
 	// Get minutes representation of date in the TimeHolder
-	unsigned long long ToMinutes() const;
+	long long ToMinutes() const;
 
 protected:
 	int minutes_;
 	int hours_;
 	int day_in_month_;
 	Month month_;
-	int year_;
+	int year_; // since 1970
 };
 
 //ctime::strftime - may be useful!

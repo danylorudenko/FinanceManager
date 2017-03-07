@@ -3,7 +3,7 @@
 
 Month MonthConverter::IntToMonth(const int month)
 {
-	if (month < 1 || month > 12)
+	if (month < 0 || month > 11)
 	{
 		throw std::invalid_argument("Trying to covert to enum Month ivalid number");
 	}
@@ -64,6 +64,13 @@ std::string MonthConverter::MonthToString(const Month month)
 }
 
 Month operator++(Month& month, int)
+{
+	int month_int = static_cast<int>(month);
+	month = static_cast<Month>(++month_int);
+	return month;
+}
+
+Month operator++(Month& month)
 {
 	int month_int = static_cast<int>(month);
 	month = static_cast<Month>(++month_int);

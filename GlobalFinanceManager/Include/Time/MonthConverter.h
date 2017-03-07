@@ -16,5 +16,6 @@ public:
 };
 
 Month operator++(Month& month, int);
+Month operator++(Month& month);
 
 #endif

@@ -9,8 +9,7 @@
 */
 enum struct Month
 {
-	NO_MONTH = 0,
-	Jan = 1,
+	Jan,
 	Feb,
 	Mar,
 	Apr,
@@ -22,6 +21,7 @@ enum struct Month
 	Oct,
 	Nov,
 	Dec,
+	NO_MONTH
 };
 
 #endif
