@@ -113,17 +113,18 @@
   <ItemGroup>
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\DataManager.cpp" />
-    <ClCompile Include="Source\SFileNames.cpp" />
+    <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MonthFileManager.cpp" />
     <ClCompile Include="Source\Request.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
-    <ClCompile Include="Tests\chronoTest.cpp" />
+    <ClCompile Include="Tests\ctimeTest.cpp" />
     <ClCompile Include="Tests\monthToDaysTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
     <ClCompile Include="Tests\streamFormattingTest.cpp" />
+    <ClCompile Include="Tests\timeHolderTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Direction.h" />
@@ -132,7 +133,7 @@
     <ClInclude Include="Include\Managers\DataManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
-    <ClInclude Include="Include\Util\SFileNames.h" />
+    <ClInclude Include="Include\Util\FileNames.h" />
     <ClInclude Include="Include\Util\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />

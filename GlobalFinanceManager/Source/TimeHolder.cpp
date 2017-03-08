@@ -61,9 +61,9 @@ TimeHolder::TimeHolder(const std::string& source_string)
 	}
 }
 
-TimeHolder::TimeHolder(const long long minutes_since_epoch)
+TimeHolder::TimeHolder(const long long seconds_since_epoch)
 {
-	time_t since_epoch = (minutes_since_epoch * 60);
+	time_t since_epoch = (seconds_since_epoch);
 	tm currentTime;
 	localtime_s(&currentTime, &since_epoch);
 
@@ -72,28 +72,26 @@ TimeHolder::TimeHolder(const long long minutes_since_epoch)
 	day_in_month_ = currentTime.tm_mday;
 	month_ = MonthConverter::IntToMonth(currentTime.tm_mon); // tm_mon begins months from 0. But my struct Month - from 1
 	year_ = currentTime.tm_year;
-
-	throw std::exception();
 }
 
 TimeHolder TimeHolder::Hour()
 {
-	return TimeHolder(0, 1, 0, Month::Jan, 0);
+	return TimeHolder(3600);
 }
 
 TimeHolder TimeHolder::Day()
 {
-	return TimeHolder(0, 0, 1, Month::Jan, 0);
+	return TimeHolder(86400);
 }
 
 TimeHolder TimeHolder::Week()
 {
-	return TimeHolder(0, 0, 7, Month::Jan, 0);
+	return TimeHolder(604800);
 }
 
 TimeHolder TimeHolder::Month30()
 {
-	return TimeHolder(0, 0, 30, Month::Jan, 0);
+	return TimeHolder(2592000);
 }
 
 std::string TimeHolder::GetTimeString() const
@@ -194,12 +192,11 @@ TimeHolder TimeHolder::operator-(const TimeHolder& rhs) const
 	return TimeHolder(this_since_epoch - rhs_since_epoch);
 }
 
-TimeHolder TimeHolder::operator*(const TimeHolder& rhs) const
+TimeHolder TimeHolder::operator*(const int rhs) const
 {
 	time_t this_since_epoch = GetSecondsSinceEpoch();
-	time_t rhs_since_epoch = rhs.GetSecondsSinceEpoch();
 
-	return TimeHolder(this_since_epoch * rhs_since_epoch);
+	return TimeHolder(this_since_epoch * rhs);
 }
 
 void TimeHolder::ToMin()

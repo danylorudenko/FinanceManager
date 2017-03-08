@@ -26,7 +26,7 @@ public:
 	TimeHolder& operator=(const TimeHolder&) = default;
 	TimeHolder operator+(const TimeHolder& rhs) const;
 	TimeHolder operator-(const TimeHolder& rhs) const;
-	TimeHolder operator*(const TimeHolder& rhs) const;
+	TimeHolder operator*(const int rhs) const;
 
 	std::string GetTimeString() const;
 	std::string Serialize() const;

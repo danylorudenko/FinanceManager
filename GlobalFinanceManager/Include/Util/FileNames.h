@@ -12,7 +12,7 @@ using StringVector = std::vector<std::string>;
 	Static-only class which provides logic for constructing
 	resource file names according to the input Request instance
 */
-class SFileNames
+class FileNames
 {
 	static std::string* ConstructMonthFileNamePart(Month month);
 	static std::string* ConstructMonthFileNamePartsBetween(Month first_month, Month second_month, int* names_count);
