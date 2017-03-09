@@ -14,14 +14,14 @@ int notmain123465()
 
 	vec.push_back(one);
 
-	vec[0].TestDisplay();
+	//vec[0].TestDisplay();
 	printf("\n");
-	two.TestDisplay();
+	//two.TestDisplay();
 
 	one = two;
 
 	printf("\n\n");
-	vec[0].TestDisplay();
+	//vec[0].TestDisplay();
 
 	system("PAUSE");
 	return 0;

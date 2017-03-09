@@ -22,9 +22,6 @@ public:
 	void EditSum(const int newSum);
 	void EditDescription(const std::string& newDescription);
 
-	void TestDisplay() const;
-	void TestDisplayTime() const;
-
 	// Does this record has negative sum value?
 	bool IsExpence() const;
 	bool IsLaterThan(const FinanceEntry& anotherEntry) const;

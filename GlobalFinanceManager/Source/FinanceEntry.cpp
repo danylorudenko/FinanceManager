@@ -70,20 +70,6 @@ void FinanceEntry::EditDescription(const std::string& description)
 	description_ = description;
 }
 
-void FinanceEntry::TestDisplay() const
-{
-	std::cout 
-		<< time_.GetTimeString() << std::endl
-		<< "Sum: " << sum_ / 100 << '.' << sum_ % 100 << std::endl
-		<< category_ << std::endl
-		<< description_ << std::endl << std::endl;
-}
-
-void FinanceEntry::TestDisplayTime() const
-{
-	std::cout << time_.GetTimeString();
-}
-
 void FinanceEntry::EditSum(const int sum)
 {
 	sum_ = sum;

@@ -113,5 +113,5 @@ void MonthFileManager::EditEntryCategory(EntryID buffer_index, std::string& new_
 
 void MonthFileManager::TestDisplay() const
 {
-	std::for_each(entries_buffer_.begin(), entries_buffer_.end(), [&](FinanceEntry entry) {entry.TestDisplay(); });
+	//std::for_each(entries_buffer_.begin(), entries_buffer_.end(), [&](FinanceEntry entry) {entry.TestDisplay(); });
 }

@@ -112,6 +112,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CommandManager.cpp" />
+    <ClCompile Include="Source\ConfigFileManager.cpp" />
+    <ClCompile Include="Source\ConfigInfo.cpp" />
     <ClCompile Include="Source\DataManager.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
@@ -120,6 +122,7 @@
     <ClCompile Include="Source\MonthFileManager.cpp" />
     <ClCompile Include="Source\Request.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
+    <ClCompile Include="Tests\configTest.cpp" />
     <ClCompile Include="Tests\ctimeTest.cpp" />
     <ClCompile Include="Tests\monthToDaysTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />

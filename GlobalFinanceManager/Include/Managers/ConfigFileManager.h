@@ -1,8 +1,7 @@
 #ifndef __CONFIG_FILE_MANAGER_H__
 #define __CONFIG_FILE_MANAGER_H__
 
-#include <string>
-#include <fstream>
+#include "..\..\Include\Util\ConfigInfo.h"
 
 /*
 	Static manager for operation in the config file of the program
@@ -10,13 +9,13 @@
 		- valid limits for requests
 		- user names
 */
-class SConfigFileManagar
+class ConfigFileManager
 {
 public:
+	static ConfigInfo GetConfigInfo();
 
 private:
-	static const char* config_file_name;
-	static std::fstream config_file_stream_;
+	static const char* config_file_name_;
 };
 
 #endif

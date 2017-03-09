@@ -1,6 +1,6 @@
-#include "..\Include\Util\Request.h"
-
 #include <exception>
+
+#include "..\Include\Util\Request.h"
 
 Request::Request(TimeHolder& first_edge, TimeHolder& last_edge) : 
 	first_edge_(first_edge), 

@@ -1,7 +1,7 @@
+#include <sstream>
+
 #include "..\Include\Util\FileNames.h"
 #include "..\Include\Time\MonthConverter.h"
-
-#include <sstream>
 
 const char* FileNames::jan_file_name = "JAN";
 const char* FileNames::feb_file_name = "FEB";
