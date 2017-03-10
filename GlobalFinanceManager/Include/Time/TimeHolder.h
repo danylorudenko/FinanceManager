@@ -12,7 +12,6 @@
 class TimeHolder
 {
 public:
-	static TimeHolder Hour();
 	static TimeHolder Day();
 	static TimeHolder Week();
 	static TimeHolder Month30();
@@ -40,9 +39,6 @@ public:
 
 	// Set all data to maximum values
 	void ToMax();
-
-	int GetMinutes() const;
-	int GetHours() const;
 	int GetDay() const;
 	Month GetMonth() const;
 	int GetYear() const;
@@ -50,8 +46,6 @@ public:
 	time_t GetSecondsSinceEpoch() const;
 
 protected:
-	int minutes_;
-	int hours_;
 	int day_in_month_;
 	Month month_;
 	int year_; // since 1900
