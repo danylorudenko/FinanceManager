@@ -1,0 +1,5 @@
+<root>
+	<entry>Entry1</entry>
+	<entry>Entry2</entry>
+	<entry>Entry3</entry>
+</root>
