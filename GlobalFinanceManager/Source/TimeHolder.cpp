@@ -135,7 +135,7 @@ time_t TimeHolder::GetSecondsSinceEpoch() const
 	
 	tm_temp.tm_sec = 0;
 	tm_temp.tm_min = 0;
-	tm_temp.tm_hour = 12;
+	tm_temp.tm_hour = 0;
 	tm_temp.tm_mday = day_in_month_;
 	tm_temp.tm_mon = MonthConverter::MonthToInt(month_);
 	tm_temp.tm_year = year_;

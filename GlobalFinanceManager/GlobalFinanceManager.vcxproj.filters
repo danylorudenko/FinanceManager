@@ -57,12 +57,15 @@
     <ClCompile Include="Source\FileNames.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Source\ConfigFileManager.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="Source\ConfigInfo.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+=======
+>>>>>>> d0ed4869a1d4d77955e86419b89c8768a25531f9
     <ClCompile Include="Tests\configTest.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>

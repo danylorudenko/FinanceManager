@@ -6,7 +6,6 @@
 int configmain()
 {
 	const ConfigInfo* info = ConfigFileManager::GetConfigInfo();
-	info = nullptr;
 
 	std::cout << MonthConverter::MonthToInt(info->GetFirstValidMonth()) << std::endl
 		<< info->GetFirstValidYear() << std::endl
@@ -14,7 +13,6 @@ int configmain()
 		<< info->GetLastValidYear() << std::endl;
 
 	delete info;
-
 	system("pause");
 	return 0;
 }
