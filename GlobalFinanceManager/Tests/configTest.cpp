@@ -3,14 +3,17 @@
 
 #include <iostream>
 
-int main()
+int configmain()
 {
-	ConfigInfo info = ConfigFileManager::GetConfigInfo();
+	const ConfigInfo* info = ConfigFileManager::GetConfigInfo();
+	info = nullptr;
 
-	std::cout << MonthConverter::MonthToInt(info.GetFirstValidMonth()) << std::endl
-		<< info.GetFirstValidYear() << std::endl
-		<< MonthConverter::MonthToInt(info.GetLastValidMonth()) << std::endl
-		<< info.GetLastValidYear() << std::endl;
+	std::cout << MonthConverter::MonthToInt(info->GetFirstValidMonth()) << std::endl
+		<< info->GetFirstValidYear() << std::endl
+		<< MonthConverter::MonthToInt(info->GetLastValidMonth()) << std::endl
+		<< info->GetLastValidYear() << std::endl;
+
+	delete info;
 
 	system("pause");
 	return 0;
