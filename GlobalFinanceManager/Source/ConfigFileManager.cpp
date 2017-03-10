@@ -79,11 +79,16 @@ ConfigInfo* ConfigFileManager::ReadConfigFromFile()
 void ConfigFileManager::LogNewTime(const TimeHolder& time)
 {
 	// Construction of the new config string according to the new last time
-	const std::string* config_string = ConfigFileManager::ConstructConfigString(time);
-
-	ConfigFileManager::RewriteConfigFile(config_string);
+	const ConfigInfo* config_info = ConfigFileManager::GetConfigInfo();
 	
-	delete config_string;
+	if (config_info->GetFirstValidMonth() > time.GetMonth() ||
+		config_info->GetFirstValidYear() > time.GetYear()) {
+
+		const std::string* config_string = ConfigFileManager::ConstructConfigString(time);
+		ConfigFileManager::RewriteConfigFile(config_string);
+
+		delete config_string;
+	}
 }
 
 void ConfigFileManager::RewriteConfigFile(const std::string* string)
@@ -98,15 +103,13 @@ void ConfigFileManager::RewriteConfigFile(const std::string* string)
 
 const std::string* ConfigFileManager::ConstructConfigString(const TimeHolder& new_oldest_time)
 {
-	const ConfigInfo* current_config = GetConfigInfo();
-	
 	std::stringstream& string_stream = std::stringstream();
 
 	string_stream
 		<< "["
 		<< MonthConverter::MonthToInt(new_oldest_time.GetMonth())
 		<< "_"
-		<< new_oldest_time.GetYear
+		<< new_oldest_time.GetYear()
 		<< "]";
 
 	return new std::string(string_stream.str());
