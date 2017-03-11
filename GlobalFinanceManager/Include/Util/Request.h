@@ -21,6 +21,12 @@ public:
 	static Request* LastWeeks(int weeks = 1);
 	static Request* LastMonths(int months = 1);
 
+public:
+	bool IsValid(const FinanceEntry& entry) const;
+
+	const TimeHolder& GetFirstEdge() const;
+	const TimeHolder& GetLastEdge() const;
+
 protected:
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge);
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const FinancePredicate predicate);
@@ -29,10 +35,7 @@ protected:
 	Request(const FinancePredicate predicate);
 	Request();
 
-	bool IsValid(const FinanceEntry& entry) const;
-
-	const TimeHolder& GetFirstEdge() const;
-	const TimeHolder& GetLastEdge() const;
+	static void AugmentFirstEdgeByConfig(TimeHolder* first_edge);
 
 	TimeHolder first_edge_;
 	TimeHolder last_edge_;

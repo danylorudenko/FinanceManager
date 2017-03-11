@@ -41,7 +41,7 @@ std::vector<EntryID>* MonthFileManager::RequestEntries(const Request& request)
 	std::vector<EntryID>* entry_selection = new std::vector<EntryID>();
 
 	size_t entry_buffer_size = entries_buffer_.size();
-	for (int i = 0; i < entry_buffer_size; i++) {
+	for (size_t i = 0; i < entry_buffer_size; i++) {
 		if (request.IsValid(entries_buffer_[i])) {
 			entry_selection->push_back(i);
 		}

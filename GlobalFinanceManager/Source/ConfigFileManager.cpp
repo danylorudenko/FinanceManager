@@ -53,11 +53,13 @@ ConfigInfo* ConfigFileManager::ReadConfigFromFile()
 
 	std::regex config_regular_expression
 	(
-		"(\\[)"		   // 1
-		"(\\d{1,2})"   // 2
-		"(_)"		   // 3
-		"(\\d{3})"	   // 4
-		"(\\])"		   // 5
+		"(\\[)"			 // 1
+		"(\\d{1,2})"	 // 2
+		"(_)"			 // 3
+		"(\\d{1,2})"	 // 4
+		"(_)"   		 // 5
+		"(\\d{3})"		 // 6
+		"(\\])"			 // 7
 	);
 
 	std::cmatch result;
@@ -65,7 +67,7 @@ ConfigInfo* ConfigFileManager::ReadConfigFromFile()
 	std::regex_match(config_file_content.c_str(), result, config_regular_expression);
 
 	if (result.size() > 0) {
-		TimeHolder first(0, MonthConverter::IntToMonth(std::stoi(result[2].str())), std::stoi(result[4].str()));
+		TimeHolder first(std::stoi(result[2].str()), MonthConverter::IntToMonth(std::stoi(result[4].str())), std::stoi(result[6].str()));
 
 		local_up_to_date_ = true;
 		return new ConfigInfo(first, TimeHolder());
@@ -81,8 +83,7 @@ void ConfigFileManager::LogNewTime(const TimeHolder& time)
 	// Construction of the new config string according to the new last time
 	const ConfigInfo* config_info = ConfigFileManager::GetConfigInfo();
 	
-	if (config_info->GetFirstValidMonth() > time.GetMonth() ||
-		config_info->GetFirstValidYear() > time.GetYear()) {
+	if (config_info->GetFirstEdge() > time) {
 
 		const std::string* config_string = ConfigFileManager::ConstructConfigString(time);
 		ConfigFileManager::RewriteConfigFile(config_string);

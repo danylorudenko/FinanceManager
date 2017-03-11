@@ -13,10 +13,8 @@ class ConfigInfo
 public:
 	ConfigInfo(const TimeHolder& first_valid_edge, const TimeHolder& last_valid_edge);
 
-	Month GetFirstValidMonth() const;
-	int GetFirstValidYear() const;
-	Month GetLastValidMonth() const;
-	int GetLastValidYear() const;
+	const TimeHolder& GetFirstEdge() const;
+	const TimeHolder& GetLastEdge() const;
 
 private:
 	const TimeHolder first_valid_edge_;

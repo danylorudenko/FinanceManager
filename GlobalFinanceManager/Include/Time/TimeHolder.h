@@ -23,10 +23,13 @@ public:
 	TimeHolder(const std::string& file_string);
 	TimeHolder(const long long minutes);
 
-	TimeHolder& operator=(const TimeHolder&) = default;
+	TimeHolder& operator=(const TimeHolder& rhs);
 	TimeHolder operator+(const TimeHolder& rhs) const;
 	TimeHolder operator-(const TimeHolder& rhs) const;
 	TimeHolder operator*(const int rhs) const;
+
+	bool operator<(const TimeHolder& rhs) const;
+	bool operator>(const TimeHolder& rst) const;
 
 	std::string Serialize() const;
 	void EditDate(int mDay, int month, int year);

@@ -117,9 +117,9 @@ bool TimeHolder::IsToday() const
 
 bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 {
-	if (year_ > other_holder.year_) return true;
-	if (month_ > other_holder.month_) return true;
-	if (day_in_month_ > other_holder.day_in_month_) return true;
+	if (this->GetSecondsSinceEpoch() > other_holder.GetSecondsSinceEpoch()) {
+		return true;
+	}
 
 	return false;
 }
@@ -127,6 +127,16 @@ bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
 {
 	return !(TimeHolder::IsLaterThan(other_holder));
+}
+
+bool TimeHolder::operator<(const TimeHolder& rhs) const
+{
+	return TimeHolder::IsEarlierThan(rhs);
+}
+
+bool TimeHolder::operator>(const TimeHolder& rhs) const
+{
+	return TimeHolder::IsLaterThan(rhs);
 }
 
 time_t TimeHolder::GetSecondsSinceEpoch() const
@@ -141,6 +151,19 @@ time_t TimeHolder::GetSecondsSinceEpoch() const
 	tm_temp.tm_year = year_;
 
 	return mktime(&tm_temp);
+}
+
+TimeHolder& TimeHolder::operator=(const TimeHolder& rhs)
+{
+	if (this == &rhs) {
+		return *this;
+	}
+
+	day_in_month_ = rhs.day_in_month_;
+	month_ = rhs.month_;
+	year_ = rhs.year_;
+
+	return *this;
 }
 
 TimeHolder TimeHolder::operator+(const TimeHolder& rhs) const

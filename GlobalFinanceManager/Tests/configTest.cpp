@@ -3,16 +3,16 @@
 
 #include <iostream>
 
-int main()
+int configmain()
 {
 	//ConfigFileManager::LogNewTime(TimeHolder(3, Month::Jul, 115));
 
 	const ConfigInfo* info = ConfigFileManager::GetConfigInfo();
 
-	std::cout << MonthConverter::MonthToInt(info->GetFirstValidMonth()) << std::endl
-		<< info->GetFirstValidYear() << std::endl
-		<< MonthConverter::MonthToInt(info->GetLastValidMonth()) << std::endl
-		<< info->GetLastValidYear() << std::endl;
+	std::cout << MonthConverter::MonthToInt(info->GetFirstEdge().GetMonth()) << std::endl
+		<< info->GetFirstEdge().GetYear() << std::endl
+		<< MonthConverter::MonthToInt(info->GetLastEdge().GetMonth()) << std::endl
+		<< info->GetLastEdge().GetYear() << std::endl;
 
 	delete info;
 	system("pause");

@@ -19,6 +19,7 @@
     <ClCompile Include="Tests\streamFormattingTest.cpp" />
     <ClCompile Include="Tests\timeHolderTest.cpp" />
     <ClCompile Include="Tests\constPtrTest.cpp" />
+    <ClCompile Include="Tests\requestTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Direction.h" />

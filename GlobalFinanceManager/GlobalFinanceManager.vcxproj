@@ -127,6 +127,7 @@
     <ClCompile Include="Tests\ctimeTest.cpp" />
     <ClCompile Include="Tests\monthToDaysTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
+    <ClCompile Include="Tests\requestTest.cpp" />
     <ClCompile Include="Tests\streamFormattingTest.cpp" />
     <ClCompile Include="Tests\timeHolderTest.cpp" />
   </ItemGroup>
