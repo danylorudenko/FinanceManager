@@ -5,7 +5,7 @@
 
 int main()
 {
-	ConfigFileManager::LogNewTime(TimeHolder(3, Month::Jul, 115));
+	//ConfigFileManager::LogNewTime(TimeHolder(3, Month::Jul, 115));
 
 	const ConfigInfo* info = ConfigFileManager::GetConfigInfo();
 

@@ -2,7 +2,7 @@
 
 #include "..\Include\Util\Request.h"
 
-Request::Request(TimeHolder& first_edge, TimeHolder& last_edge) : 
+Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge) :
 	first_edge_(first_edge), 
 	last_edge_(last_edge),
 	predicate_(nullptr)
@@ -12,7 +12,7 @@ Request::Request(TimeHolder& first_edge, TimeHolder& last_edge) :
 	}
 }
 
-Request::Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate predicate) :
+Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge, FinancePredicate predicate) :
 	first_edge_(first_edge), 
 	last_edge_(last_edge), 
 	predicate_(predicate) 
@@ -22,7 +22,7 @@ Request::Request(TimeHolder& first_edge, TimeHolder& last_edge, FinancePredicate
 	}
 }
 
-Request::Request(TimeHolder& edge, Direction direction) : predicate_(nullptr)
+Request::Request(const TimeHolder& edge, const Direction direction) : predicate_(nullptr)
 {
 	if (direction == Direction::Backward)
 	{
@@ -40,7 +40,7 @@ Request::Request(TimeHolder& edge, Direction direction) : predicate_(nullptr)
 	}
 }
 
-Request::Request(TimeHolder& edge, Direction direction, FinancePredicate predicate) : predicate_(predicate)
+Request::Request(const TimeHolder& edge, const Direction direction, const FinancePredicate predicate) : predicate_(predicate)
 {
 	if (direction == Direction::Backward)
 	{
@@ -58,7 +58,7 @@ Request::Request(TimeHolder& edge, Direction direction, FinancePredicate predica
 	}
 }
 
-Request::Request(FinancePredicate predicate) : predicate_(predicate) 
+Request::Request(const FinancePredicate predicate) : predicate_(predicate)
 {
 	first_edge_.ToMin();
 	last_edge_.ToMax();
