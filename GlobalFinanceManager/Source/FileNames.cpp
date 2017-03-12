@@ -16,22 +16,25 @@ const char* FileNames::oct_file_name = "OCT";
 const char* FileNames::nov_file_name = "NOV";
 const char* FileNames::dec_file_name = "DEC";
 
-StringVector* FileNames::ConstructFileNames(const Request& request)
+StringVector* FileNames::ConstructFileNames(const Request* request)
 {
 	StringVector* file_names = new StringVector();
 
-	Month first_month = request.GetFirstEdge().GetMonth();
-	Month last_month = request.GetLastEdge().GetMonth();
+	Month first_month = request->GetFirstEdge().GetMonth();
+	Month last_month = request->GetLastEdge().GetMonth();
 
-	int first_year = request.GetFirstEdge().GetYear();
-	int last_year = request.GetLastEdge().GetYear();
+	int first_year = request->GetFirstEdge().GetYear();
+	int last_year = request->GetLastEdge().GetYear();
 
 	// If the the request contains a single year, so we don't need special "circle" of month names
 	if (first_year == last_year) {
 		// If even the only month is there, so StringVector with single file name will be returned
 		if (first_month == last_month) {
-			std::string *month_name = ConstructMonthFileNamePart(first_month);
+			std::string* month_name = new std::string();
+			ConstructMonthFileNamePart(first_month, *month_name);
+
 			std::string* file_name = ConstructFileName(month_name, first_year);
+
 			file_names->push_back(*file_name);
 
 			delete month_name;
@@ -116,36 +119,49 @@ std::string* FileNames::ConstructFileName(std::string* month_name, int year)
 	return result_string_p;
 }
 
-std::string* FileNames::ConstructMonthFileNamePart(Month month)
+void FileNames::ConstructMonthFileNamePart(Month month, std::string& dest)
 {
 	switch (month)
 	{
 	case Month::Jan:
-		return new std::string(jan_file_name);
+		dest = jan_file_name;
+		break;
 	case Month::Feb:
-		return new std::string(feb_file_name);
+		dest = feb_file_name;
+		break;
 	case Month::Mar:
-		return new std::string(mar_file_name);
+		dest = mar_file_name;
+		break;
 	case Month::Apr:
-		return new std::string(apr_file_name);
+		dest = apr_file_name;
+		break;
 	case Month::May:
-		return new std::string(may_file_name);
+		dest = may_file_name;
+		break;
 	case Month::Jun:
-		return new std::string(jun_file_name);
+		dest = jun_file_name;
+		break;
 	case Month::Jul:
-		return new std::string(jul_file_name);
+		dest = jul_file_name;
+		break;
 	case Month::Aug:
-		return new std::string(aug_file_name);
+		dest = aug_file_name;
+		break;
 	case Month::Sep:
-		return new std::string(sep_file_name);
+		dest = sep_file_name;
+		break;
 	case Month::Oct:
-		return new std::string(oct_file_name);
+		dest = oct_file_name;
+		break;
 	case Month::Nov:
-		return new std::string(nov_file_name);
+		dest = nov_file_name;
+		break;
 	case Month::Dec:
-		return new std::string(dec_file_name);
+		dest = dec_file_name;
+		break;
 	default:
-		return new std::string("NO_MONTH");
+		dest = "NO_MONTH";
+		break;
 	}
 }
 
@@ -165,7 +181,7 @@ std::string* FileNames::ConstructMonthFileNamePartsBetween(Month first_month, Mo
 	// This loop is incrementing temporary pointer and month value safely,
 	// because it uses names_count as a limiter
 	for (int i = 0; i < *names_count; i++) {
-		iterator_pointer = FileNames::ConstructMonthFileNamePart(MonthConverter::IntToMonth(month_toadd));
+		FileNames::ConstructMonthFileNamePart(MonthConverter::IntToMonth(month_toadd), *iterator_pointer);
 		month_toadd++;
 		iterator_pointer++;
 	}

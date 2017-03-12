@@ -14,14 +14,16 @@ using StringVector = std::vector<std::string>;
 */
 class FileNames
 {
-	static std::string* ConstructMonthFileNamePart(Month month);
+public:
+	static StringVector* ConstructFileNames(const Request* request);
+	
+private:
+	static void ConstructMonthFileNamePart(Month month, std::string& dest);
 	static std::string* ConstructMonthFileNamePartsBetween(Month first_month, Month second_month, int* names_count);
 	static std::string* ConstructMonthFileNamePartsBeforeDec(Month first_month, int* names_count);
 	static std::string* ConstructMonthFileNamePartsFromJan(Month last_month, int* names_count);
 	
 	static std::string* ConstructFileName(std::string* month_name, int year);
-
-	static StringVector* ConstructFileNames(const Request& request);
 
 	static const char* jan_file_name;
 	static const char* feb_file_name;

@@ -125,6 +125,7 @@
     <ClCompile Include="Tests\configTest.cpp" />
     <ClCompile Include="Tests\constPtrTest.cpp" />
     <ClCompile Include="Tests\ctimeTest.cpp" />
+    <ClCompile Include="Tests\fileNamesTest.cpp" />
     <ClCompile Include="Tests\monthToDaysTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
     <ClCompile Include="Tests\requestTest.cpp" />

@@ -3,7 +3,7 @@
 #include "..\Include\Util\Request.h"
 #include "..\Include\Time\MonthConverter.h"
 
-int main()
+int requestmain()
 {
 	Request* request = Request::LastWeeks(5);
 
