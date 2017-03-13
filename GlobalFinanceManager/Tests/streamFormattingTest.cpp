@@ -1,27 +1,15 @@
-#include "..\Include\Entry\FinanceEntry.h"
-
 #include <iostream>
-#include <vector>
+#include <fstream>
 
-int notmain123465()
+int streammain()
 {
-	printf_s("lol\n");
+	std::ofstream outfile("DATA\\file.txt", std::ios_base::out | std::ios_base::in);
 
-	std::vector<FinanceEntry> vec;
+	std::cout << outfile.is_open() << std::endl;
 
-	FinanceEntry one("Category1", 1000, "Descritpion1");
-	FinanceEntry two("Category2", 2000, "Description2");
+	outfile << "FUCK!2" << std::endl;
 
-	vec.push_back(one);
-
-	//vec[0].TestDisplay();
-	printf("\n");
-	//two.TestDisplay();
-
-	one = two;
-
-	printf("\n\n");
-	//vec[0].TestDisplay();
+	outfile.close();
 
 	system("PAUSE");
 	return 0;

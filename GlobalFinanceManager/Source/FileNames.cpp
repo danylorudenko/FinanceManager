@@ -3,6 +3,8 @@
 #include "..\Include\Util\FileNames.h"
 #include "..\Include\Time\MonthConverter.h"
 
+const char* FileNames::data_folder_name = "DATA\\";
+
 const char* FileNames::jan_file_name = "JAN";
 const char* FileNames::feb_file_name = "FEB";
 const char* FileNames::mar_file_name = "MAR";
@@ -112,7 +114,9 @@ StringVector* FileNames::ConstructFileNames(const Request* request)
 std::string* FileNames::ConstructFileName(std::string* month_name, int year)
 {
 	std::stringstream* string_stream = new std::stringstream;
-	*string_stream << year << "_" << month_name->c_str() << ".txt";
+	*string_stream
+		<< data_folder_name
+		<< year << "_" << month_name->c_str() << ".txt";
 
 	std::string* result_string_p = new std::string(string_stream->str());
 	delete string_stream;

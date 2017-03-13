@@ -25,6 +25,8 @@ private:
 	
 	static std::string* ConstructFileName(std::string* month_name, int year);
 
+	static const char* data_folder_name;
+
 	static const char* jan_file_name;
 	static const char* feb_file_name;
 	static const char* mar_file_name;

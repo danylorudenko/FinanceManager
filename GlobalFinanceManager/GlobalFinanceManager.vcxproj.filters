@@ -21,6 +21,7 @@
     <ClCompile Include="Tests\constPtrTest.cpp" />
     <ClCompile Include="Tests\requestTest.cpp" />
     <ClCompile Include="Tests\fileNamesTest.cpp" />
+    <ClCompile Include="Tests\monthFileManagerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Direction.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Include\Enums\CommandType.h" />
     <ClInclude Include="Include\Entry\FinanceEntry.h" />
     <ClInclude Include="Include\Time\TimeHolder.h" />
+    <ClInclude Include="Include\Templates\EntryIterator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />

@@ -3,16 +3,29 @@
 
 #include "..\Include\Managers\MonthFileManager.h"
 
-MonthFileManager::MonthFileManager(const std::string& file_name) : file_name_(file_name) { }
+MonthFileManager::MonthFileManager(const std::string& file_name) : 
+	file_name_(file_name), is_interface_dirty_(true)
+{
+
+}
+
+void MonthFileManager::ConstructFile() const
+{
+	std::ofstream stream(file_name_);
+	stream.close();
+}
 
 void MonthFileManager::ReadFileToBuffer()
 {
-	std::ifstream file_stream(file_name_.c_str(), std::ios_base::in | std::ios_base::ate);
+	std::ifstream* file_stream = new std::ifstream(file_name_, std::ios_base::in);
 	
-	if (!file_stream.is_open()) {
-		throw std::ios_base::failure("Error opening file \"" + file_name_ + "\"");
+	if (!file_stream->is_open()) {
+		ConstructFile();
+		file_stream->clear();
+		file_stream->open(file_name_);
 	}
-	file_stream.seekg(0, std::ios_base::beg);
+
+	file_stream->seekg(0, std::ios_base::beg);
 
 	entries_buffer_.clear();
 
@@ -20,7 +33,7 @@ void MonthFileManager::ReadFileToBuffer()
 	FinanceEntry entry_buffer;
 
 	// Reading file till the EOF (or failiure)
-	while (std::getline(file_stream, string_buffer)) {
+	while (std::getline(*file_stream, string_buffer)) {
 		try {
 			entry_buffer = FinanceEntry(string_buffer);
 			entries_buffer_.push_back(entry_buffer);
@@ -33,21 +46,20 @@ void MonthFileManager::ReadFileToBuffer()
 		}
 	}
 
-	file_stream.close();
+	file_stream->close();
+	delete file_stream;
 }
 
-std::vector<EntryID>* MonthFileManager::RequestEntries(const Request& request)
+void MonthFileManager::RequestEntries(const Request& request)
 {
-	std::vector<EntryID>* entry_selection = new std::vector<EntryID>();
+	entries_interface_buffer_.clear();
 
 	size_t entry_buffer_size = entries_buffer_.size();
 	for (size_t i = 0; i < entry_buffer_size; i++) {
 		if (request.IsValid(entries_buffer_[i])) {
-			entry_selection->push_back(i);
+			entries_interface_buffer_.push_back(i);
 		}
 	}
-
-	return entry_selection;
 }
 
 //const FinanceEntry& MonthFileManager::AccessEntry(const EntryID entry_id)
@@ -73,9 +85,9 @@ void MonthFileManager::RewriteFileFromBuffer()
 	file_stream.close();
 }
 
-void MonthFileManager::SortFile() 
+void MonthFileManager::SortBuffer() 
 {
-	std::cout << "MonthFileManager::SortFile() is not ready yet!\n";
+	std::cout << "MonthFileManager::SortBuffer() is not ready yet!\n";
 }
 
 void MonthFileManager::EditEntrySum(EntryID buffer_index, int new_sum)

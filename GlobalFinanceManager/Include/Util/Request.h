@@ -30,10 +30,7 @@ public:
 protected:
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge);
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const FinancePredicate predicate);
-	Request(const TimeHolder& edge, const Direction direction);
-	Request(const TimeHolder& edge, const Direction direction, const FinancePredicate predicate);
-	Request(const FinancePredicate predicate);
-	Request();
+	Request(const Request& rhs);
 
 	static void AugmentFirstEdgeByConfig(TimeHolder* first_edge);
 

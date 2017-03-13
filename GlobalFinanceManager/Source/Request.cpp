@@ -52,52 +52,10 @@ Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge, Fina
 	}
 }
 
-Request::Request(const TimeHolder& edge, const Direction direction) : predicate_(nullptr)
+Request::Request(const Request& rhs) :
+	first_edge_(rhs.first_edge_), last_edge_(rhs.last_edge_), predicate_(rhs.predicate_)
 {
-	if (direction == Direction::Backward)
-	{
-		first_edge_ = edge;
-		last_edge_ = TimeHolder();
-	}
-	else if (direction == Direction::Forward)
-	{
-		first_edge_ = TimeHolder();
-		last_edge_ = edge;
-	}
-	else
-	{
-		throw std::invalid_argument("Direction of the request may be only \"-1\" or \"two\"");
-	}
-}
 
-Request::Request(const TimeHolder& edge, const Direction direction, const FinancePredicate predicate) : predicate_(predicate)
-{
-	if (direction == Direction::Backward)
-	{
-		first_edge_ = edge;
-		last_edge_ = TimeHolder();
-	}
-	else if (direction == Direction::Forward)
-	{
-		first_edge_ = TimeHolder();
-		last_edge_ = edge;
-	}
-	else
-	{
-		throw std::invalid_argument("Direction of the request may be only \"1\" or \"two\"");
-	}
-}
-
-Request::Request(const FinancePredicate predicate) : predicate_(predicate)
-{
-	first_edge_.ToMin();
-	last_edge_.ToMax();
-}
-
-Request::Request() : predicate_(nullptr)
-{
-	first_edge_.ToMin();
-	last_edge_.ToMax();
 }
 
 void Request::AugmentFirstEdgeByConfig(TimeHolder* first_edge)
