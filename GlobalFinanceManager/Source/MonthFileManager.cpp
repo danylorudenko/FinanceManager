@@ -62,15 +62,6 @@ void MonthFileManager::RequestEntries(const Request& request)
 	}
 }
 
-//const FinanceEntry& MonthFileManager::AccessEntry(const EntryID entry_id)
-//{
-//	if (entry_id > entries_buffer_.size()) {
-//		throw std::out_of_range("There is no entry by index " + std::to_string(entry_id) + " in this file");
-//	}
-//
-//	return entries_buffer_[entry_id];
-//}
-
 void MonthFileManager::RewriteFileFromBuffer()
 {
 	
@@ -88,6 +79,16 @@ void MonthFileManager::RewriteFileFromBuffer()
 void MonthFileManager::SortBuffer() 
 {
 	std::cout << "MonthFileManager::SortBuffer() is not ready yet!\n";
+}
+
+MonthFileManager::iterator MonthFileManager::Begin(const Request& request) const
+{
+	return iterator(&this->entries_buffer_, request);
+}
+
+MonthFileManager::iterator MonthFileManager::End(const Request& request) const
+{
+
 }
 
 void MonthFileManager::EditEntrySum(EntryID buffer_index, int new_sum)

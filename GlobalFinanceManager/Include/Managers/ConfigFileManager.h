@@ -1,9 +1,9 @@
 #ifndef __CONFIG_FILE_MANAGER_H__
 #define __CONFIG_FILE_MANAGER_H__
 
-#include "..\..\Include\Util\ConfigInfo.h"
-
 #include <string>
+
+#include "..\..\Include\Util\ConfigInfo.h"
 
 /*
 	Static manager for operation in the config file of the program

@@ -19,7 +19,7 @@ public:
 	using value_type = T::value_type;
 
 	EntryIterator(T* target_containter, const Request& request) :
-		target_containter_(target_container), current_index_(-1)
+		target_container_(target_container), current_index_(-1)
 	{
 		request_ = new Request(request);
 

@@ -31,9 +31,6 @@ public:
 	// Providing id-interface to access the elements of the buffer
 	void RequestEntries(const Request& request); // REVIEW
 
-	// Accessing entry by id-interface
-	FinanceEntry& AccessEntry(const EntryID entry_id);
-
 	// Adding entry to the buffer
 	void AddEntryToBuffer(FinanceEntry& new_entry);
 
@@ -45,6 +42,9 @@ public:
 
 	// Buffer sorting
 	void SortBuffer();
+
+	iterator Begin(const Request& request) const;
+	iterator End(const Request& request) const;
 
 	void EditEntrySum(EntryID buffer_index, int new_sum);
 	void EditEntryCategory(EntryID buffer_index, std::string& new_category);
