@@ -84,12 +84,12 @@ void MonthFileManager::SortBuffer()
 
 MonthFileManager::iterator MonthFileManager::Begin(const Request& request)
 {
-	return iterator(&entries_buffer_, request);
+	return iterator(&entries_buffer_, request).ToBegin();
 }
 
 MonthFileManager::iterator MonthFileManager::End(const Request& request)
 {
-	return iterator(&entries_buffer_, request);
+	return iterator(&entries_buffer_, request).ToEnd();
 }
 
 void MonthFileManager::EditEntrySum(EntryID buffer_index, int new_sum)

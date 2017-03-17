@@ -1,2 +1,7 @@
 [16.1.117|Sample category|1000|Sample description]
 [11.2.117|Sample category2|0|Sample description2]
+[12.2.117|Sample category3|25|Sample description3]
+[13.2.117|Sample category4|647|Sample description4]
+[13.2.117|Sample category5|5410|Sample description5]
+[16.2.117|Sample category6|7852140|Sample description6]
+[17.2.117|Sample category7|70|Sample description7]
