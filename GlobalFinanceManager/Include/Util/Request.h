@@ -22,6 +22,8 @@ public:
 	static Request* LastMonths(int months = 1);
 
 public:
+	Request(const Request& rhs);
+	
 	bool IsValid(const FinanceEntry& entry) const;
 
 	const TimeHolder& GetFirstEdge() const;
@@ -30,7 +32,6 @@ public:
 protected:
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge);
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const FinancePredicate predicate);
-	Request(const Request& rhs);
 
 	static void AugmentFirstEdgeByConfig(TimeHolder* first_edge);
 

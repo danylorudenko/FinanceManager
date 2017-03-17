@@ -7,9 +7,10 @@
 
 #include "..\..\Include\Entry\FinanceEntry.h"
 #include "..\..\Include\Util\Request.h"
-#include "..\..\Include\Templates\EntryIterator.h"
 
 using EntryID = unsigned int;
+
+class EntryIterator;
 
 /*
 	This class represent an interface to the single file that should contain all finance records
@@ -22,17 +23,18 @@ using EntryID = unsigned int;
 class MonthFileManager
 {
 public:
-	using iterator = EntryIterator<std::vector<FinanceEntry> >;
+	using iterator = EntryIterator;
+	using container_type = std::vector<FinanceEntry>;
 
 	MonthFileManager(const std::string& file_name);
 
 	void ConstructFile() const;
 
 	// Providing id-interface to access the elements of the buffer
-	void RequestEntries(const Request& request); // REVIEW
+	//void RequestEntries(const Request& request); // REVIEW
 
 	// Adding entry to the buffer
-	void AddEntryToBuffer(FinanceEntry& new_entry);
+	//void AddEntryToBuffer(FinanceEntry& new_entry);
 
 	// Reading whole file to the buffer
 	void ReadFileToBuffer();
@@ -56,9 +58,9 @@ private:
 	const std::string file_name_;
 
 	bool is_interface_dirty_;
-	std::vector<EntryID> entries_interface_buffer_;
+	//std::vector<EntryID> entries_interface_buffer_;
 
-	std::vector<FinanceEntry> entries_buffer_;
+	container_type entries_buffer_;
 };
 
 #endif

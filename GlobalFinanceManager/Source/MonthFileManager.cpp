@@ -2,6 +2,7 @@
 #include <fstream>
 
 #include "..\Include\Managers\MonthFileManager.h"
+#include "..\Include\Util\EntryIterator.h"
 
 MonthFileManager::MonthFileManager(const std::string& file_name) : 
 	file_name_(file_name), is_interface_dirty_(true)
@@ -50,17 +51,17 @@ void MonthFileManager::ReadFileToBuffer()
 	delete file_stream;
 }
 
-void MonthFileManager::RequestEntries(const Request& request)
-{
-	entries_interface_buffer_.clear();
-
-	size_t entry_buffer_size = entries_buffer_.size();
-	for (size_t i = 0; i < entry_buffer_size; i++) {
-		if (request.IsValid(entries_buffer_[i])) {
-			entries_interface_buffer_.push_back(i);
-		}
-	}
-}
+//void MonthFileManager::RequestEntries(const Request& request)
+//{
+//	entries_interface_buffer_.clear();
+//
+//	size_t entry_buffer_size = entries_buffer_.size();
+//	for (size_t i = 0; i < entry_buffer_size; i++) {
+//		if (request.IsValid(entries_buffer_[i])) {
+//			entries_interface_buffer_.push_back(i);
+//		}
+//	}
+//}
 
 void MonthFileManager::RewriteFileFromBuffer()
 {
@@ -83,12 +84,13 @@ void MonthFileManager::SortBuffer()
 
 MonthFileManager::iterator MonthFileManager::Begin(const Request& request) const
 {
-	return iterator(&this->entries_buffer_, request);
+	//return iterator(&entries_buffer_, request).ToBegin();
+	return iterator(&entries_buffer_, request);
 }
 
 MonthFileManager::iterator MonthFileManager::End(const Request& request) const
 {
-
+	return iterator(&entries_buffer_, request);
 }
 
 void MonthFileManager::EditEntrySum(EntryID buffer_index, int new_sum)

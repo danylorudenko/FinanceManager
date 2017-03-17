@@ -3,13 +3,16 @@
 
 int motnhmain()
 {
-	Request* request = Request::LastDays();
+	Request* request = Request::LastDays(2);
 	
 	StringVector* file_names = FileNames::ConstructFileNames(request);
 
 	MonthFileManager* file_manager = new MonthFileManager((*file_names)[0]);
 
 	file_manager->ReadFileToBuffer();
+
+	//MonthFileManager::iterator buffer_iter = file_manager->Begin(*request);
+	
 
 	delete file_manager;
 	delete file_names;

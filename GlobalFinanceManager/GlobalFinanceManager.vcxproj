@@ -115,6 +115,7 @@
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
     <ClCompile Include="Source\DataManager.cpp" />
+    <ClCompile Include="Source\EntryIterator.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
@@ -139,7 +140,7 @@
     <ClInclude Include="Include\Managers\ConfigFileManager.h" />
     <ClInclude Include="Include\Managers\DataManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
-    <ClInclude Include="Include\Templates\EntryIterator.h" />
+    <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
     <ClInclude Include="Include\Util\FileNames.h" />
     <ClInclude Include="Include\Util\Request.h" />
