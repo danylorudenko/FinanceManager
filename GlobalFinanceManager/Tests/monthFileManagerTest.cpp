@@ -1,7 +1,8 @@
+#include "..\Include\Util\EntryIterator.h"
 #include "..\Include\Managers\MonthFileManager.h"
 #include "..\Include\Util\FileNames.h"
 
-int motnhmain()
+int main()
 {
 	Request* request = Request::LastDays(2);
 	
@@ -11,7 +12,7 @@ int motnhmain()
 
 	file_manager->ReadFileToBuffer();
 
-	//MonthFileManager::iterator buffer_iter = file_manager->Begin(*request);
+	MonthFileManager::iterator buffer_iter = file_manager->Begin(*request);
 	
 
 	delete file_manager;

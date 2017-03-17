@@ -45,8 +45,8 @@ public:
 	// Buffer sorting
 	void SortBuffer();
 
-	iterator Begin(const Request& request) const;
-	iterator End(const Request& request) const;
+	iterator Begin(const Request& request);
+	iterator End(const Request& request);
 
 	void EditEntrySum(EntryID buffer_index, int new_sum);
 	void EditEntryCategory(EntryID buffer_index, std::string& new_category);

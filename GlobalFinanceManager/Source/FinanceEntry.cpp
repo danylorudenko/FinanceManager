@@ -19,18 +19,14 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 		"(\\.)"						//3		  These sould be passed as a single string to the TimeHolder contstructor
 		"(\\d{1,2})"				//4		  These sould be passed as a single string to the TimeHolder contstructor
 		"(\\.)"						//5		  These sould be passed as a single string to the TimeHolder contstructor
-		"(\\d{1,2})"				//6		  These sould be passed as a single string to the TimeHolder contstructor
-		"(\\.)"						//7		  These sould be passed as a single string to the TimeHolder contstructor
-		"(\\d{1,2})"				//8		  These sould be passed as a single string to the TimeHolder contstructor
-		"(\\.)"						//9		  These sould be passed as a single string to the TimeHolder contstructor
-		"(\\d{4})"					//10	  These sould be passed as a single string to the TimeHolder contstructor
+		"(\\d{3})"  				//6	      These sould be passed as a single string to the TimeHolder contstructor
+		"(\\|)"						//7
+		"(.+)"						//8
+		"(\\|)"						//9
+		"(\\d+)"					//10
 		"(\\|)"						//11
 		"(.+)"						//12
-		"(\\|)"						//13
-		"(\\d+)"					//14
-		"(\\|)"						//15
-		"(.+)"						//16
-		"(\\])"						//17
+		"(\\])"						//13
 	);
 	std::cmatch result;
 	std::string buffer;
@@ -40,20 +36,20 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 	if (result.size() > 0) {
 		
 		// TimeHolder initialization
-		for (int i = 2; i <= 10; i++) {
+		for (int i = 2; i <= 6; i++) {
 			buffer += result[i].str();
 		}
 
 		time_ = TimeHolder(buffer);
 
 		// 12 is index of the category string in the regex result
-		category_ = result[12].str();
+		category_ = result[8].str();
 
 		// 14 is index of the sum string in the regex result
-		sum_ = std::stoi(result[14].str());
+		sum_ = std::stoi(result[10].str());
 
 		// 16 is index of the description string in the regex result
-		description_ = result[16].str();
+		description_ = result[12].str();
 	}
 	else {
 		throw std::invalid_argument("FinanceEntry constructor recieved invalid string to deserealize.");

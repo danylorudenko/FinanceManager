@@ -82,13 +82,12 @@ void MonthFileManager::SortBuffer()
 	std::cout << "MonthFileManager::SortBuffer() is not ready yet!\n";
 }
 
-MonthFileManager::iterator MonthFileManager::Begin(const Request& request) const
+MonthFileManager::iterator MonthFileManager::Begin(const Request& request)
 {
-	//return iterator(&entries_buffer_, request).ToBegin();
 	return iterator(&entries_buffer_, request);
 }
 
-MonthFileManager::iterator MonthFileManager::End(const Request& request) const
+MonthFileManager::iterator MonthFileManager::End(const Request& request)
 {
 	return iterator(&entries_buffer_, request);
 }
