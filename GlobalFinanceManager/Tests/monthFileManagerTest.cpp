@@ -16,7 +16,7 @@ int main()
 
 	try {
 		MonthFileManager::iterator buffer_end = file_manager->End(*request);
-		for (auto iter = buffer_begin; iter != buffer_end; iter++) {
+		for (auto iter = buffer_begin; iter < buffer_end; ++iter) {
 			std::cout << (*iter).Serialize() << std::endl;
 		}
 	}
