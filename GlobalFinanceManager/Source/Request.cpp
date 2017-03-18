@@ -55,7 +55,9 @@ Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge, Fina
 Request::Request(const Request& rhs) :
 	first_edge_(rhs.first_edge_), last_edge_(rhs.last_edge_), predicate_(rhs.predicate_)
 {
-
+	if (first_edge_.IsLaterThan(last_edge_)) {
+		throw std::invalid_argument("First edge of the request can't be earlier than the last edge.\n");
+	}
 }
 
 void Request::AugmentFirstEdgeByConfig(TimeHolder* first_edge)

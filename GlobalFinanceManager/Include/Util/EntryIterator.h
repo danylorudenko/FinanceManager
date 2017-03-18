@@ -22,9 +22,22 @@ public:
 
 	EntryIterator(container* target_container, const Request& request);
 
-	//EntryIterator(const EntryIterator& rhs);
+	EntryIterator(const EntryIterator& rhs);
 
 	value_type& operator*();
+
+	//value_type* operator->();
+
+	EntryIterator& operator=(const EntryIterator& rhs);
+
+	operator bool() const;
+
+	bool operator==(const EntryIterator& rhs) const;
+	bool operator!=(const EntryIterator& rhs) const;
+	bool operator<(const EntryIterator& rhs) const;
+	bool operator<=(const EntryIterator& rhs) const;
+	bool operator>(const EntryIterator& rhs) const;
+	bool operator>=(const EntryIterator& rhs) const;
 
 	EntryIterator& operator++();
 

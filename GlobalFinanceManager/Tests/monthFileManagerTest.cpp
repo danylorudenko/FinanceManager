@@ -12,11 +12,13 @@ int main()
 
 	file_manager->ReadFileToBuffer();
 
-	MonthFileManager::iterator buffer_iter = file_manager->Begin(*request);
+	MonthFileManager::iterator buffer_begin = file_manager->Begin(*request);
 
 	try {
-		std::cout << (*buffer_iter).Serialize << std::endl;
-		buffer_iter++;
+		MonthFileManager::iterator buffer_end = file_manager->End(*request);
+		for (auto iter = buffer_begin; iter != buffer_end; iter++) {
+			std::cout << (*iter).Serialize() << std::endl;
+		}
 	}
 	catch (std::length_error e) {
 		std::cout << e.what() << std::endl;

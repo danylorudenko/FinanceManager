@@ -5,3 +5,6 @@
 [13.2.117|Sample category5|5410|Sample description5]
 [16.2.117|Sample category6|7852140|Sample description6]
 [17.2.117|Sample category7|70|Sample description7]
+[18.2.117|Sample category8|80|Sample description8]
+[18.2.117|Sample category9|90|Sample description9]
+[18.2.117|Sample category10|1000|Sample description10]
