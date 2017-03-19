@@ -9,7 +9,6 @@
 
 class CommandManager
 {
-
 public:
 	// Access to the singletone instance
 	static CommandManager& Instance();

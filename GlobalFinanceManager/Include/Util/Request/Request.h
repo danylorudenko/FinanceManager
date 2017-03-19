@@ -1,9 +1,8 @@
 #ifndef __REQUEST_H__
 #define __REQUEST_H__
 
-#include "..\..\Include\Enums\Direction.h"
-#include "..\..\Include\Entry\FinanceEntry.h"
-#include "..\..\Include\Managers\ConfigFileManager.h"
+#include "..\..\..\Include\Entry\FinanceEntry.h"
+#include "..\..\..\Include\Managers\ConfigFileManager.h"
 
 using FinancePredicate = bool(*)(const FinanceEntry& entry);
 
@@ -17,13 +16,22 @@ using FinancePredicate = bool(*)(const FinanceEntry& entry);
 class Request
 {
 public:
+	// Shortuct for constructing proper request for N days from today 
+	// (concerning config limits)
 	static Request* LastDays(int days = 1);
+
+	// Shortuct for constructing proper request for N Weeks from today 
+	// (concerning config limits)
 	static Request* LastWeeks(int weeks = 1);
+
+	// Shortuct for constructing proper request for (N * 30) days from today 
+	// (concerning config limits)
 	static Request* LastMonths(int months = 1);
 
 public:
 	Request(const Request& rhs);
 	
+	// Check of Entry is valid for this request
 	bool IsValid(const FinanceEntry& entry) const;
 
 	const TimeHolder& GetFirstEdge() const;
@@ -33,6 +41,7 @@ protected:
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge);
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const FinancePredicate predicate);
 
+	// Augmenting first endge of the request so it doesn't overthrow existing data
 	static void AugmentFirstEdgeByConfig(TimeHolder* first_edge);
 
 	TimeHolder first_edge_;

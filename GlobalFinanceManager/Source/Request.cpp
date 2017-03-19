@@ -1,6 +1,6 @@
 #include <exception>
 
-#include "..\Include\Util\Request.h"
+#include "..\Include\Util\Request\Request.h"
 
 Request* Request::LastDays(int days)
 {

@@ -90,7 +90,7 @@ std::string TimeHolder::Serialize() const
 	return serializedStringStream.str();
 }
 
-void TimeHolder::EditDate(int mDay, int month, int year)
+void TimeHolder::SetDate(int mDay, int month, int year)
 {
 	day_in_month_ = mDay;
 	month_ = MonthConverter::IntToMonth(month);
@@ -191,20 +191,6 @@ TimeHolder TimeHolder::operator*(const int rhs) const
 	time_t this_since_epoch = GetSecondsSinceEpoch();
 
 	return TimeHolder(this_since_epoch * rhs);
-}
-
-void TimeHolder::ToMin()
-{
-	day_in_month_ = INT_MIN;
-	month_ = Month::Jan;
-	year_ = INT_MIN;
-}
-
-void TimeHolder::ToMax()
-{
-	day_in_month_ = INT_MAX;
-	month_ = Month::Dec;
-	year_ = INT_MAX;
 }
 
 int TimeHolder::GetDay() const

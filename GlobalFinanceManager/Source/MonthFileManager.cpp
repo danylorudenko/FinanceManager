@@ -10,7 +10,7 @@ MonthFileManager::MonthFileManager(const std::string& file_name, const entry_bin
 
 }
 
-void MonthFileManager::ConstructFile() const
+void MonthFileManager::CreateFile() const
 {
 	std::ofstream stream(file_name_);
 	stream.close();
@@ -21,7 +21,7 @@ void MonthFileManager::ReadFileToBuffer()
 	std::ifstream* file_stream = new std::ifstream(file_name_, std::ios_base::in);
 	
 	if (!file_stream->is_open()) {
-		ConstructFile();
+		CreateFile();
 		file_stream->clear();
 		file_stream->open(file_name_);
 	}

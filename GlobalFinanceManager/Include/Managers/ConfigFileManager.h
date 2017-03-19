@@ -13,8 +13,13 @@
 class ConfigFileManager
 {
 public:
+
+	// Returns object containing configuration info
 	static const ConfigInfo* const GetConfigInfo();
-	static void LogNewTime(const TimeHolder& time);
+
+	// Attempt to write new time edge to the config file.
+	// The time will be written if it is earlier than time in the file
+	static void TryWriteNewTime(const TimeHolder& time);
 
 private:
 	// Reading configuration data directly from the file + updating local config data

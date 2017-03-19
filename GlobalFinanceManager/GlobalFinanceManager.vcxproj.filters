@@ -4,7 +4,6 @@
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
-    <ClCompile Include="Source\DataManager.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
@@ -31,7 +30,6 @@
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
     <ClInclude Include="Include\Util\FileNames.h" />
-    <ClInclude Include="Include\Util\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />
     <ClInclude Include="Include\Enums\CommandType.h" />
@@ -39,6 +37,7 @@
     <ClInclude Include="Include\Time\TimeHolder.h" />
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Managers\GlobalManager.h" />
+    <ClInclude Include="Include\Util\Request\Request.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />

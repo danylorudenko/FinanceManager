@@ -78,7 +78,7 @@ ConfigInfo* ConfigFileManager::ReadConfigFromFile()
 	}
 }
 
-void ConfigFileManager::LogNewTime(const TimeHolder& time)
+void ConfigFileManager::TryWriteNewTime(const TimeHolder& time)
 {
 	// Construction of the new config string according to the new last time
 	const ConfigInfo* config_info = ConfigFileManager::GetConfigInfo();

@@ -28,6 +28,7 @@ public:
 
 	EntryIterator& operator=(const EntryIterator& rhs);
 
+	// Is iterator valid to be dereferenced?
 	bool IsValid() const;
 	
 	bool operator==(const EntryIterator& rhs) const;
