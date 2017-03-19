@@ -136,10 +136,9 @@
     <ClCompile Include="Tests\timeHolderTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Enums\Direction.h" />
     <ClInclude Include="Include\Enums\Month.h" />
     <ClInclude Include="Include\Managers\ConfigFileManager.h" />
-    <ClInclude Include="Include\Managers\DataManager.h" />
+    <ClInclude Include="Include\Managers\GlobalManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />

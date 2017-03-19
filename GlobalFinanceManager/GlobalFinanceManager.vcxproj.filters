@@ -26,10 +26,8 @@
     <ClCompile Include="Tests\monthFileManagerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Enums\Direction.h" />
     <ClInclude Include="Include\Enums\Month.h" />
     <ClInclude Include="Include\Managers\ConfigFileManager.h" />
-    <ClInclude Include="Include\Managers\DataManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
     <ClInclude Include="Include\Util\FileNames.h" />
@@ -40,6 +38,7 @@
     <ClInclude Include="Include\Entry\FinanceEntry.h" />
     <ClInclude Include="Include\Time\TimeHolder.h" />
     <ClInclude Include="Include\Util\EntryIterator.h" />
+    <ClInclude Include="Include\Managers\GlobalManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />

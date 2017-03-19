@@ -3,7 +3,7 @@
 #include "..\Include\Managers\MonthFileManager.h"
 #include "..\Include\Util\FileNames.h"
 
-int main()
+int monthFileManagermain()
 {
 	auto* request = Request::LastWeeks(2);
 	auto* file_names = FileNames::ConstructFileNames(request);

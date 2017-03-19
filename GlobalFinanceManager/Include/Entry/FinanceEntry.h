@@ -13,8 +13,11 @@ public:
 	FinanceEntry() = default;
 	FinanceEntry(const FinanceEntry& anotherEntry) = default;
 	FinanceEntry(const std::string& category, const int sum,  const std::string& description);
-	FinanceEntry(const std::string& source_string);
 
+	// Constructs FinanceEntry instance from the formatted string from the file
+	explicit FinanceEntry(const std::string& source_string);
+
+	// Serializes instance to the string ready to be written in file
 	std::string Serialize() const;
 
 	void SetCategory(const std::string& categoryNew);

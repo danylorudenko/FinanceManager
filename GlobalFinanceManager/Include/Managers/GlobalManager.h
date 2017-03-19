@@ -11,7 +11,7 @@
 	In the future it should get the request, construct the list of files to open,
 	construct according file managers and parse the request further.
 */
-class DataManager
+class GlobalManager
 {
 
 };
