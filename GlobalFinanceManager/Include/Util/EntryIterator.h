@@ -26,8 +26,6 @@ public:
 
 	value_type& operator*();
 
-	//value_type* operator->();
-
 	EntryIterator& operator=(const EntryIterator& rhs);
 
 	bool IsValid() const;
@@ -41,6 +39,9 @@ public:
 
 	EntryIterator& operator++();
 	EntryIterator& operator--();
+
+	EntryIterator operator+(const int rhs);
+	EntryIterator operator-(const int rhs);
 
 	// Should prefer prefix operator, than this to avoid unnecessary stack usage.
 	EntryIterator operator++(int);
@@ -59,7 +60,7 @@ public:
 
 	~EntryIterator();
 
-private:
+protected:
 
 	size_t current_index_;
 

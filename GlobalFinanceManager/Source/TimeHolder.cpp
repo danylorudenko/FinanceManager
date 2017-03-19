@@ -117,7 +117,7 @@ bool TimeHolder::IsToday() const
 
 bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 {
-	if (this->GetSecondsSinceEpoch() > other_holder.GetSecondsSinceEpoch()) {
+	if (this->GetSecondsSinceEpoch() >= other_holder.GetSecondsSinceEpoch()) {
 		return true;
 	}
 
@@ -126,7 +126,11 @@ bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 
 bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
 {
-	return !(TimeHolder::IsLaterThan(other_holder));
+	if (this->GetSecondsSinceEpoch() <= other_holder.GetSecondsSinceEpoch()) {
+		return true;
+	}
+
+	return false;
 }
 
 bool TimeHolder::operator<(const TimeHolder& rhs) const

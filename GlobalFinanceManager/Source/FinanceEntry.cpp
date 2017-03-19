@@ -4,8 +4,6 @@
 #include <exception>
 #include <regex>
 
-const char FinanceEntry::entryStringTerminator = '\0';
-
 FinanceEntry::FinanceEntry(const std::string& category, const int sum, const std::string& description) :
 	category_(category), sum_(sum), description_(description) { }
 
@@ -56,19 +54,39 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 	}
 }
 
-void FinanceEntry::EditCategory(const std::string& category)
+void FinanceEntry::SetCategory(const std::string& category)
 {
 	category_ = category;
 }
 
-void FinanceEntry::EditDescription(const std::string& description)
+void FinanceEntry::SetDescription(const std::string& description)
 {
 	description_ = description;
 }
 
-void FinanceEntry::EditSum(const int sum)
+void FinanceEntry::SetSum(const int sum)
 {
 	sum_ = sum;
+}
+
+const TimeHolder& FinanceEntry::GetTime() const
+{
+	return time_;
+}
+
+int FinanceEntry::GetSum() const
+{
+	return sum_;
+}
+
+const std::string& FinanceEntry::GetDescription() const
+{
+	return description_;
+}
+
+const std::string& FinanceEntry::GetCategory() const
+{
+	return category_;
 }
 
 bool FinanceEntry::IsExpence() const
@@ -119,4 +137,19 @@ std::string FinanceEntry::Serialize() const
 
 	serailizedStringStream << ']';
 	return serailizedStringStream.str();
+}
+
+bool FinanceEntry::DateLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs)
+{
+	return lhs.IsEarlierThan(rhs);
+}
+
+bool FinanceEntry::SumLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs)
+{
+	return lhs.GetSum() < rhs.GetSum();
+}
+
+bool FinanceEntry::CategoryLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs)
+{
+	return lhs.category_ < rhs.category_;
 }

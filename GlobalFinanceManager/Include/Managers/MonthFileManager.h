@@ -8,8 +8,6 @@
 #include "..\..\Include\Entry\FinanceEntry.h"
 #include "..\..\Include\Util\Request.h"
 
-using EntryID = unsigned int;
-
 class EntryIterator;
 
 /*
@@ -25,16 +23,12 @@ class MonthFileManager
 public:
 	using iterator = EntryIterator;
 	using container_type = std::vector<FinanceEntry>;
+	using entry_binary_predicate = bool(*)(const FinanceEntry& lhs, const FinanceEntry& rhs);
 
-	MonthFileManager(const std::string& file_name);
-
-	void ConstructFile() const;
-
-	// Providing id-interface to access the elements of the buffer
-	//void RequestEntries(const Request& request); // REVIEW
+	MonthFileManager(const std::string& file_name, const entry_binary_predicate sorting_predicate = FinanceEntry::DateLessPredicate);
 
 	// Adding entry to the buffer
-	//void AddEntryToBuffer(FinanceEntry& new_entry);
+	void AddEntryToBuffer(const FinanceEntry& new_entry);
 
 	// Reading whole file to the buffer
 	void ReadFileToBuffer();
@@ -42,25 +36,22 @@ public:
 	// Complete rewriting the file from the buffer
 	void RewriteFileFromBuffer();
 
-	// Buffer sorting
+	// Soring buffer with the predicate field
 	void SortBuffer();
+
+	void SetSotringPredicate(const entry_binary_predicate predicate);
 
 	iterator Begin(const Request& request);
 	iterator End(const Request& request);
 
-	void EditEntrySum(EntryID buffer_index, int new_sum);
-	void EditEntryCategory(EntryID buffer_index, std::string& new_category);
-	void EditEntryDescription(EntryID buffer_index, std::string& new_description);
-
-	void TestDisplay() const;
+private:
+	void ConstructFile() const;
 
 private:
 	const std::string file_name_;
 
-	bool is_interface_dirty_;
-	//std::vector<EntryID> entries_interface_buffer_;
-
 	container_type entries_buffer_;
+	entry_binary_predicate sorting_predicate_;
 };
 
 #endif

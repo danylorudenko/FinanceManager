@@ -4,8 +4,8 @@
 #include "..\Include\Managers\MonthFileManager.h"
 #include "..\Include\Util\EntryIterator.h"
 
-MonthFileManager::MonthFileManager(const std::string& file_name) : 
-	file_name_(file_name), is_interface_dirty_(true)
+MonthFileManager::MonthFileManager(const std::string& file_name, const entry_binary_predicate sorting_predicate) : 
+	file_name_(file_name), sorting_predicate_(sorting_predicate)
 {
 
 }
@@ -51,21 +51,8 @@ void MonthFileManager::ReadFileToBuffer()
 	delete file_stream;
 }
 
-//void MonthFileManager::RequestEntries(const Request& request)
-//{
-//	entries_interface_buffer_.clear();
-//
-//	size_t entry_buffer_size = entries_buffer_.size();
-//	for (size_t i = 0; i < entry_buffer_size; i++) {
-//		if (request.IsValid(entries_buffer_[i])) {
-//			entries_interface_buffer_.push_back(i);
-//		}
-//	}
-//}
-
 void MonthFileManager::RewriteFileFromBuffer()
 {
-	
 	std::fstream file_stream(file_name_, std::ios_base::trunc | std::ios_base::out);
 
 	std::fstream *file_stream_pointer = &file_stream;
@@ -79,7 +66,16 @@ void MonthFileManager::RewriteFileFromBuffer()
 
 void MonthFileManager::SortBuffer() 
 {
-	std::cout << "MonthFileManager::SortBuffer() is not ready yet!\n";
+	if (entries_buffer_.size() == 0) {
+		return;
+	}
+
+	std::sort(entries_buffer_.begin(), entries_buffer_.end(), sorting_predicate_);
+}
+
+void MonthFileManager::SetSotringPredicate(const entry_binary_predicate sorting_predicate)
+{
+	sorting_predicate_ = sorting_predicate;
 }
 
 MonthFileManager::iterator MonthFileManager::Begin(const Request& request)
@@ -92,40 +88,7 @@ MonthFileManager::iterator MonthFileManager::End(const Request& request)
 	return iterator(&entries_buffer_, request).ToEnd();
 }
 
-void MonthFileManager::EditEntrySum(EntryID buffer_index, int new_sum)
+void MonthFileManager::AddEntryToBuffer(const FinanceEntry& entry)
 {
-	try {
-		FinanceEntry& entry_reference = entries_buffer_.at(buffer_index);
-		entry_reference.EditSum(new_sum);
-	}
-	catch (std::out_of_range) {
-		std::cout << "Can't access " << buffer_index << " position in buffer.\n";
-	}
-}
-
-void MonthFileManager::EditEntryDescription(EntryID buffer_index, std::string& new_description)
-{
-	try {
-		FinanceEntry& entry_reference = entries_buffer_.at(buffer_index);
-		entry_reference.EditDescription(new_description);
-	}
-	catch (std::out_of_range) {
-		std::cout << "Can't access " << buffer_index << " position in buffer.\n";
-	}
-}
-
-void MonthFileManager::EditEntryCategory(EntryID buffer_index, std::string& new_category)
-{
-	try {
-		FinanceEntry& entry_reference = entries_buffer_.at(buffer_index);
-		entry_reference.EditCategory(new_category);
-	}
-	catch (std::out_of_range) {
-		std::cout << "Can't access " << buffer_index << " position in buffer.\n";
-	}
-}
-
-void MonthFileManager::TestDisplay() const
-{
-	//std::for_each(entries_buffer_.begin(), entries_buffer_.end(), [&](FinanceEntry entry) {entry.TestDisplay(); });
+	entries_buffer_.push_back(entry);
 }

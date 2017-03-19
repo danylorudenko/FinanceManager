@@ -21,8 +21,9 @@
     <ClCompile Include="Tests\constPtrTest.cpp" />
     <ClCompile Include="Tests\requestTest.cpp" />
     <ClCompile Include="Tests\fileNamesTest.cpp" />
-    <ClCompile Include="Tests\monthFileManagerTest.cpp" />
     <ClCompile Include="Source\EntryIterator.cpp" />
+    <ClCompile Include="Tests\iteratorFileManagerTest.cpp" />
+    <ClCompile Include="Tests\monthFileManagerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Direction.h" />

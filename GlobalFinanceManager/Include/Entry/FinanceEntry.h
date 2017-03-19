@@ -4,9 +4,6 @@
 #include <string>
 #include "..\..\Include\Time\TimeHolder.h"
 
-#include <string>
-
-
 /*
 	Class represents basic finance entry
 */
@@ -18,9 +15,16 @@ public:
 	FinanceEntry(const std::string& category, const int sum,  const std::string& description);
 	FinanceEntry(const std::string& source_string);
 
-	void EditCategory(const std::string& categoryNew);
-	void EditSum(const int newSum);
-	void EditDescription(const std::string& newDescription);
+	std::string Serialize() const;
+
+	void SetCategory(const std::string& categoryNew);
+	void SetSum(const int newSum);
+	void SetDescription(const std::string& newDescription);
+
+	const TimeHolder& GetTime() const;
+	int GetSum() const;
+	const std::string& GetCategory() const;
+	const std::string& GetDescription() const;
 
 	// Does this record has negative sum value?
 	bool IsExpence() const;
@@ -29,10 +33,11 @@ public:
 	bool IsEarlierThan(const FinanceEntry& anotherEntry) const;
 	bool IsEarlierThan(const TimeHolder& time) const;
 
-	std::string Serialize() const;
+	static bool DateLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs);
+	static bool SumLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs);
+	static bool CategoryLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs);
 
 protected:
-	static const char entryStringTerminator;
 	
 	TimeHolder time_;
 	int sum_;
