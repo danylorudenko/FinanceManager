@@ -3,7 +3,7 @@
 
 #include "..\..\..\Include\Entry\FinanceEntry.h"
 #include "..\..\..\Include\Managers\ConfigFileManager.h"
-#include "..\..\..\Include\Util\Request\AComplexBinaryPredicate.h"
+#include "..\..\..\Include\Util\Request\ComplexPredicate\TimeEdgePredicate.h"
 
 /*
 	This class represents a user request to the manager.
@@ -28,8 +28,6 @@ public:
 	static Request* LastMonths(int months = 1);
 
 public:
-	Request(const Request& rhs);
-	
 	// Check of Entry is valid for this request
 	bool IsValid(const FinanceEntry& entry) const;
 
@@ -37,19 +35,12 @@ public:
 	const TimeHolder& GetLastEdge() const;
 
 protected:
-	Request(const TimeHolder& first_edge, const TimeHolder& last_edge);
-	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const AComplexBinaryPredicate* predicate);
+	Request(const TimeEdgePredicate* predicate);
 
 	~Request();
 
-	// Augmenting first endge of the request so it doesn't overthrow existing data
-	static void AugmentFirstEdgeByConfig(TimeHolder* first_edge);
-
-	TimeHolder first_edge_;
-	TimeHolder last_edge_;
-
 	// Object is responsible for deleting it
-	const AComplexBinaryPredicate* predicate_;
+	const AComplexPredicate* predicate_;
 };
 
 #endif

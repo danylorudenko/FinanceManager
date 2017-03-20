@@ -23,8 +23,10 @@
     <ClCompile Include="Source\EntryIterator.cpp" />
     <ClCompile Include="Tests\iteratorFileManagerTest.cpp" />
     <ClCompile Include="Tests\monthFileManagerTest.cpp" />
-    <ClCompile Include="Source\AComplexBinaryPredicate.cpp" />
-    <ClCompile Include="Source\CategoryBinaryPredicate.cpp" />
+    <ClCompile Include="Source\AComplexPredicate.cpp" />
+    <ClCompile Include="Source\CategoryPredicate.cpp" />
+    <ClCompile Include="Source\SumTypePredicate.cpp" />
+    <ClCompile Include="Source\TimeEdgePredicate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
@@ -40,8 +42,11 @@
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Managers\GlobalManager.h" />
     <ClInclude Include="Include\Util\Request\Request.h" />
-    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\AComplexBinaryPredicate.h" />
-    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\CategoryBinaryPredicate.h" />
+    <ClInclude Include="Include\Enums\EntrySumType.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\AComplexPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\CategoryPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\SumTypePredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\TimeEdgePredicate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />

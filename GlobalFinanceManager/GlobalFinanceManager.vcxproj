@@ -111,8 +111,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\AComplexBinaryPredicate.cpp" />
-    <ClCompile Include="Source\CategoryBinaryPredicate.cpp" />
+    <ClCompile Include="Source\AComplexPredicate.cpp" />
+    <ClCompile Include="Source\CategoryPredicate.cpp" />
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
@@ -123,6 +123,8 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MonthFileManager.cpp" />
     <ClCompile Include="Source\Request.cpp" />
+    <ClCompile Include="Source\SumTypePredicate.cpp" />
+    <ClCompile Include="Source\TimeEdgePredicate.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
     <ClCompile Include="Tests\configTest.cpp" />
     <ClCompile Include="Tests\constPtrTest.cpp" />
@@ -137,6 +139,7 @@
     <ClCompile Include="Tests\timeHolderTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Enums\EntrySumType.h" />
     <ClInclude Include="Include\Enums\Month.h" />
     <ClInclude Include="Include\Managers\ConfigFileManager.h" />
     <ClInclude Include="Include\Managers\GlobalManager.h" />
@@ -144,8 +147,10 @@
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
     <ClInclude Include="Include\Util\FileNames.h" />
-    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\AComplexBinaryPredicate.h" />
-    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\CategoryBinaryPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\AComplexPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\CategoryPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\SumTypePredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\TimeEdgePredicate.h" />
     <ClInclude Include="Include\Util\Request\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />
