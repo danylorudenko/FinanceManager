@@ -23,6 +23,8 @@
     <ClCompile Include="Source\EntryIterator.cpp" />
     <ClCompile Include="Tests\iteratorFileManagerTest.cpp" />
     <ClCompile Include="Tests\monthFileManagerTest.cpp" />
+    <ClCompile Include="Source\AComplexBinaryPredicate.cpp" />
+    <ClCompile Include="Source\CategoryBinaryPredicate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
@@ -38,6 +40,8 @@
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Managers\GlobalManager.h" />
     <ClInclude Include="Include\Util\Request\Request.h" />
+    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\AComplexBinaryPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\CategoryBinaryPredicate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />

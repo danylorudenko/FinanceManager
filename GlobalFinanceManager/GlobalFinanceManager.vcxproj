@@ -111,6 +111,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\AComplexBinaryPredicate.cpp" />
+    <ClCompile Include="Source\CategoryBinaryPredicate.cpp" />
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
@@ -142,6 +144,8 @@
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
     <ClInclude Include="Include\Util\FileNames.h" />
+    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\AComplexBinaryPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexBinaryPredicate\CategoryBinaryPredicate.h" />
     <ClInclude Include="Include\Util\Request\Request.h" />
     <ClInclude Include="Include\Time\MonthConverter.h" />
     <ClInclude Include="Include\Managers\CommandManager.h" />

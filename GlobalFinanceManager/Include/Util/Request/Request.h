@@ -3,8 +3,7 @@
 
 #include "..\..\..\Include\Entry\FinanceEntry.h"
 #include "..\..\..\Include\Managers\ConfigFileManager.h"
-
-using FinancePredicate = bool(*)(const FinanceEntry& entry);
+#include "..\..\..\Include\Util\Request\AComplexBinaryPredicate.h"
 
 /*
 	This class represents a user request to the manager.
@@ -39,14 +38,18 @@ public:
 
 protected:
 	Request(const TimeHolder& first_edge, const TimeHolder& last_edge);
-	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const FinancePredicate predicate);
+	Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const AComplexBinaryPredicate* predicate);
+
+	~Request();
 
 	// Augmenting first endge of the request so it doesn't overthrow existing data
 	static void AugmentFirstEdgeByConfig(TimeHolder* first_edge);
 
 	TimeHolder first_edge_;
 	TimeHolder last_edge_;
-	FinancePredicate predicate_;
+
+	// Object is responsible for deleting it
+	const AComplexBinaryPredicate* predicate_;
 };
 
 #endif

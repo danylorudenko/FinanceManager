@@ -42,7 +42,7 @@ Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge) :
 	}
 }
 
-Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge, FinancePredicate predicate) :
+Request::Request(const TimeHolder& first_edge, const TimeHolder& last_edge, const AComplexBinaryPredicate* predicate) :
 	first_edge_(first_edge), 
 	last_edge_(last_edge), 
 	predicate_(predicate) 
@@ -60,6 +60,11 @@ Request::Request(const Request& rhs) :
 	}
 }
 
+Request::~Request()
+{
+	delete predicate_;
+}
+
 void Request::AugmentFirstEdgeByConfig(TimeHolder* first_edge)
 {
 	const ConfigInfo* config_info = ConfigFileManager::GetConfigInfo();
@@ -73,7 +78,7 @@ void Request::AugmentFirstEdgeByConfig(TimeHolder* first_edge)
 
 bool Request::IsValid(const FinanceEntry& entry) const {
 	
-	if (predicate_ != nullptr && !predicate_(entry)) {
+	if (predicate_ != nullptr && !predicate_->IsValid(entry)) {
 		return false;
 	}
 
