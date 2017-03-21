@@ -9,10 +9,10 @@ class SumTypePredicate : public AComplexPredicate
 public:
 	virtual bool IsValid(const FinanceEntry& entry) const;
 
-	SumTypePredicate(const EntrySumType type);
+	SumTypePredicate(const EntrySumType type, AComplexPredicate* next_component = nullptr);
 
 protected:
-	EntrySumType type_;
+	const EntrySumType type_;
 };
 
 #endif

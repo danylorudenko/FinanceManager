@@ -3,40 +3,25 @@
 #include <regex>
 #include <string>
 
-int notmain4627()
+int regexmain()
 {
-	std::string strObj;
-	
-	std::ifstream inFile("Tests\\tagSample.txt", std::ios_base::in | std::ios_base::beg);
-	if (!inFile.is_open()) {
-		std::cout << "Error opening file\n";
-	}
-
-	std::string buffer;
-	while (!inFile.eof()) {
-		std::getline(inFile, buffer);
-		strObj += buffer;
-	}
-	inFile.close();
-
-	std::cout << strObj << std::endl;
+	std::string strObj("5698");
 	
 	std::cmatch result;
 
 	std::regex regularTag(
-		"(<root>)"
-		"([\\s\\S]+)"
-		"(<\/root>)"
+		"(-?)"
+		"([\\d]+)"
 	);
 
-	if (std::regex_search(strObj.c_str(), result, regularTag)) {
+	/*if (std::regex_search(strObj.c_str(), result, regularTag)) {
 		for (int i = 0; i < result.size(); i++) {
 			std::cout << result[i] << std::endl;
 		}
 	}
 	else {
 		std::cout << "False\n";
-	}
+	}*/
 
 	system("PAUSE");
 	return 0;

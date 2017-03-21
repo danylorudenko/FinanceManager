@@ -4,7 +4,8 @@
 
 int iteratormain()
 {
-	Request* request = Request::LastDays(3);
+	TimeEdgePredicate* time_predicate = TimeEdgePredicate::LastDays(3);
+	Request* request = new Request(time_predicate);
 
 	StringVector* file_names = FileNames::ConstructFileNames(request);
 
@@ -12,7 +13,7 @@ int iteratormain()
 
 	file_manager->ReadFileToBuffer();
 
-	auto buffer_begin = file_manager->Begin(*request);
+	auto buffer_begin = file_manager->Begin(request);
 
 	try {
 		auto buffer_2 = (buffer_begin + 1);

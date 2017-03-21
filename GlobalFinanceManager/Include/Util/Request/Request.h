@@ -15,32 +15,23 @@
 class Request
 {
 public:
-	// Shortuct for constructing proper request for N days from today 
-	// (concerning config limits)
-	static Request* LastDays(int days = 1);
+	// Request is responsible for deleting predicate memory
+	Request(const TimeEdgePredicate* predicate);
 
-	// Shortuct for constructing proper request for N Weeks from today 
-	// (concerning config limits)
-	static Request* LastWeeks(int weeks = 1);
-
-	// Shortuct for constructing proper request for (N * 30) days from today 
-	// (concerning config limits)
-	static Request* LastMonths(int months = 1);
-
-public:
 	// Check of Entry is valid for this request
 	bool IsValid(const FinanceEntry& entry) const;
+
+	// Decorating internal complex predicate
+	void Decorate(AComplexPredicate* next_component);
 
 	const TimeHolder& GetFirstEdge() const;
 	const TimeHolder& GetLastEdge() const;
 
-protected:
-	Request(const TimeEdgePredicate* predicate);
-
 	~Request();
+protected:
 
 	// Object is responsible for deleting it
-	const AComplexPredicate* predicate_;
+	TimeEdgePredicate* time_predicate_;
 };
 
 #endif

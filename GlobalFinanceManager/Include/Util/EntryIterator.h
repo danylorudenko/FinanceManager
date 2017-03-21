@@ -1,13 +1,11 @@
-#ifndef __BUFFER_ITERATOR_H__
-#define __BUFFER_ITERATOR_H__
-
-#include <stdexcept>
+#ifndef __ENTRY_ITERATOR_H__
+#define __ENTRY_ITERATOR_H__
 
 #include "..\..\Include\Managers\MonthFileManager.h"
 
 /*
 	Template for accessing finance entries contaiters of type T according to the passed request.
-	Request is copied and stored inside the iterator.
+	Request is not responsible for freing memory on member pointers
 
 	If iterator somehow became invalid, it's index is set to (-1) 
 	and std::length_exception is thrown.
@@ -20,7 +18,8 @@ public:
 	using container = typename MonthFileManager::container_type;
 	using value_type = typename MonthFileManager::container_type::value_type;
 
-	EntryIterator(container* target_container, const Request& request);
+	// Iterator is not responsible for freeing the memory
+	EntryIterator(container* target_container, const Request* request);
 
 	EntryIterator(const EntryIterator& rhs);
 
@@ -68,8 +67,8 @@ protected:
 	// This members follows awareness principal of target container, not ownage.
 	container* target_container_p_;
 
-	// Points to owned copied request to validate entries in target container
-	Request* request_;
+	// Points to request to validate entries in target container
+	const Request* request_;
 
 };
 

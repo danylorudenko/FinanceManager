@@ -7,10 +7,14 @@ bool SumTypePredicate::IsValid(const FinanceEntry& entry) const
 		return false;
 	}
 
+	if (next_component_ == nullptr) {
+		return true;
+	}
 	return next_component_->IsValid(entry);
 }
 
-SumTypePredicate::SumTypePredicate(const EntrySumType type) : type_(type)
+SumTypePredicate::SumTypePredicate(const EntrySumType type, AComplexPredicate* next_component) : 
+	AComplexPredicate(next_component), type_(type)
 {
 
 }

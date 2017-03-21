@@ -1,12 +1,17 @@
 #include <iostream>
 #include "..\Include\Util\EntryIterator.h"
+#include "..\Include\Util\Request\ComplexPredicate\SumTypePredicate.h"
 #include "..\Include\Managers\MonthFileManager.h"
 #include "..\Include\Util\FileNames.h"
 
-int monthFileManagermain()
+int main()
 {
-	auto* request = Request::LastWeeks(2);
-	auto* file_names = FileNames::ConstructFileNames(request);
+	TimeEdgePredicate* time_predicate = TimeEdgePredicate::LastWeeks(2);
+
+	Request* request = new Request(time_predicate);
+	request->Decorate(new SumTypePredicate(EntrySumType::Income));
+
+	StringVector* file_names = FileNames::ConstructFileNames(request);
 
 	MonthFileManager* manager = new MonthFileManager((*file_names)[0]);
 
@@ -14,8 +19,8 @@ int monthFileManagermain()
 
 	manager->SortBuffer();
 
-	auto iter_begin = manager->Begin(*request);
-	auto iter_end = manager->End(*request);
+	auto iter_begin = manager->Begin(request);
+	auto iter_end = manager->End(request);
 
 	try {
 		int counter = 1;
@@ -38,8 +43,8 @@ int monthFileManagermain()
 		manager->RewriteFileFromBuffer();
 		manager->ReadFileToBuffer();
 
-		iter_begin = manager->Begin(*request);
-		iter_end = manager->End(*request);
+		iter_begin = manager->Begin(request);
+		iter_end = manager->End(request);
 
 		counter = 1;
 		for (auto i = iter_begin; i < iter_end; ++i) {
@@ -51,6 +56,10 @@ int monthFileManagermain()
 	catch (std::length_error e) {
 		std::cout << e.what() << std::endl;
 	}
+
+	delete manager;
+	delete file_names;
+	delete request;
 
 	std::cout << "\n\n";
 	system("pause");

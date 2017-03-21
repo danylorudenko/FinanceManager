@@ -23,12 +23,12 @@ class MonthFileManager
 public:
 	using iterator = EntryIterator;
 	using container_type = std::vector<FinanceEntry>;
-	using entry_binary_predicate = bool(*)(const FinanceEntry& lhs, const FinanceEntry& rhs);
+	using entry_predicate = bool(*)(const FinanceEntry& lhs, const FinanceEntry& rhs);
 
 	// Constructing manager of the month file. 
 	// Name can't be changed after instantiation.
 	// Default sorting binary predicate is FinanceEntry::DateLessPredicate
-	MonthFileManager(const std::string& file_name, const entry_binary_predicate sorting_predicate = FinanceEntry::DateLessPredicate);
+	MonthFileManager(const std::string& file_name, const entry_predicate sorting_predicate = FinanceEntry::DateLessPredicate);
 
 	// Adding entry to the buffer
 	void AddEntryToBuffer(const FinanceEntry& new_entry);
@@ -43,18 +43,18 @@ public:
 	void SortBuffer();
 
 	// Setting sorting predicate for FinanceEntries.
-	// Predefined binary static predicates are in FinanceEntry:: scope
-	void SetSotringPredicate(const entry_binary_predicate predicate);
+	// Predefined static predicates are in FinanceEntry:: scope
+	void SetSotringPredicate(const entry_predicate predicate);
 
 	// Constructing entry iteratator which points to the first valid entry
 	// If there is no valid entry, iterator is invalid.
 	// In this case when dereferencing std::lenth_error exception is thrown
-	iterator Begin(const Request& request);
+	iterator Begin(const Request* request);
 
 	// Constructing entry iteratator which points to (last + 1) valid entry
 	// If there is no valid entry, iterator is invalid.
 	// In this case when dereferencing std::lenth_error exception is thrown
-	iterator End(const Request& request);
+	iterator End(const Request* request);
 
 private:
 	// Creating file with constant member string
@@ -64,7 +64,7 @@ private:
 	const std::string file_name_;
 
 	container_type entries_buffer_;
-	entry_binary_predicate sorting_predicate_;
+	entry_predicate sorting_predicate_;
 };
 
 #endif

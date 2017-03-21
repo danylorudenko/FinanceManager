@@ -15,7 +15,7 @@ public:
 	virtual ~AComplexPredicate();
 
 protected:
-	AComplexPredicate();
+	AComplexPredicate(AComplexPredicate* next_component = nullptr);
 
 	// Object is responsible for deleting components
 	AComplexPredicate* next_component_;

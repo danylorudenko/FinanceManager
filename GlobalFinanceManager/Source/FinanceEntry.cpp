@@ -21,10 +21,11 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 		"(\\|)"						//7
 		"(.+)"						//8
 		"(\\|)"						//9
-		"(\\d+)"					//10
-		"(\\|)"						//11
-		"(.+)"						//12
-		"(\\])"						//13
+		"(-?)"						//10
+		"(\\d+)"					//11
+		"(\\|)"						//12
+		"(.+)"						//13
+		"(\\])"						//14
 	);
 	std::cmatch result;
 	std::string buffer;
@@ -40,14 +41,14 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 
 		time_ = TimeHolder(buffer);
 
-		// 12 is index of the category string in the regex result
+		// 8 is index of the category string in the regex result
 		category_ = result[8].str();
 
-		// 14 is index of the sum string in the regex result
-		sum_ = std::stoi(result[10].str());
+		// 10 and 11 are indicies of the sum string in the regex result
+		sum_ = std::stoi(result[10].str() + result[11].str());
 
-		// 16 is index of the description string in the regex result
-		description_ = result[12].str();
+		// 13 is index of the description string in the regex result
+		description_ = result[13].str();
 	}
 	else {
 		throw std::invalid_argument("FinanceEntry constructor recieved invalid string to deserealize.");

@@ -1,15 +1,15 @@
 #include "..\Include\Util\EntryIterator.h"
 
-EntryIterator::EntryIterator(container* target_container, const Request& request) :
-	target_container_p_(target_container), current_index_(SIZE_MAX)
+EntryIterator::EntryIterator(container* target_container, const Request* request) :
+	target_container_p_(target_container), current_index_(SIZE_MAX), request_(request)
 {
-	request_ = new Request(request);
+	
 }
 
 EntryIterator::EntryIterator(const EntryIterator& rhs) :
-	target_container_p_(rhs.target_container_p_), current_index_(rhs.current_index_)
+	target_container_p_(rhs.target_container_p_), current_index_(rhs.current_index_), request_(rhs.request_)
 {
-	request_ = new Request(*rhs.request_);
+
 }
 
 bool EntryIterator::IsValid() const
@@ -25,7 +25,7 @@ EntryIterator& EntryIterator::operator=(const EntryIterator& rhs)
 
 	target_container_p_ = rhs.target_container_p_;
 	current_index_ = rhs.current_index_;
-	request_ = new Request(*rhs.request_);
+	request_ = rhs.request_;
 
 	return *this;
 }
@@ -238,5 +238,5 @@ EntryIterator& EntryIterator::ToEnd()
 
 EntryIterator::~EntryIterator()
 {
-	delete request_;
+	
 }

@@ -5,7 +5,8 @@
 
 int fileNmaesmain()
 {
-	Request* request = Request::LastMonths(1);
+	TimeEdgePredicate* time_predicate = TimeEdgePredicate::LastMonths();
+	Request* request = new Request(time_predicate);
 	
 	StringVector* names = FileNames::ConstructFileNames(request);
 

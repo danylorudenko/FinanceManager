@@ -4,7 +4,7 @@
 #include "..\Include\Managers\MonthFileManager.h"
 #include "..\Include\Util\EntryIterator.h"
 
-MonthFileManager::MonthFileManager(const std::string& file_name, const entry_binary_predicate sorting_predicate) : 
+MonthFileManager::MonthFileManager(const std::string& file_name, const entry_predicate sorting_predicate) :
 	file_name_(file_name), sorting_predicate_(sorting_predicate)
 {
 
@@ -73,17 +73,17 @@ void MonthFileManager::SortBuffer()
 	std::sort(entries_buffer_.begin(), entries_buffer_.end(), sorting_predicate_);
 }
 
-void MonthFileManager::SetSotringPredicate(const entry_binary_predicate sorting_predicate)
+void MonthFileManager::SetSotringPredicate(const entry_predicate sorting_predicate)
 {
 	sorting_predicate_ = sorting_predicate;
 }
 
-MonthFileManager::iterator MonthFileManager::Begin(const Request& request)
+MonthFileManager::iterator MonthFileManager::Begin(const Request* request)
 {
 	return iterator(&entries_buffer_, request).ToBegin();
 }
 
-MonthFileManager::iterator MonthFileManager::End(const Request& request)
+MonthFileManager::iterator MonthFileManager::End(const Request* request)
 {
 	return iterator(&entries_buffer_, request).ToEnd();
 }
