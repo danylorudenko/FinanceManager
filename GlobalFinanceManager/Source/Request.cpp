@@ -2,7 +2,7 @@
 
 #include "..\Include\Util\Request\Request.h"
 
-Request::Request(const TimeEdgePredicate* time_predicate) :
+Request::Request(TimeEdgePredicate* time_predicate) :
 	time_predicate_(time_predicate) 
 {
 

@@ -16,7 +16,7 @@ class Request
 {
 public:
 	// Request is responsible for deleting predicate memory
-	Request(const TimeEdgePredicate* predicate);
+	Request(TimeEdgePredicate* predicate);
 
 	// Check of Entry is valid for this request
 	bool IsValid(const FinanceEntry& entry) const;
