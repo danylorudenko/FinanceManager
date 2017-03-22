@@ -13,8 +13,27 @@
 class GlobalManager
 {
 public:
+	using EntryID = unsigned int;
+
+	void DisplayBalance(const Request* request);
+
+	void DisplayRecords(const Request* request);
+
+	void GlobalFind(const Request* request);
+
+	bool EditEntry(const EntryID id, std::string& params_string);
+
+	bool AddEntry(const std::string& params_string);
+
+protected:
+
+	// Checking if manager doesn't have needed file managers opened and opening them
+	void CheckNeenedFiles();
+
+	// Preper closing of files which are unused for a couple of requests
 	void CloseUnusedFiles();
 
+	// Deleting files with no data
 	void DeleteEmptyFiles();
 };
 
