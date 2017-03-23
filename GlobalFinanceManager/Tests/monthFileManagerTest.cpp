@@ -4,7 +4,7 @@
 #include "..\Include\Managers\MonthFileManager.h"
 #include "..\Include\Util\FileNames.h"
 
-int main()
+int monthFileManagermain()
 {
 	TimeEdgePredicate* time_predicate = TimeEdgePredicate::LastWeeks(2);
 

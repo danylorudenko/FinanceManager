@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Enums\EntrySumType.h" />
     <ClInclude Include="Include\Enums\Month.h" />
+    <ClInclude Include="Include\Application.h" />
     <ClInclude Include="Include\Managers\ConfigFileManager.h" />
     <ClInclude Include="Include\Managers\GlobalManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />

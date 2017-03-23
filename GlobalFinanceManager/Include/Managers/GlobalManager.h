@@ -15,20 +15,20 @@ class GlobalManager
 public:
 	using EntryID = unsigned int;
 
-	void DisplayBalance(const Request* request);
+	void DisplayBalance(const std::string& params);
 
-	void DisplayRecords(const Request* request);
+	void GetRecords(const std::string& params);
 
-	void GlobalFind(const Request* request);
+	void GlobalSearch(const std::string& params);
 
-	bool EditEntry(const EntryID id, std::string& params_string);
+	void EditEntry(const std::string& params);
 
-	bool AddEntry(const std::string& params_string);
+	void AddEntry(const std::string& params);
 
 protected:
 
 	// Checking if manager doesn't have needed file managers opened and opening them
-	void CheckNeenedFiles();
+	void CheckNeededFiles();
 
 	// Preper closing of files which are unused for a couple of requests
 	void CloseUnusedFiles();

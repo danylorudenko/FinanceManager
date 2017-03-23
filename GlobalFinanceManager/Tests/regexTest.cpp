@@ -3,7 +3,7 @@
 #include <regex>
 #include <string>
 
-int regexmain()
+int main()
 {
 	std::string strObj("5698");
 	
@@ -14,14 +14,14 @@ int regexmain()
 		"([\\d]+)"
 	);
 
-	/*if (std::regex_search(strObj.c_str(), result, regularTag)) {
+	if (std::regex_match(strObj.c_str(), result, regularTag)) {
 		for (int i = 0; i < result.size(); i++) {
 			std::cout << result[i] << std::endl;
 		}
 	}
 	else {
 		std::cout << "False\n";
-	}*/
+	}
 
 	system("PAUSE");
 	return 0;
