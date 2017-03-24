@@ -3,7 +3,7 @@
 #include <regex>
 #include <string>
 
-int main()
+int regexmain()
 {
 	std::string strObj("5698");
 	

@@ -27,6 +27,8 @@
     <ClCompile Include="Source\CategoryPredicate.cpp" />
     <ClCompile Include="Source\SumTypePredicate.cpp" />
     <ClCompile Include="Source\TimeEdgePredicate.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\GlobalManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />

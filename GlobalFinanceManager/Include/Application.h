@@ -8,6 +8,8 @@ class Application
 public:
 	bool Iterate();
 
+	static void Help();
+
 	Application();
 	~Application();
 

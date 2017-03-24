@@ -6,6 +6,7 @@
 #include <regex>
 #include "..\..\Include\Enums\CommandType.h"
 
+class GlobalManager;
 
 class CommandManager
 {
@@ -14,7 +15,7 @@ public:
 	// Inviting the user to write a command by the '$' symbol
 	// Recieving list of words in line command.
 	// Interpreting command args and calling appropriate command
-	static void GetUserCommand(GlobalManager& manager); 
+	static bool GetUserCommand(GlobalManager& manager); 
 
 private:
 	typedef void(GlobalManager::*ManagerDelegate)(const std::string&);

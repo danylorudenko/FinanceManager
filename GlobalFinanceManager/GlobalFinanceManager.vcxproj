@@ -112,12 +112,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AComplexPredicate.cpp" />
+    <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\CategoryPredicate.cpp" />
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
     <ClCompile Include="Source\EntryIterator.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
+    <ClCompile Include="Source\GlobalManager.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
     <ClCompile Include="Source\FinanceEntry.cpp" />
     <ClCompile Include="Source\main.cpp" />
