@@ -22,10 +22,32 @@ private:
 
 	static bool Invoke(GlobalManager& global_manager, const std::string& command_identifier, const std::string& command_params);
 
+	static bool AdvancedHelpHandler(const std::string& params);
+
 private:
-	// Array of valid commands keywords
-	static const std::map<std::string, ManagerDelegate> valid_commands_;
+	// Map of GlobalManager delegates
+	static const std::map<std::string, ManagerDelegate> commands_delegates_;
+
+	// Map of commands reference
+	static const std::map<std::string, std::string> commands_references_;
+
+	// Map of references to commands how-to-use
 	static const std::regex regex_user_input_;
+
+	static const std::string help_command_;
+
+	static const std::string balance_command_;
+	static const std::string get_command_;
+	static const std::string add_commnad_;
+	static const std::string search_command_;
+	static const std::string edit_command_;
+
+	static const std::string balance_command_reference_;
+	static const std::string get_command_reference_;
+	static const std::string add_command_reference_;
+	static const std::string search_command_reference_;
+	static const std::string edit_command_refernce_;
+
 };
 
 #endif

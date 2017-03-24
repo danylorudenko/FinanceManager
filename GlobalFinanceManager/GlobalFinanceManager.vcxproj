@@ -135,6 +135,7 @@
     <ClCompile Include="Tests\iteratorFileManagerTest.cpp" />
     <ClCompile Include="Tests\monthFileManagerTest.cpp" />
     <ClCompile Include="Tests\monthToDaysTest.cpp" />
+    <ClCompile Include="Tests\referenceTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
     <ClCompile Include="Tests\requestTest.cpp" />
     <ClCompile Include="Tests\streamFormattingTest.cpp" />

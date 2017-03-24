@@ -3,15 +3,36 @@
 #include "..\Include\Application.h"
 #include <iostream>
 
-//const std::array<std::string, 7> CommandManager::valid_commands_ = { "help", "balance", "add", "get", "search", "edit", "exit" };
+const std::string CommandManager::help_command_ = "help";
 
-const std::map<std::string, CommandManager::ManagerDelegate> CommandManager::valid_commands_ 
+const std::string CommandManager::balance_command_ = "balance";
+const std::string CommandManager::get_command_ = "get";
+const std::string CommandManager::add_commnad_ = "add";
+const std::string CommandManager::search_command_ = "search";
+const std::string CommandManager::edit_command_ = "edit";
+
+const std::string CommandManager::balance_command_reference_ = "HOW TO USE BALANCE";
+const std::string CommandManager::get_command_reference_ = "HOW TO USE GET";
+const std::string CommandManager::add_command_reference_ = "HOW TO USE ADD";
+const std::string CommandManager::search_command_reference_ = "HOW TO USER SEARCH";
+const std::string CommandManager::edit_command_refernce_ = "HOW TO USE EDIT";
+
+const std::map<std::string, CommandManager::ManagerDelegate> CommandManager::commands_delegates_
 {
-	{ "balance", &GlobalManager::DisplayBalance },
-	{ "add", &GlobalManager::AddEntry },
-	{ "get", &GlobalManager::GetRecords },
-	{ "search", &GlobalManager::GlobalSearch },
-	{ "edit", &GlobalManager::EditEntry }
+	{ balance_command_, &GlobalManager::DisplayBalance },
+	{ get_command_, &GlobalManager::AddEntry },
+	{ add_commnad_, &GlobalManager::GetRecords },
+	{ search_command_, &GlobalManager::GlobalSearch },
+	{ edit_command_, &GlobalManager::EditEntry }
+};
+
+const std::map<std::string, std::string> CommandManager::commands_references_
+{
+	{ balance_command_, balance_command_reference_ },
+	{ get_command_, get_command_reference_ },
+	{ add_commnad_, add_command_reference_ },
+	{ search_command_, search_command_reference_ },
+	{ edit_command_,  edit_command_refernce_ }
 };
 
 const std::regex CommandManager::regex_user_input_ = std::regex
@@ -23,18 +44,43 @@ const std::regex CommandManager::regex_user_input_ = std::regex
 
 bool CommandManager::GetUserCommand(GlobalManager& manager)
 {
-	std::cout << " $ ";
+	std::cout << "$ ";
 	
 	std::string input_buffer;
 	std::getline(std::cin, input_buffer);
 
+	if (input_buffer == "exit") {
+		return false;
+	}
+	else if (input_buffer == "help") {
+		Application::Help();
+		return true;
+	}
+
 	std::cmatch result;
 
 	if (std::regex_match(input_buffer.c_str(), result, regex_user_input_)) {
+		if (result[1] == help_command_) {
+			return AdvancedHelpHandler(result[3]);
+		}
+
 		return Invoke(manager, result[1], result[2]);
 	}
 
 	std::cout << "Invalid format of command.\n";
+	return true;
+}
+
+bool CommandManager::AdvancedHelpHandler(const std::string& args)
+{
+	try {
+		const std::string& reference = commands_references_.at(args);
+		std::cout << reference << std::endl;
+	}
+	catch (std::out_of_range e) {
+		std::cout << "There is no reference for this command. Type \"help\" to see full reference.\n";
+	}
+	
 	return true;
 }
 
@@ -43,15 +89,7 @@ bool CommandManager::Invoke(GlobalManager& global_manager, const std::string& co
 	const CommandManager::ManagerDelegate* manager_delegate;
 
 	try {
-		if (command_identifier == "exit") {
-			return false;
-		}
-		else if (command_identifier == "help") {
-			Application::Help();
-			return true;
-		}
-
-		manager_delegate = &valid_commands_.at(command_identifier);
+		manager_delegate = &commands_delegates_.at(command_identifier);
 		(global_manager.**manager_delegate)(command_args);
 		return true;
 	}

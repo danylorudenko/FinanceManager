@@ -29,6 +29,7 @@
     <ClCompile Include="Source\TimeEdgePredicate.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\GlobalManager.cpp" />
+    <ClCompile Include="Tests\referenceTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
