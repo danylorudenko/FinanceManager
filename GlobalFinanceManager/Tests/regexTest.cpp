@@ -1,28 +1,24 @@
 #include <iostream>
-#include <fstream>
-#include <regex>
-#include <string>
+#include <stdexcept>
+#include "..\Include\Util\CommandParametersExtractor.h"
 
 int regexmain()
 {
-	std::string strObj("5698");
-	
-	std::cmatch result;
-
-	std::regex regularTag(
-		"(-?)"
-		"([\\d]+)"
+	std::string strObj
+	(
+		"/t:10 /k:asad /r:lol"
 	);
 
-	if (std::regex_match(strObj.c_str(), result, regularTag)) {
-		for (int i = 0; i < result.size(); i++) {
-			std::cout << result[i] << std::endl;
-		}
-	}
-	else {
-		std::cout << "False\n";
-	}
+	CommandParametersExtractor params(strObj);
 
+	try {
+		std::cout << params.TryGetArgument("l") << std::endl;
+	}
+	catch (std::out_of_range e) {
+		std::cout << e.what() << std::endl;
+	}
+	
+	
 	system("PAUSE");
 	return 0;
 }

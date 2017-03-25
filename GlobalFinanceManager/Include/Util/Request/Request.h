@@ -22,12 +22,14 @@ public:
 	bool IsValid(const FinanceEntry& entry) const;
 
 	// Decorating internal complex predicate
-	void Decorate(AComplexPredicate* next_component);
+	Request& Decorate(AComplexPredicate* next_component);
 
 	const TimeHolder& GetFirstEdge() const;
 	const TimeHolder& GetLastEdge() const;
 
 	~Request();
+
+	Request(const Request&) = delete;
 protected:
 
 	// Object is responsible for deleting it

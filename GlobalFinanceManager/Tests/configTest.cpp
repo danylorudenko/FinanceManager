@@ -7,7 +7,7 @@ int configmain()
 {
 	//ConfigFileManager::LogNewTime(TimeHolder(3, Month::Jul, 115));
 
-	const ConfigInfo* info = ConfigFileManager::GetConfigInfo();
+	const ConfigInfo* info = &(ConfigFileManager::GetConfigInfo());
 
 	std::cout << MonthConverter::MonthToInt(info->GetFirstEdge().GetMonth()) << std::endl
 		<< info->GetFirstEdge().GetYear() << std::endl

@@ -17,6 +17,7 @@ class GlobalManager
 public:
 	using EntryID = unsigned int;
 
+	// Display balance
 	void DisplayBalance(const std::string& params);
 
 	void GetRecords(const std::string& params);
@@ -29,14 +30,23 @@ public:
 
 protected:
 
+	// Displaying time by the past time (days/weeks/months)
+	void DisplayBalanceByTime(std::string& time_param_string);
+
 	// Checking if manager doesn't have needed file managers opened and opening them
-	void CheckNeededFiles();
+	void OpenNeededFiles(const Request* request);
 
 	// Preper closing of files which are unused for a couple of requests
 	void CloseUnusedFiles();
 
 	// Deleting files with no data
 	void DeleteEmptyFiles();
+
+
+
+protected:
+	const static std::string balance_all_argument_;
+	const static std::string sum_argument_prefix_;
 };
 
 #endif

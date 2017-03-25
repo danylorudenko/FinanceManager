@@ -13,11 +13,11 @@ public:
 	Application();
 	~Application();
 
-private:
+protected:
 	void Initialize();
 	void Terminate();
 
-private:
+protected:
 	GlobalManager* manager;
 };
 

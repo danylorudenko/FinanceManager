@@ -15,16 +15,19 @@ public:
 	// Inviting the user to write a command by the '$' symbol
 	// Recieving list of words in line command.
 	// Interpreting command args and calling appropriate command
-	static bool GetUserCommand(GlobalManager& manager); 
+	static bool GetUserCommand(GlobalManager& manager);
 
-private:
+protected:
+	// Delegate to invoke GlobalManager instance commands
 	typedef void(GlobalManager::*ManagerDelegate)(const std::string&);
 
+	// An attempt to interpret and invoke command on GlobalManager argument
 	static bool Invoke(GlobalManager& global_manager, const std::string& command_identifier, const std::string& command_params);
 
+	// Logic for displaying advanced reference to the commands
 	static bool AdvancedHelpHandler(const std::string& params);
 
-private:
+protected:
 	// Map of GlobalManager delegates
 	static const std::map<std::string, ManagerDelegate> commands_delegates_;
 

@@ -1,9 +1,25 @@
 #include "..\Include\Managers\GlobalManager.h"
 #include <iostream>
 
-void GlobalManager::DisplayBalance(const std::string& params)
+const std::string GlobalManager::balance_all_argument_ = "all";
+const std::string GlobalManager::sum_argument_prefix_ = "s";
+
+void GlobalManager::DisplayBalance(const std::string& params_string)
 {
-	std::cout << "Display balance\n";
+	if (params_string == "all") {
+		std::cout
+			<< "Current balance: "
+			<< ConfigFileManager::GetConfigInfo().GetCurrentBalance()
+			<< " UAH\n";
+	}
+	else {
+		// TO DO
+	}
+}
+
+void GlobalManager::DisplayBalanceByTime(std::string& time_param_string)
+{
+	std::cout << "NOT READY!\n";
 }
 
 void GlobalManager::GetRecords(const std::string& params)

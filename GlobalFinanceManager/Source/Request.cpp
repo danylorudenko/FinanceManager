@@ -22,9 +22,10 @@ bool Request::IsValid(const FinanceEntry& entry) const {
 	return true;
 }
 
-void Request::Decorate(AComplexPredicate* next_component)
+Request& Request::Decorate(AComplexPredicate* next_component)
 {
 	time_predicate_->Decorate(next_component);
+	return *this;
 }
 
 const TimeHolder& Request::GetFirstEdge() const

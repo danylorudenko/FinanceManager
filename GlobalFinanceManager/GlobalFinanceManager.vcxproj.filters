@@ -30,6 +30,10 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\GlobalManager.cpp" />
     <ClCompile Include="Tests\referenceTest.cpp" />
+    <ClCompile Include="Source\RequestFactory.cpp" />
+    <ClCompile Include="Source\DescriptionPredicate.cpp" />
+    <ClCompile Include="Source\CommandParametersExtractor.cpp" />
+    <ClCompile Include="Tests\requestFactoryTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
@@ -50,8 +54,10 @@
     <ClInclude Include="Include\Util\Request\ComplexPredicate\CategoryPredicate.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\SumTypePredicate.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\TimeEdgePredicate.h" />
-    <ClInclude Include="Include\Util\Request\RequestConstructor.h" />
     <ClInclude Include="Include\Application.h" />
+    <ClInclude Include="Include\Util\Request\RequestFactory.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\DescriptionPredicate.h" />
+    <ClInclude Include="Include\Util\CommandParametersExtractor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />

@@ -15,23 +15,23 @@ class ConfigFileManager
 public:
 
 	// Returns object containing configuration info
-	static const ConfigInfo* const GetConfigInfo();
+	static const ConfigInfo& GetConfigInfo();
 
 	// Attempt to write new time edge to the config file.
 	// The time will be written if it is earlier than time in the file
 	static void TryWriteNewTime(const TimeHolder& time);
 
-private:
+protected:
 	// Reading configuration data directly from the file + updating local config data
 	static ConfigInfo* ReadConfigFromFile();
 
 	// Constructing valid config-data string
-	static const std::string* ConstructConfigString(const TimeHolder& new_oldest_time);
+	static const std::string* ConstructConfigString(const TimeHolder& new_oldest_time, const int new_current_balance);
 
 	// Rewriting config file with passed string
 	static void RewriteConfigFile(const std::string* string);
 
-private:
+protected:
 	static const char* config_file_name_;
 
 	static bool local_up_to_date_;

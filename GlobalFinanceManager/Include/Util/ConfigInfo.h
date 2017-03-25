@@ -11,14 +11,18 @@
 class ConfigInfo
 {
 public:
-	ConfigInfo(const TimeHolder& first_valid_edge, const TimeHolder& last_valid_edge);
+	ConfigInfo(const TimeHolder& first_valid_edge, const TimeHolder& last_valid_edge, const int current_balance);
 
 	const TimeHolder& GetFirstEdge() const;
 	const TimeHolder& GetLastEdge() const;
 
-private:
+	const int GetCurrentBalance() const;
+
+protected:
 	const TimeHolder first_valid_edge_;
 	const TimeHolder last_valid_edge_;
+
+	const int current_balance_;
 };
 
 #endif

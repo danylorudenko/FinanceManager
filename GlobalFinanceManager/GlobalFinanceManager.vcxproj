@@ -115,8 +115,10 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\CategoryPredicate.cpp" />
     <ClCompile Include="Source\CommandManager.cpp" />
+    <ClCompile Include="Source\CommandParametersExtractor.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
+    <ClCompile Include="Source\DescriptionPredicate.cpp" />
     <ClCompile Include="Source\EntryIterator.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\GlobalManager.cpp" />
@@ -125,6 +127,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\MonthFileManager.cpp" />
     <ClCompile Include="Source\Request.cpp" />
+    <ClCompile Include="Source\RequestFactory.cpp" />
     <ClCompile Include="Source\SumTypePredicate.cpp" />
     <ClCompile Include="Source\TimeEdgePredicate.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
@@ -137,6 +140,7 @@
     <ClCompile Include="Tests\monthToDaysTest.cpp" />
     <ClCompile Include="Tests\referenceTest.cpp" />
     <ClCompile Include="Tests\regexTest.cpp" />
+    <ClCompile Include="Tests\requestFactoryTest.cpp" />
     <ClCompile Include="Tests\requestTest.cpp" />
     <ClCompile Include="Tests\streamFormattingTest.cpp" />
     <ClCompile Include="Tests\timeHolderTest.cpp" />
@@ -148,11 +152,13 @@
     <ClInclude Include="Include\Managers\ConfigFileManager.h" />
     <ClInclude Include="Include\Managers\GlobalManager.h" />
     <ClInclude Include="Include\Managers\MonthFileManager.h" />
+    <ClInclude Include="Include\Util\CommandParametersExtractor.h" />
     <ClInclude Include="Include\Util\EntryIterator.h" />
     <ClInclude Include="Include\Util\ConfigInfo.h" />
     <ClInclude Include="Include\Util\FileNames.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\AComplexPredicate.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\CategoryPredicate.h" />
+    <ClInclude Include="Include\Util\Request\ComplexPredicate\DescriptionPredicate.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\SumTypePredicate.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\TimeEdgePredicate.h" />
     <ClInclude Include="Include\Util\Request\Request.h" />
@@ -161,7 +167,7 @@
     <ClInclude Include="Include\Enums\CommandType.h" />
     <ClInclude Include="Include\Entry\FinanceEntry.h" />
     <ClInclude Include="Include\Time\TimeHolder.h" />
-    <ClInclude Include="Include\Util\Request\RequestConstructor.h" />
+    <ClInclude Include="Include\Util\Request\RequestFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />
