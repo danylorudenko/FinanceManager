@@ -7,7 +7,7 @@ int iteratormain()
 	TimeEdgePredicate* time_predicate = TimeEdgePredicate::LastDays(3);
 	Request* request = new Request(time_predicate);
 
-	StringVector* file_names = FileNames::ConstructFileNames(request);
+	StringVector* file_names = FileNames::ConstructFileNames(*request);
 
 	MonthFileManager* file_manager = new MonthFileManager((*file_names)[0]);
 
@@ -21,7 +21,7 @@ int iteratormain()
 		std::cout << (*buffer_begin).Serialize() << std::endl;
 		std::cout << (*buffer_2).Serialize() << std::endl << std::endl;
 
-		std::cout << "buffer_begin < buffer_2  == " << (buffer_begin < buffer_2) << std::endl;
+		/*std::cout << "buffer_begin < buffer_2  == " << (buffer_begin < buffer_2) << std::endl;
 		std::cout << "buffer_begin <= buffer_2 == " << (buffer_begin <= buffer_2) << std::endl;
 		std::cout << "buffer_begin > buffer_2  == " << (buffer_begin > buffer_2) << std::endl;
 		std::cout << "buffer_begin >= buffer_2 == " << (buffer_begin >= buffer_2) << std::endl;
@@ -30,7 +30,7 @@ int iteratormain()
 		--buffer_2;
 
 		std::cout << "buffer_begin <= buffer_2 == " << (buffer_begin <= buffer_2) << std::endl;
-		std::cout << "buffer_begin >= buffer_2 == " << (buffer_begin >= buffer_2) << std::endl;
+		std::cout << "buffer_begin >= buffer_2 == " << (buffer_begin >= buffer_2) << std::endl;*/
 	}
 	catch (std::length_error e) {
 		std::cout << e.what() << std::endl;

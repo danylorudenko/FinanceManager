@@ -1,9 +1,13 @@
 #ifndef __DATA_MANAGER_H__
 #define __DATA_MANAGER_H__
 
-#include "..\..\Include\Util\Request\Request.h"
+#include "..\Include\Managers\MonthFileManager.h"
 
 #include <string>
+#include <list>
+#include <vector>
+
+class MonthFileManager;
 
 /*
 	This class is entended to give interface to access file system of the manager.
@@ -15,38 +19,43 @@
 class GlobalManager
 {
 public:
-	using EntryID = unsigned int;
+	// Counds and displays total balance of all records or of period of time
+	void DisplayBalance(std::string& params);
 
-	// Display balance
-	void DisplayBalance(const std::string& params);
+	void GetRecords(std::string& params);
 
-	void GetRecords(const std::string& params);
+	void GlobalSearch(std::string& params);
 
-	void GlobalSearch(const std::string& params);
+	void EditEntry(std::string& params);
 
-	void EditEntry(const std::string& params);
+	void AddEntry(std::string& params);
 
-	void AddEntry(const std::string& params);
+	~GlobalManager();
 
 protected:
 
-	// Displaying time by the past time (days/weeks/months)
-	void DisplayBalanceByTime(std::string& time_param_string);
+	// Displaying balance by the past time (days/weeks/months)
+	int CountBalanceByTime(const Request& time_param_string);
 
-	// Checking if manager doesn't have needed file managers opened and opening them
-	void OpenNeededFiles(const Request* request);
+	// Reading request time range and creating all corresponding month managers
+	void OpenManagers(const Request& request);
 
-	// Preper closing of files which are unused for a couple of requests
-	void CloseUnusedFiles();
+	// Proper closing of month managers
+	void CloseManagers();
 
 	// Deleting files with no data
 	void DeleteEmptyFiles();
 
+	// Sorting all opened buffers
+	void SortBuffers();
 
+	void DisplayManagersBuffers(const Request& request);
 
 protected:
 	const static std::string balance_all_argument_;
-	const static std::string sum_argument_prefix_;
+
+	// List of month managers
+	std::vector<MonthFileManager> month_managers_;
 };
 
 #endif

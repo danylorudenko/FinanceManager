@@ -31,10 +31,14 @@ public:
 
 	// Does this record has negative sum value?
 	bool IsExpence() const;
-	bool IsLaterThan(const FinanceEntry& anotherEntry) const;
-	bool IsLaterThan(const TimeHolder& time) const;
-	bool IsEarlierThan(const FinanceEntry& anotherEntry) const;
-	bool IsEarlierThan(const TimeHolder& time) const;
+	bool IsLater(const FinanceEntry& anotherEntry) const;
+	bool IsLater(const TimeHolder& time) const;
+	bool IsLaterOrEquals(const FinanceEntry& anotherEntry) const;
+	bool IsLaterOrEquals(const TimeHolder& time) const;
+	bool IsEarlier(const FinanceEntry& anotherEntry) const;
+	bool IsEarlier(const TimeHolder& time) const;
+	bool IsEarlierOrEquals(const FinanceEntry& anotherEntry) const;
+	bool IsEarlierOrEquals(const TimeHolder& time) const;
 
 	static bool DateLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs);
 	static bool SumLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs);

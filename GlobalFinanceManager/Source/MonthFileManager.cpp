@@ -7,13 +7,40 @@
 MonthFileManager::MonthFileManager(const std::string& file_name, const entry_predicate sorting_predicate) :
 	file_name_(file_name), sorting_predicate_(sorting_predicate)
 {
+	ReadFileToBuffer();
+}
 
+MonthFileManager::~MonthFileManager()
+{
+	RewriteFileFromBuffer();
 }
 
 void MonthFileManager::CreateFile() const
 {
 	std::ofstream stream(file_name_);
 	stream.close();
+}
+
+bool MonthFileManager::IsFileEmpty() const
+{
+	std::ifstream stream(file_name_);
+	std::string file_content;
+
+	std::getline(stream, file_content);
+
+	stream.close();
+
+	if (file_content.size() == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void MonthFileManager::DeleteFile() const
+{
+	remove(file_name_.c_str());
 }
 
 void MonthFileManager::ReadFileToBuffer()
@@ -70,6 +97,7 @@ void MonthFileManager::SortBuffer()
 		return;
 	}
 
+	UNIQUE NOT ALLOWED
 	std::sort(entries_buffer_.begin(), entries_buffer_.end(), sorting_predicate_);
 }
 

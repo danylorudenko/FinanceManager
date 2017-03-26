@@ -39,7 +39,7 @@ const std::regex CommandManager::regex_user_input_ = std::regex
 (
 	"([a-z]+)"
 	"([\\s]{1})"
-	"([\\s\\w]+)"
+	"([\\S\\s]+)"
 );
 
 bool CommandManager::GetUserCommand(GlobalManager& manager)
@@ -64,7 +64,7 @@ bool CommandManager::GetUserCommand(GlobalManager& manager)
 			return AdvancedHelpHandler(result[3]);
 		}
 
-		return Invoke(manager, result[1], result[2]);
+		return Invoke(manager, result[1], result[3].str());
 	}
 
 	std::cout << "Invalid format of command.\n";
@@ -84,7 +84,7 @@ bool CommandManager::AdvancedHelpHandler(const std::string& args)
 	return true;
 }
 
-bool CommandManager::Invoke(GlobalManager& global_manager, const std::string& command_identifier, const std::string& command_args)
+bool CommandManager::Invoke(GlobalManager& global_manager, const std::string& command_identifier, std::string& command_args)
 {
 	const CommandManager::ManagerDelegate* manager_delegate;
 

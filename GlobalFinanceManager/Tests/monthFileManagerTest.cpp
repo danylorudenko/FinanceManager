@@ -11,7 +11,7 @@ int monthFileManagermain()
 	Request* request = new Request(time_predicate);
 	request->Decorate(new SumTypePredicate(EntrySumType::Income));
 
-	StringVector* file_names = FileNames::ConstructFileNames(request);
+	StringVector* file_names = FileNames::ConstructFileNames(*request);
 
 	MonthFileManager* manager = new MonthFileManager((*file_names)[0]);
 
@@ -24,7 +24,7 @@ int monthFileManagermain()
 
 	try {
 		int counter = 1;
-		for (auto i = iter_begin; i < iter_end; ++i) {
+		for (auto i = iter_begin; i != iter_end; ++i) {
 			std::cout << counter << ". " << (*i).Serialize() << std::endl;
 			++counter;
 		}
@@ -47,7 +47,7 @@ int monthFileManagermain()
 		iter_end = manager->End(request);
 
 		counter = 1;
-		for (auto i = iter_begin; i < iter_end; ++i) {
+		for (auto i = iter_begin; i != iter_end; ++i) {
 			std::cout << counter << ". " << (*i).Serialize() << std::endl;
 			++counter;
 		}

@@ -24,6 +24,7 @@ public:
 	EntryIterator(const EntryIterator& rhs);
 
 	value_type& operator*();
+	const value_type& operator*() const;
 
 	EntryIterator& operator=(const EntryIterator& rhs);
 
@@ -32,10 +33,10 @@ public:
 	
 	bool operator==(const EntryIterator& rhs) const;
 	bool operator!=(const EntryIterator& rhs) const;
-	bool operator<(const EntryIterator& rhs) const;
-	bool operator<=(const EntryIterator& rhs) const;
-	bool operator>(const EntryIterator& rhs) const;
-	bool operator>=(const EntryIterator& rhs) const;
+	//bool operator<(const EntryIterator& rhs) const;
+	//bool operator<=(const EntryIterator& rhs) const;
+	//bool operator>(const EntryIterator& rhs) const;
+	//bool operator>=(const EntryIterator& rhs) const;
 
 	EntryIterator& operator++();
 	EntryIterator& operator--();

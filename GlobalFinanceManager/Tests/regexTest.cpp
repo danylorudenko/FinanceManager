@@ -4,12 +4,11 @@
 
 int regexmain()
 {
-	std::string strObj
-	(
-		"/t:10 /k:asad /r:lol"
-	);
+	std::string str("/tm:2, /d:some cpappe, /c:kek");
+	size_t pos = str.find("tm");
+	str.erase(pos, pos + 2);
 
-	CommandParametersExtractor params(strObj);
+	CommandParametersExtractor params(str);
 
 	try {
 		std::cout << params.TryGetArgument("l") << std::endl;

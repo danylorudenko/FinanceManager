@@ -100,24 +100,44 @@ bool FinanceEntry::IsExpence() const
 	}
 }
 
-bool FinanceEntry::IsLaterThan(const FinanceEntry& anotherEntry) const
+bool FinanceEntry::IsLater(const FinanceEntry& anotherEntry) const
 {
-	return time_.IsLaterThan(anotherEntry.time_);
+	return time_.IsLater(anotherEntry.time_);
 }
 
-bool FinanceEntry::IsLaterThan(const TimeHolder& anotherTime) const
+bool FinanceEntry::IsLater(const TimeHolder& anotherTime) const
 {
-	return time_.IsLaterThan(anotherTime);
+	return time_.IsLater(anotherTime);
 }
 
-bool FinanceEntry::IsEarlierThan(const FinanceEntry& anotherEntry) const
+bool FinanceEntry::IsLaterOrEquals(const FinanceEntry& anotherEntry) const
 {
-	return !(FinanceEntry::IsLaterThan(anotherEntry));
+	return time_.IsLaterOrEquals(anotherEntry.time_);
 }
 
-bool FinanceEntry::IsEarlierThan(const TimeHolder& anotherTime) const
+bool FinanceEntry::IsLaterOrEquals(const TimeHolder& anotherTime) const
 {
-	return !(time_.IsLaterThan(anotherTime));
+	return time_.IsLaterOrEquals(anotherTime);
+}
+
+bool FinanceEntry::IsEarlier(const FinanceEntry& anotherEntry) const
+{
+	return !(IsLater(anotherEntry));
+}
+
+bool FinanceEntry::IsEarlier(const TimeHolder& anotherTime) const
+{
+	return !(time_.IsLater(anotherTime));
+}
+
+bool FinanceEntry::IsEarlierOrEquals(const FinanceEntry& anotherEntry) const
+{
+	return !(IsEarlierOrEquals(anotherEntry));
+}
+
+bool FinanceEntry::IsEarlierOrEquals(const TimeHolder& anotherTime) const
+{
+	return !(time_.IsEarlierOrEquals(anotherTime));
 }
 
 std::string FinanceEntry::Serialize() const
@@ -142,7 +162,7 @@ std::string FinanceEntry::Serialize() const
 
 bool FinanceEntry::DateLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs)
 {
-	return lhs.IsEarlierThan(rhs);
+	return lhs.IsEarlier(rhs);
 }
 
 bool FinanceEntry::SumLessPredicate(const FinanceEntry& lhs, const FinanceEntry& rhs)

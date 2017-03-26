@@ -16,7 +16,7 @@ class FileNames
 {
 public:
 	// Constructing proper list of file names for passed request
-	static StringVector* ConstructFileNames(const Request* request);
+	static StringVector* ConstructFileNames(const Request& request);
 	
 private:
 	// Constructing file name month part to the dest argument

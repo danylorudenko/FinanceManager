@@ -115,7 +115,16 @@ bool TimeHolder::IsToday() const
 	}
 }
 
-bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
+bool TimeHolder::IsLater(const TimeHolder& other_holder) const
+{
+	if (this->GetSecondsSinceEpoch() > other_holder.GetSecondsSinceEpoch()) {
+		return true;
+	}
+
+	return false;
+}
+
+bool TimeHolder::IsLaterOrEquals(const TimeHolder& other_holder) const
 {
 	if (this->GetSecondsSinceEpoch() >= other_holder.GetSecondsSinceEpoch()) {
 		return true;
@@ -124,7 +133,16 @@ bool TimeHolder::IsLaterThan(const TimeHolder& other_holder) const
 	return false;
 }
 
-bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
+bool TimeHolder::IsEarlier(const TimeHolder& other_holder) const
+{
+	if (this->GetSecondsSinceEpoch() < other_holder.GetSecondsSinceEpoch()) {
+		return true;
+	}
+
+	return false;
+}
+
+bool TimeHolder::IsEarlierOrEquals(const TimeHolder& other_holder) const
 {
 	if (this->GetSecondsSinceEpoch() <= other_holder.GetSecondsSinceEpoch()) {
 		return true;
@@ -135,12 +153,22 @@ bool TimeHolder::IsEarlierThan(const TimeHolder& other_holder) const
 
 bool TimeHolder::operator<(const TimeHolder& rhs) const
 {
-	return TimeHolder::IsEarlierThan(rhs);
+	return IsEarlier(rhs);
+}
+
+bool TimeHolder::operator<=(const TimeHolder& rhs) const
+{
+	return IsEarlierOrEquals(rhs);
 }
 
 bool TimeHolder::operator>(const TimeHolder& rhs) const
 {
-	return TimeHolder::IsLaterThan(rhs);
+	return IsLater(rhs);
+}
+
+bool TimeHolder::operator>=(const TimeHolder& rhs) const
+{
+	return IsLaterOrEquals(rhs);
 }
 
 time_t TimeHolder::GetSecondsSinceEpoch() const

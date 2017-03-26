@@ -36,14 +36,18 @@ public:
 	TimeHolder operator*(const int rhs) const;
 
 	bool operator<(const TimeHolder& rhs) const;
-	bool operator>(const TimeHolder& rst) const;
+	bool operator<=(const TimeHolder& rhs) const;
+	bool operator>(const TimeHolder& rhs) const;
+	bool operator>=(const TimeHolder& rhs) const;
 
 	std::string Serialize() const;
 
 	void SetDate(int mDay, int month, int year);
 	bool IsToday() const;
-	bool IsLaterThan(const TimeHolder& other_holder) const;
-	bool IsEarlierThan(const TimeHolder& other_holder) const;
+	bool IsLater(const TimeHolder& other_holder) const;
+	bool IsLaterOrEquals(const TimeHolder& other_holder) const;
+	bool IsEarlier(const TimeHolder& other_holder) const;
+	bool IsEarlierOrEquals(const TimeHolder& other_holder) const;
 
 	int GetDay() const;
 	Month GetMonth() const;

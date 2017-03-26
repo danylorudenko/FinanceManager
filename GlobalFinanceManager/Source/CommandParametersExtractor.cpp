@@ -6,7 +6,7 @@ const std::regex CommandParametersExtractor::regex_parameter_ = std::regex
 	"(\\/)"		  // 1
 	"([\\S]*)"	  // 2
 	"(:)"		  // 3
-	"([\\S]*)"	  // 4
+	"([\\S][^,]*)"	  // 4
 );
 
 CommandParametersExtractor::CommandParametersExtractor(std::string parameters_string)

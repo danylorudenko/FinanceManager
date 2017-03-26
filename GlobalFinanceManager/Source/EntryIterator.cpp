@@ -52,51 +52,60 @@ bool EntryIterator::operator!=(const EntryIterator& rhs) const
 	return current_index_ != rhs.current_index_;
 }
 
-bool EntryIterator::operator<(const EntryIterator& rhs) const
-{
-	if (target_container_p_ != rhs.target_container_p_ ||
-		current_index_ == SIZE_MAX ||
-		rhs.current_index_ == SIZE_MAX) {
-		return false;
-	}
-
-	return current_index_ < rhs.current_index_;
-}
-
-bool EntryIterator::operator<=(const EntryIterator& rhs) const
-{
-	if (target_container_p_ != rhs.target_container_p_ ||
-		current_index_ == SIZE_MAX ||
-		rhs.current_index_ == SIZE_MAX) {
-		return false;
-	}
-
-	return current_index_ <= rhs.current_index_;
-}
-
-bool EntryIterator::operator>(const EntryIterator& rhs) const
-{
-	if (target_container_p_ != rhs.target_container_p_ ||
-		current_index_ == SIZE_MAX ||
-		rhs.current_index_ == SIZE_MAX) {
-		return false;
-	}
-
-	return current_index_ > rhs.current_index_;
-}
-
-bool EntryIterator::operator>=(const EntryIterator& rhs) const
-{
-	if (target_container_p_ != rhs.target_container_p_ ||
-		current_index_ == SIZE_MAX ||
-		rhs.current_index_ == SIZE_MAX) {
-		return false;
-	}
-
-	return current_index_ >= rhs.current_index_;
-}
+//bool EntryIterator::operator<(const EntryIterator& rhs) const
+//{
+//	if (target_container_p_ != rhs.target_container_p_ ||
+//		current_index_ == SIZE_MAX ||
+//		rhs.current_index_ == SIZE_MAX) {
+//		return false;
+//	}
+//
+//	return current_index_ < rhs.current_index_;
+//}
+//
+//bool EntryIterator::operator<=(const EntryIterator& rhs) const
+//{
+//	if (target_container_p_ != rhs.target_container_p_ ||
+//		current_index_ == SIZE_MAX ||
+//		rhs.current_index_ == SIZE_MAX) {
+//		return false;
+//	}
+//
+//	return current_index_ <= rhs.current_index_;
+//}
+//
+//bool EntryIterator::operator>(const EntryIterator& rhs) const
+//{
+//	if (target_container_p_ != rhs.target_container_p_ ||
+//		current_index_ == SIZE_MAX ||
+//		rhs.current_index_ == SIZE_MAX) {
+//		return false;
+//	}
+//
+//	return current_index_ > rhs.current_index_;
+//}
+//
+//bool EntryIterator::operator>=(const EntryIterator& rhs) const
+//{
+//	if (target_container_p_ != rhs.target_container_p_ ||
+//		current_index_ == SIZE_MAX ||
+//		rhs.current_index_ == SIZE_MAX) {
+//		return false;
+//	}
+//
+//	return current_index_ >= rhs.current_index_;
+//}
 
 EntryIterator::value_type& EntryIterator::operator*()
+{
+	if (current_index_ == SIZE_MAX) {
+		throw std::length_error("Entry iterator is invalid. Query new one.");
+	}
+
+	return (*target_container_p_)[current_index_];
+}
+
+const EntryIterator::value_type& EntryIterator::operator*() const
 {
 	if (current_index_ == SIZE_MAX) {
 		throw std::length_error("Entry iterator is invalid. Query new one.");
@@ -111,6 +120,7 @@ EntryIterator& EntryIterator::operator++()
 		return *this;
 	}
 
+	size_t prev_index = current_index_;
 	size_t size = target_container_p_->size();
 	for (size_t i = current_index_ + 1; i < size; i++) {
 		if (request_->IsValid((*target_container_p_)[i])) {
@@ -119,7 +129,7 @@ EntryIterator& EntryIterator::operator++()
 		}
 	}
 
-	current_index_ = SIZE_MAX;
+	current_index_ = prev_index + 1;
 	return *this;
 }
 
@@ -129,6 +139,7 @@ EntryIterator& EntryIterator::operator--()
 		return *this;
 	}
 	
+	int prev_index = current_index_;
 	for (int i = current_index_ - 1; i >= 0; i--) {
 		if (request_->IsValid((*target_container_p_)[i])) {
 			current_index_ = i;
@@ -136,7 +147,7 @@ EntryIterator& EntryIterator::operator--()
 		}
 	}
 
-	current_index_ = SIZE_MAX;
+	current_index_ = prev_index - 1;
 	return *this;
 }
 
@@ -172,6 +183,7 @@ EntryIterator EntryIterator::operator--(int)
 	
 	EntryIterator previous_state(*this);
 
+	int prev_index = current_index_;
 	for (int i = current_index_ - 1; i >= 0; i--) {
 		if (request_->IsValid((*target_container_p_)[i])) {
 			current_index_ = i;
@@ -179,7 +191,7 @@ EntryIterator EntryIterator::operator--(int)
 		}
 	}
 
-	current_index_ = SIZE_MAX;
+	current_index_ = prev_index - 1;
 	return previous_state;
 }
 
@@ -191,6 +203,7 @@ EntryIterator EntryIterator::operator++(int)
 	
 	EntryIterator previous_state(*this);
 
+	size_t prev_index = current_index_;
 	size_t size = target_container_p_->size();
 	for (size_t i = current_index_ + 1; i < size; i++) {
 		if (request_->IsValid((*target_container_p_)[i])) {
@@ -199,7 +212,7 @@ EntryIterator EntryIterator::operator++(int)
 		}
 	}
 
-	current_index_ = SIZE_MAX;
+	current_index_ = prev_index + 1;
 	return previous_state;
 }
 

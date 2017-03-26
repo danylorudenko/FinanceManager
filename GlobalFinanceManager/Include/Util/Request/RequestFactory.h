@@ -13,10 +13,12 @@ class RequestFactory
 {
 public:
 	// Constructing request only with time decorator
-	static Request* ConstructTimeRequest(const std::string& params_string);
+	// Deleting /tm parameter from the params string
+	static Request* ConstructTimeRequest(std::string& params_string);
 
 	// Constructing request with any parameters
-	static Request* ConstructRequest(const std::string& params_string);
+	// Params string may be invalid after use
+	static Request* ConstructRequest(std::string& params_string);
 
 protected:
 	

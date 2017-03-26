@@ -19,9 +19,14 @@ const std::map<std::string, RequestFactory::BuilderDelegate> RequestFactory::bui
 	{ description_argument_prefix_, RequestFactory::BuildDescriptionPredicate }
 };
 
-Request* RequestFactory::ConstructRequest(const std::string& params_string)
+Request* RequestFactory::ConstructRequest(std::string& params_string)
 {
-	Request* request = ConstructTimeRequest(params_string);
+	// Constructing request with only time decorator
+	Request* request = RequestFactory::ConstructTimeRequest(params_string);
+
+	// Removing time argument form the string
+	size_t time_prefix_pos = params_string.find(time_argument_prefix_);
+	params_string.erase(time_prefix_pos, time_prefix_pos + 2);
 
 	CommandParametersExtractor* arguments_extractor_p = new CommandParametersExtractor(params_string);
 
@@ -35,8 +40,6 @@ Request* RequestFactory::ConstructRequest(const std::string& params_string)
 		// Getting delegate to build ComplexPredicate according to the argument type
 		BuilderDelegate builder_delegate = builder_delegates_map_.at(argument_prefix);
 
-		ERROR HERE: DECORATING WITH TIME PREDICATE 2 TIMES
-
 		// Calling builder delegate and constructing proper decorator
 		AComplexPredicate* predicate = builder_delegate(arguments_extractor_p->TryGetArgument(argument_prefix));
 
@@ -48,7 +51,7 @@ Request* RequestFactory::ConstructRequest(const std::string& params_string)
 	return request;
 }
 
-Request* RequestFactory::ConstructTimeRequest(const std::string& params_string)
+Request* RequestFactory::ConstructTimeRequest(std::string& params_string)
 {
 	CommandParametersExtractor* arguments_extractor_p = new CommandParametersExtractor(params_string);
 
@@ -62,10 +65,9 @@ Request* RequestFactory::ConstructTimeRequest(const std::string& params_string)
 	}
 	catch (std::out_of_range e) {
 		std::cout << e.what() << std::endl;
+		delete arguments_extractor_p;
 		return nullptr;
 	}
-
-	delete arguments_extractor_p;
 }
 
 AComplexPredicate* RequestFactory::BuildTimeEdgePredicate(const std::string& param)

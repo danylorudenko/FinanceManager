@@ -18,15 +18,15 @@ const char* FileNames::oct_file_name = "OCT";
 const char* FileNames::nov_file_name = "NOV";
 const char* FileNames::dec_file_name = "DEC";
 
-StringVector* FileNames::ConstructFileNames(const Request* request)
+StringVector* FileNames::ConstructFileNames(const Request& request)
 {
 	StringVector* file_names = new StringVector();
 
-	Month first_month = request->GetFirstEdge().GetMonth();
-	Month last_month = request->GetLastEdge().GetMonth();
+	Month first_month = request.GetFirstEdge().GetMonth();
+	Month last_month = request.GetLastEdge().GetMonth();
 
-	int first_year = request->GetFirstEdge().GetYear();
-	int last_year = request->GetLastEdge().GetYear();
+	int first_year = request.GetFirstEdge().GetYear();
+	int last_year = request.GetLastEdge().GetYear();
 
 	// If the the request contains a single year, so we don't need special "circle" of month names
 	if (first_year == last_year) {

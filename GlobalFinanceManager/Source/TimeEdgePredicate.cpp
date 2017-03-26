@@ -4,7 +4,7 @@
 TimeEdgePredicate::TimeEdgePredicate(const TimeHolder& first_edge, const TimeHolder& last_edge, AComplexPredicate* next_component) :
 	AComplexPredicate(next_component)
 {
-	if (first_edge.IsLaterThan(last_edge)) {
+	if (first_edge.IsLater(last_edge)) {
 		throw std::invalid_argument("The first edge of TimeEdgePredicate can't be later than the last edge");
 	}
 
@@ -55,11 +55,11 @@ TimeEdgePredicate* TimeEdgePredicate::LastMonths(int months)
 
 bool TimeEdgePredicate::IsValid(const FinanceEntry& entry) const {
 
-	if (entry.IsEarlierThan(first_edge_)) {
+	if (entry.IsEarlier(first_edge_)) {
 		return false;
 	}
 
-	if (entry.IsLaterThan(last_edge_)) {
+	if (entry.IsLater(last_edge_)) {
 		return false;
 	}
 

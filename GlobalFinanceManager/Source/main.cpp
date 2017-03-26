@@ -1,7 +1,7 @@
 #include <iostream>
 #include "..\Include\Application.h"
 
-int notmain()
+int main()
 {
 	Application* application = new Application();
 

@@ -19,10 +19,10 @@ public:
 
 protected:
 	// Delegate to invoke GlobalManager instance commands
-	typedef void(GlobalManager::*ManagerDelegate)(const std::string&);
+	typedef void(GlobalManager::*ManagerDelegate)(std::string&);
 
 	// An attempt to interpret and invoke command on GlobalManager argument
-	static bool Invoke(GlobalManager& global_manager, const std::string& command_identifier, const std::string& command_params);
+	static bool Invoke(GlobalManager& global_manager, const std::string& command_identifier, std::string& command_params);
 
 	// Logic for displaying advanced reference to the commands
 	static bool AdvancedHelpHandler(const std::string& params);

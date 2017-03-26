@@ -30,6 +30,8 @@ public:
 	// Default sorting binary predicate is FinanceEntry::DateLessPredicate
 	MonthFileManager(const std::string& file_name, const entry_predicate sorting_predicate = FinanceEntry::DateLessPredicate);
 
+	~MonthFileManager();
+
 	// Adding entry to the buffer
 	void AddEntryToBuffer(const FinanceEntry& new_entry);
 
@@ -41,6 +43,12 @@ public:
 
 	// Soring buffer with the predicate field
 	void SortBuffer();
+
+	// Check is file has any data
+	bool IsFileEmpty() const;
+
+	// Permanent file deletion
+	void DeleteFile() const;
 
 	// Setting sorting predicate for FinanceEntries.
 	// Predefined static predicates are in FinanceEntry:: scope
