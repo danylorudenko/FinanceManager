@@ -2,9 +2,12 @@
 #include "..\Include\Util\FileNames.h"
 #include "..\Include\Util\Request\RequestFactory.h"
 #include "..\Include\Util\EntryIterator.h"
+#include "..\Include\Util\CommandParametersExtractor.h"
 
 #include <iostream>
+#include <iomanip>
 #include <algorithm>
+#include <filesystem>
 
 const std::string GlobalManager::balance_all_argument_ = "all";
 
@@ -30,22 +33,26 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 
 		int balance = CountBalanceByTime(*request);
 		std::cout << "Balance: " << balance << " UAH\n";
+
+		delete request;
+		CloseManagers();
 	}
 }
 
 void GlobalManager::DisplayManagersBuffers(const Request& request)
 {
 	int counter = 1;
+	std::cout << std::left;
 
-	size_t managers_length = month_managers_.size();
-	for(int i = 0; i < managers_length; ++i) 
+	auto managers_end = month_managers_.end();
+	for (auto i = month_managers_.begin(); i != managers_end; ++i)
 	{
-		auto iter_begin = month_managers_.at(i).Begin(&request);
-		auto iter_end = month_managers_.at(i).End(&request);
+		auto iter_begin = i->Begin(&request);
+		auto iter_end = i->End(&request);
 
 		for (auto j = iter_begin; j != iter_end; ++j) {
 			std::cout
-				<< counter << ": "
+				<< counter << ":\t"
 				<< (*j).Serialize() << std::endl;
 			++counter;
 		}
@@ -57,11 +64,11 @@ int GlobalManager::CountBalanceByTime(const Request& request)
 {
 	int balance = 0;
 
-	size_t managers_length = month_managers_.size();
-	for (int i = 0; i < managers_length; ++i)
+	auto managers_end = month_managers_.end();
+	for (auto i = month_managers_.begin(); i != managers_end; ++i)
 	{
-		auto iter_begin = month_managers_.at(i).Begin(&request);
-		auto iter_end = month_managers_.at(i).End(&request);
+		auto iter_begin = i->Begin(&request);
+		auto iter_end = i->End(&request);
 
 		for (auto j = iter_begin; j != iter_end; ++j) {
 			balance += (*j).GetSum();
@@ -73,12 +80,19 @@ int GlobalManager::CountBalanceByTime(const Request& request)
 
 void GlobalManager::GetRecords(std::string& params)
 {
-	std::cout << "GetRecords\n";
-}
+	Request* request = RequestFactory::ConstructRequest(params);
 
-void GlobalManager::GlobalSearch(std::string& params)
-{
-	std::cout << "Global search\n";
+	if (request == nullptr) {
+		std::cout << "Can't construct request: invalid parameters\n";
+		return;
+	}
+
+	OpenManagers(*request);
+	SortBuffers();
+	DisplayManagersBuffers(*request);
+	CloseManagers();
+
+	delete request;
 }
 
 void GlobalManager::EditEntry(std::string& params)
@@ -88,7 +102,22 @@ void GlobalManager::EditEntry(std::string& params)
 
 void GlobalManager::AddEntry(std::string& params)
 {
-	std::cout << "Add entry\n";
+	CloseManagers();
+	std::string fake_params("/tm:0");
+	Request* request = RequestFactory::ConstructTimeRequest(fake_params);
+	StringVector* file_names_p_ = FileNames::ConstructFileNames(*request);
+	MonthFileManager* manager = new MonthFileManager(file_names_p_->at(0));
+	
+	CommandParametersExtractor* parameters_extractor = new CommandParametersExtractor(params);
+	int params_count = parameters_extractor->ArgumentsCount();
+	for (int i = 0; i < params_count; ++i) {
+		const std::string& param_prefix = parameters_extractor->GetPrefix(i);
+		const std::string& param_content = parameters_extractor->TryGetArgument(param_prefix);
+		KGAIKLWDHIGQ
+	}
+
+	delete parameters_extractor;
+	delete request;
 }
 
 void GlobalManager::OpenManagers(const Request& request)
@@ -110,12 +139,19 @@ void GlobalManager::CloseManagers()
 
 void GlobalManager::DeleteEmptyFiles()
 {
-	std::for_each(month_managers_.begin(), month_managers_.end(), 
-		[](const MonthFileManager& manager) {
-		if (manager.IsFileEmpty()) {
-			manager.DeleteFile();
+	std::experimental::filesystem::directory_iterator dir_iter(FileNames::data_folder_name);
+	
+	std::ifstream stream;
+	std::string buffer;
+
+	for (auto& file : dir_iter) {
+		stream.open(dir_iter->path());
+		std::getline(stream, buffer);
+		stream.close();
+		if (buffer.size() == 0) {
+			remove(dir_iter);
 		}
-	});
+	}
 }
 
 void GlobalManager::SortBuffers()

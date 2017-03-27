@@ -34,6 +34,7 @@ private:
 	// Constructing ready-to-use file name (without folder part)
 	static std::string* ConstructFileName(std::string* month_name, int year);
 
+public:
 	// Folder where app data is kept
 	static const char* data_folder_name;
 

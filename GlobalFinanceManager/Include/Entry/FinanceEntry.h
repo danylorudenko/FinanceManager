@@ -2,6 +2,7 @@
 #define __FINANCE_ENTRY_H__
 
 #include <string>
+#include <map>
 #include "..\..\Include\Time\TimeHolder.h"
 
 /*
@@ -50,6 +51,7 @@ protected:
 	int sum_;
 	std::string category_;
 	std::string description_;
+
 };
 
 #endif

@@ -42,13 +42,11 @@ protected:
 	static const std::string balance_command_;
 	static const std::string get_command_;
 	static const std::string add_commnad_;
-	static const std::string search_command_;
 	static const std::string edit_command_;
 
 	static const std::string balance_command_reference_;
 	static const std::string get_command_reference_;
 	static const std::string add_command_reference_;
-	static const std::string search_command_reference_;
 	static const std::string edit_command_refernce_;
 
 };

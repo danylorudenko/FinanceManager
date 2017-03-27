@@ -24,8 +24,6 @@ public:
 
 	void GetRecords(std::string& params);
 
-	void GlobalSearch(std::string& params);
-
 	void EditEntry(std::string& params);
 
 	void AddEntry(std::string& params);
@@ -49,13 +47,14 @@ protected:
 	// Sorting all opened buffers
 	void SortBuffers();
 
+	// Displaying buffers of the opened managers
 	void DisplayManagersBuffers(const Request& request);
 
 protected:
 	const static std::string balance_all_argument_;
 
 	// List of month managers
-	std::vector<MonthFileManager> month_managers_;
+	std::list<MonthFileManager> month_managers_;
 };
 
 #endif

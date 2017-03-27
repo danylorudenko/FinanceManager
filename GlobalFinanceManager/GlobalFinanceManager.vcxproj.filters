@@ -34,6 +34,7 @@
     <ClCompile Include="Source\DescriptionPredicate.cpp" />
     <ClCompile Include="Source\CommandParametersExtractor.cpp" />
     <ClCompile Include="Tests\requestFactoryTest.cpp" />
+    <ClCompile Include="Source\SumConstructor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
@@ -58,6 +59,10 @@
     <ClInclude Include="Include\Util\Request\RequestFactory.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\DescriptionPredicate.h" />
     <ClInclude Include="Include\Util\CommandParametersExtractor.h" />
+    <ClInclude Include="Include\Entry\EntryConstructor\AEntryConstructor.h" />
+    <ClInclude Include="Include\Entry\EntryConstructor\CategoryConstructor.h" />
+    <ClInclude Include="Include\Entry\EntryConstructor\DescriptionConstructor.h" />
+    <ClInclude Include="Include\Entry\EntryConstructor\SumConstructor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />
