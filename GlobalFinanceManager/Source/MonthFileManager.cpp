@@ -97,7 +97,6 @@ void MonthFileManager::SortBuffer()
 		return;
 	}
 
-	UNIQUE NOT ALLOWED
 	std::sort(entries_buffer_.begin(), entries_buffer_.end(), sorting_predicate_);
 }
 

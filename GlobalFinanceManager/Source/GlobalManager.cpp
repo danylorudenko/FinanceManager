@@ -18,7 +18,12 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 	}
 	else {
 		const Request* request = RequestFactory::ConstructTimeRequest(params_string);
-		
+		if (request == nullptr) {
+			delete request;
+			std::cout << "Can't construct request wit the given arguments.\n";
+			return;
+		}
+
 		OpenManagers(*request);
 		SortBuffers();
 		DisplayManagersBuffers(*request);
@@ -32,7 +37,7 @@ void GlobalManager::DisplayManagersBuffers(const Request& request)
 {
 	int counter = 1;
 
-	int managers_length = month_managers_.size();
+	size_t managers_length = month_managers_.size();
 	for(int i = 0; i < managers_length; ++i) 
 	{
 		auto iter_begin = month_managers_.at(i).Begin(&request);
@@ -52,7 +57,7 @@ int GlobalManager::CountBalanceByTime(const Request& request)
 {
 	int balance = 0;
 
-	int managers_length = month_managers_.size();
+	size_t managers_length = month_managers_.size();
 	for (int i = 0; i < managers_length; ++i)
 	{
 		auto iter_begin = month_managers_.at(i).Begin(&request);

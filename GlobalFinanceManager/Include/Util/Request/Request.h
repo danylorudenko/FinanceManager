@@ -21,6 +21,10 @@ public:
 	// Check of Entry is valid for this request
 	bool IsValid(const FinanceEntry& entry) const;
 
+	// Check if request can be used without errors
+	// Returns false if request has no time_predicate_
+	bool CanUse() const;
+
 	// Decorating internal complex predicate
 	Request& Decorate(AComplexPredicate* next_component);
 

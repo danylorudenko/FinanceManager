@@ -64,11 +64,11 @@ public:
 	// In this case when dereferencing std::lenth_error exception is thrown
 	iterator End(const Request* request);
 
-private:
+protected:
 	// Creating file with constant member string
 	void CreateFile() const;
 
-private:
+protected:
 	const std::string file_name_;
 
 	container_type entries_buffer_;

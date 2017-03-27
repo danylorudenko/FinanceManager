@@ -139,8 +139,8 @@ EntryIterator& EntryIterator::operator--()
 		return *this;
 	}
 	
-	int prev_index = current_index_;
-	for (int i = current_index_ - 1; i >= 0; i--) {
+	int prev_index = static_cast<int>(current_index_);
+	for (int i = prev_index - 1; i >= 0; i--) {
 		if (request_->IsValid((*target_container_p_)[i])) {
 			current_index_ = i;
 			return *this;
@@ -183,8 +183,8 @@ EntryIterator EntryIterator::operator--(int)
 	
 	EntryIterator previous_state(*this);
 
-	int prev_index = current_index_;
-	for (int i = current_index_ - 1; i >= 0; i--) {
+	int prev_index = static_cast<int>(current_index_);
+	for (int i = prev_index - 1; i >= 0; i--) {
 		if (request_->IsValid((*target_container_p_)[i])) {
 			current_index_ = i;
 			return previous_state;
@@ -237,7 +237,8 @@ EntryIterator& EntryIterator::ToEnd()
 		return *this;
 	}
 	
-	for (int i = target_container_p_->size() - 1; i >= 0; i--)
+	int size = static_cast<int>(target_container_p_->size());
+	for (int i = size - 1; i >= 0; i--)
 	{
 		if (request_->IsValid((*target_container_p_)[i])) {
 			current_index_ = i + 1;

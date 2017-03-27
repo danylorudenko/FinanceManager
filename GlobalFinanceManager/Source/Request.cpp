@@ -22,6 +22,11 @@ bool Request::IsValid(const FinanceEntry& entry) const {
 	return true;
 }
 
+bool Request::CanUse() const
+{
+	return !(time_predicate_ == nullptr);
+}
+
 Request& Request::Decorate(AComplexPredicate* next_component)
 {
 	time_predicate_->Decorate(next_component);

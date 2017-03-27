@@ -122,22 +122,22 @@ bool FinanceEntry::IsLaterOrEquals(const TimeHolder& anotherTime) const
 
 bool FinanceEntry::IsEarlier(const FinanceEntry& anotherEntry) const
 {
-	return !(IsLater(anotherEntry));
+	return time_.IsEarlier(anotherEntry.time_);
 }
 
 bool FinanceEntry::IsEarlier(const TimeHolder& anotherTime) const
 {
-	return !(time_.IsLater(anotherTime));
+	return time_.IsEarlier(anotherTime);
 }
 
 bool FinanceEntry::IsEarlierOrEquals(const FinanceEntry& anotherEntry) const
 {
-	return !(IsEarlierOrEquals(anotherEntry));
+	return (time_.IsEarlierOrEquals(anotherEntry.time_));
 }
 
 bool FinanceEntry::IsEarlierOrEquals(const TimeHolder& anotherTime) const
 {
-	return !(time_.IsEarlierOrEquals(anotherTime));
+	return (time_.IsEarlierOrEquals(anotherTime));
 }
 
 std::string FinanceEntry::Serialize() const
