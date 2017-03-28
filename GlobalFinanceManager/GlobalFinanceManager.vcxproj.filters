@@ -35,6 +35,8 @@
     <ClCompile Include="Source\CommandParametersExtractor.cpp" />
     <ClCompile Include="Tests\requestFactoryTest.cpp" />
     <ClCompile Include="Source\SumConstructor.cpp" />
+    <ClCompile Include="Source\AEntryConstructor.cpp" />
+    <ClCompile Include="Source\DescriptionConstructor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />

@@ -7,6 +7,8 @@ class SumConstructor : public AEntryConstructor
 {
 public:
 	virtual void Construct(FinanceEntry& entry) override;
+
+	SumConstructor(const std::string& content_to_insert);
 };
 
 #endif

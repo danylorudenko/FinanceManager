@@ -7,6 +7,8 @@ class CategoryConstructor : public AEntryConstructor
 {
 public:
 	virtual void Construct(FinanceEntry& entry) override;
+
+	CategoryConstructor(const std::string& content_to_insert);
 };
 
 #endif

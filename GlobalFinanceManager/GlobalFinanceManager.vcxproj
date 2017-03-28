@@ -112,12 +112,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AComplexPredicate.cpp" />
+    <ClCompile Include="Source\AEntryConstructor.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\CategoryPredicate.cpp" />
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\CommandParametersExtractor.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
+    <ClCompile Include="Source\DescriptionConstructor.cpp" />
     <ClCompile Include="Source\DescriptionPredicate.cpp" />
     <ClCompile Include="Source\EntryIterator.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
