@@ -3,6 +3,8 @@
 #include "..\Include\Util\Request\RequestFactory.h"
 #include "..\Include\Util\EntryIterator.h"
 #include "..\Include\Util\CommandParametersExtractor.h"
+#include "..\Include\Entry\EntryModificator\EntryModificatorFactory.h"
+#include "..\Include\Entry\EntryModificator\AEntryModificator.h"
 
 #include <iostream>
 #include <iomanip>
@@ -107,16 +109,15 @@ void GlobalManager::AddEntry(std::string& params)
 	Request* request = RequestFactory::ConstructTimeRequest(fake_params);
 	StringVector* file_names_p_ = FileNames::ConstructFileNames(*request);
 	MonthFileManager* manager = new MonthFileManager(file_names_p_->at(0));
-	
-	CommandParametersExtractor* parameters_extractor = new CommandParametersExtractor(params);
-	int params_count = parameters_extractor->ArgumentsCount();
-	for (int i = 0; i < params_count; ++i) {
-		const std::string& param_prefix = parameters_extractor->GetPrefix(i);
-		const std::string& param_content = parameters_extractor->TryGetArgument(param_prefix);
-		KGAIKLWDHIGQ
-	}
 
-	delete parameters_extractor;
+	FinanceEntry new_entry;
+	AEntryModificator* modificator = EntryModificatorFactory::Construct(params);
+	modificator->Modify(new_entry);
+
+	manager->AddEntryToBuffer(new_entry);
+	manager->SortBuffer();
+	manager->RewriteFileFromBuffer();
+
 	delete request;
 }
 
@@ -124,8 +125,8 @@ void GlobalManager::OpenManagers(const Request& request)
 {
 	StringVector* file_names = FileNames::ConstructFileNames(request);
 
-	std::for_each(file_names->begin(), file_names->end(), 
-		[&] (std::string& name) {
+	std::for_each(file_names->begin(), file_names->end(),
+		[&](std::string& name) {
 		month_managers_.push_back(MonthFileManager(name));
 	});
 
@@ -139,8 +140,8 @@ void GlobalManager::CloseManagers()
 
 void GlobalManager::DeleteEmptyFiles()
 {
-	std::experimental::filesystem::directory_iterator dir_iter(FileNames::data_folder_name);
-	
+	/*std::experimental::filesystem::directory_iterator dir_iter(FileNames::data_folder_name);
+
 	std::ifstream stream;
 	std::string buffer;
 
@@ -151,12 +152,12 @@ void GlobalManager::DeleteEmptyFiles()
 		if (buffer.size() == 0) {
 			remove(dir_iter);
 		}
-	}
+	}*/
 }
 
 void GlobalManager::SortBuffers()
 {
-	std::for_each(month_managers_.begin(), month_managers_.end(), 
+	std::for_each(month_managers_.begin(), month_managers_.end(),
 		[](MonthFileManager& manager) {
 		manager.SortBuffer();
 	});

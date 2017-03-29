@@ -32,10 +32,12 @@ protected:
 	// Map of AComplexPredicate builders
 	const static std::map<std::string, BuilderDelegate> builder_delegates_map_;
 
+public:
 	const static std::string time_argument_prefix_;
 	const static std::string type_argument_prefix_;
 	const static std::string category_argument_prefix_;
 	const static std::string description_argument_prefix_;
+	const static std::string sum_argument_prefix_;
 };
 
 #endif

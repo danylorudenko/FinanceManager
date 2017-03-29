@@ -10,13 +10,14 @@ const std::string RequestFactory::time_argument_prefix_ = "tm";
 const std::string RequestFactory::type_argument_prefix_ = "tp";
 const std::string RequestFactory::category_argument_prefix_ = "c";
 const std::string RequestFactory::description_argument_prefix_ = "d";
+const std::string RequestFactory::sum_argument_prefix_ = "s";
 
 const std::map<std::string, RequestFactory::BuilderDelegate> RequestFactory::builder_delegates_map_ = 
 {
-	{ time_argument_prefix_, RequestFactory::BuildTimeEdgePredicate },
-	{ type_argument_prefix_, RequestFactory::BuildSumTypePredicate },
-	{ category_argument_prefix_, RequestFactory::BuildCategoryPredicate },
-	{ description_argument_prefix_, RequestFactory::BuildDescriptionPredicate }
+	{ RequestFactory::time_argument_prefix_,		RequestFactory::BuildTimeEdgePredicate },
+	{ RequestFactory::type_argument_prefix_,		RequestFactory::BuildSumTypePredicate },
+	{ RequestFactory::category_argument_prefix_,	RequestFactory::BuildCategoryPredicate },
+	{ RequestFactory::description_argument_prefix_, RequestFactory::BuildDescriptionPredicate }
 };
 
 Request* RequestFactory::ConstructRequest(std::string& params_string)
@@ -31,7 +32,7 @@ Request* RequestFactory::ConstructRequest(std::string& params_string)
 	CommandParametersExtractor* arguments_extractor_p = new CommandParametersExtractor(params_string);
 
 	// Decorating request
-	int arguments_count = arguments_extractor_p->ArgumentsCount();
+	const int arguments_count = static_cast<const int>(arguments_extractor_p->ArgumentsCount());
 	for (int i = 0; i < arguments_count; i++)
 	{
 		// Getting prefix string

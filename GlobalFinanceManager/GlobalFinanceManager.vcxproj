@@ -112,16 +112,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\AComplexPredicate.cpp" />
-    <ClCompile Include="Source\AEntryConstructor.cpp" />
+    <ClCompile Include="Source\AEntryModificator.cpp" />
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\CategoryModificator.cpp" />
     <ClCompile Include="Source\CategoryPredicate.cpp" />
     <ClCompile Include="Source\CommandManager.cpp" />
     <ClCompile Include="Source\CommandParametersExtractor.cpp" />
     <ClCompile Include="Source\ConfigFileManager.cpp" />
     <ClCompile Include="Source\ConfigInfo.cpp" />
-    <ClCompile Include="Source\DescriptionConstructor.cpp" />
+    <ClCompile Include="Source\DescriptionModificator.cpp" />
     <ClCompile Include="Source\DescriptionPredicate.cpp" />
     <ClCompile Include="Source\EntryIterator.cpp" />
+    <ClCompile Include="Source\EntryModificatorFactory.cpp" />
     <ClCompile Include="Source\FileNames.cpp" />
     <ClCompile Include="Source\GlobalManager.cpp" />
     <ClCompile Include="Source\MonthConverter.cpp" />
@@ -130,7 +132,7 @@
     <ClCompile Include="Source\MonthFileManager.cpp" />
     <ClCompile Include="Source\Request.cpp" />
     <ClCompile Include="Source\RequestFactory.cpp" />
-    <ClCompile Include="Source\SumConstructor.cpp" />
+    <ClCompile Include="Source\SumModificator.cpp" />
     <ClCompile Include="Source\SumTypePredicate.cpp" />
     <ClCompile Include="Source\TimeEdgePredicate.cpp" />
     <ClCompile Include="Source\TimeHolder.cpp" />
@@ -149,10 +151,11 @@
     <ClCompile Include="Tests\timeHolderTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Entry\EntryConstructor\AEntryConstructor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\CategoryConstructor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\DescriptionConstructor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\SumConstructor.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\AEntryModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\CategoryModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\DescriptionModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\EntryModificatorFactory.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\SumModificator.h" />
     <ClInclude Include="Include\Enums\EntrySumType.h" />
     <ClInclude Include="Include\Enums\Month.h" />
     <ClInclude Include="Include\Application.h" />

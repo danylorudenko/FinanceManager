@@ -41,7 +41,7 @@ protected:
 
 	static const std::string balance_command_;
 	static const std::string get_command_;
-	static const std::string add_commnad_;
+	static const std::string add_command_;
 	static const std::string edit_command_;
 
 	static const std::string balance_command_reference_;

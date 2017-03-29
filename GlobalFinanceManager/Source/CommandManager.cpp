@@ -7,7 +7,7 @@ const std::string CommandManager::help_command_ = "help";
 
 const std::string CommandManager::balance_command_ = "balance";
 const std::string CommandManager::get_command_ = "get";
-const std::string CommandManager::add_commnad_ = "add";
+const std::string CommandManager::add_command_ = "add";
 const std::string CommandManager::edit_command_ = "edit";
 
 const std::string CommandManager::balance_command_reference_ = "HOW TO USE BALANCE";
@@ -18,8 +18,8 @@ const std::string CommandManager::edit_command_refernce_ = "HOW TO USE EDIT";
 const std::map<std::string, CommandManager::ManagerDelegate> CommandManager::commands_delegates_
 {
 	{ balance_command_, &GlobalManager::DisplayBalance },
-	{ get_command_, &GlobalManager::AddEntry },
-	{ add_commnad_, &GlobalManager::GetRecords },
+	{ add_command_, &GlobalManager::AddEntry },
+	{ get_command_, &GlobalManager::GetRecords },
 	{ edit_command_, &GlobalManager::EditEntry }
 };
 
@@ -27,7 +27,7 @@ const std::map<std::string, std::string> CommandManager::commands_references_
 {
 	{ balance_command_, balance_command_reference_ },
 	{ get_command_, get_command_reference_ },
-	{ add_commnad_, add_command_reference_ },
+	{ add_command_, add_command_reference_ },
 	{ edit_command_,  edit_command_refernce_ }
 };
 

@@ -34,9 +34,11 @@
     <ClCompile Include="Source\DescriptionPredicate.cpp" />
     <ClCompile Include="Source\CommandParametersExtractor.cpp" />
     <ClCompile Include="Tests\requestFactoryTest.cpp" />
-    <ClCompile Include="Source\SumConstructor.cpp" />
-    <ClCompile Include="Source\AEntryConstructor.cpp" />
-    <ClCompile Include="Source\DescriptionConstructor.cpp" />
+    <ClCompile Include="Source\AEntryModificator.cpp" />
+    <ClCompile Include="Source\DescriptionModificator.cpp" />
+    <ClCompile Include="Source\SumModificator.cpp" />
+    <ClCompile Include="Source\CategoryModificator.cpp" />
+    <ClCompile Include="Source\EntryModificatorFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
@@ -61,10 +63,11 @@
     <ClInclude Include="Include\Util\Request\RequestFactory.h" />
     <ClInclude Include="Include\Util\Request\ComplexPredicate\DescriptionPredicate.h" />
     <ClInclude Include="Include\Util\CommandParametersExtractor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\AEntryConstructor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\CategoryConstructor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\DescriptionConstructor.h" />
-    <ClInclude Include="Include\Entry\EntryConstructor\SumConstructor.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\AEntryModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\CategoryModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\DescriptionModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\SumModificator.h" />
+    <ClInclude Include="Include\Entry\EntryModificator\EntryModificatorFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />
