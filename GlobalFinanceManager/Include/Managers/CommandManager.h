@@ -37,17 +37,24 @@ protected:
 	// Map of references to commands how-to-use
 	static const std::regex regex_user_input_;
 
-	static const std::string help_command_;
+public:
+	static constexpr char* help_command_ = "help";
 
-	static const std::string balance_command_;
-	static const std::string get_command_;
-	static const std::string add_command_;
-	static const std::string edit_command_;
+	static constexpr char* balance_command_ = "balance";
+	static constexpr char* get_command_ = "get";
+	static constexpr char* add_command_ = "add";
+	static constexpr char* edit_command_ = "edit";
 
-	static const std::string balance_command_reference_;
-	static const std::string get_command_reference_;
-	static const std::string add_command_reference_;
-	static const std::string edit_command_refernce_;
+	static constexpr char* balance_command_reference_ = "BALANCE REFERENCE";
+	static constexpr char* get_command_reference_ = "GET REFERENCE";
+	static constexpr char* add_command_reference_ = "ADD REFERENCE";
+	static constexpr char* edit_command_refernce_ = "EDIT REFERENCE";
+
+	static constexpr char* time_argument_prefix_ = "tm";;
+	static constexpr char* type_argument_prefix_ = "tp";;
+	static constexpr char* category_argument_prefix_ = "c";;
+	static constexpr char* description_argument_prefix_ = "d";;
+	static constexpr char* sum_argument_prefix_ = "s";
 
 };
 

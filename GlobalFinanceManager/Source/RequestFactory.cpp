@@ -1,23 +1,18 @@
 #include <iostream>
 
 #include "..\Include\Util\Request\RequestFactory.h"
+#include "..\Include\Managers\CommandManager.h"
 #include "..\Include\Util\CommandParametersExtractor.h"
 #include "..\Include\Util\Request\ComplexPredicate\CategoryPredicate.h"
 #include "..\Include\Util\Request\ComplexPredicate\DescriptionPredicate.h"
 #include "..\Include\Util\Request\ComplexPredicate\SumTypePredicate.h"
 
-const std::string RequestFactory::time_argument_prefix_ = "tm";
-const std::string RequestFactory::type_argument_prefix_ = "tp";
-const std::string RequestFactory::category_argument_prefix_ = "c";
-const std::string RequestFactory::description_argument_prefix_ = "d";
-const std::string RequestFactory::sum_argument_prefix_ = "s";
-
 const std::map<std::string, RequestFactory::BuilderDelegate> RequestFactory::builder_delegates_map_ = 
 {
-	{ RequestFactory::time_argument_prefix_,		RequestFactory::BuildTimeEdgePredicate },
-	{ RequestFactory::type_argument_prefix_,		RequestFactory::BuildSumTypePredicate },
-	{ RequestFactory::category_argument_prefix_,	RequestFactory::BuildCategoryPredicate },
-	{ RequestFactory::description_argument_prefix_, RequestFactory::BuildDescriptionPredicate }
+	{ CommandManager::time_argument_prefix_,		RequestFactory::BuildTimeEdgePredicate },
+	{ CommandManager::type_argument_prefix_,		RequestFactory::BuildSumTypePredicate },
+	{ CommandManager::category_argument_prefix_,	RequestFactory::BuildCategoryPredicate },
+	{ CommandManager::description_argument_prefix_, RequestFactory::BuildDescriptionPredicate }
 };
 
 Request* RequestFactory::ConstructRequest(std::string& params_string)
@@ -26,7 +21,7 @@ Request* RequestFactory::ConstructRequest(std::string& params_string)
 	Request* request = RequestFactory::ConstructTimeRequest(params_string);
 
 	// Removing time argument form the string
-	size_t time_prefix_pos = params_string.find(time_argument_prefix_);
+	size_t time_prefix_pos = params_string.find(CommandManager::time_argument_prefix_);
 	params_string.erase(time_prefix_pos, time_prefix_pos + 2);
 
 	CommandParametersExtractor* arguments_extractor_p = new CommandParametersExtractor(params_string);
@@ -57,7 +52,7 @@ Request* RequestFactory::ConstructTimeRequest(std::string& params_string)
 	CommandParametersExtractor* arguments_extractor_p = new CommandParametersExtractor(params_string);
 
 	try {
-		const std::string& days_string = arguments_extractor_p->TryGetArgument(time_argument_prefix_);
+		const std::string& days_string = arguments_extractor_p->TryGetArgument(CommandManager::time_argument_prefix_);
 
 		AComplexPredicate* time_predicate = BuildTimeEdgePredicate(days_string);
 

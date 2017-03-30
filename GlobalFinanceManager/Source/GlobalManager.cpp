@@ -107,8 +107,8 @@ void GlobalManager::AddEntry(std::string& params)
 	CloseManagers();
 	std::string fake_params("/tm:0");
 	Request* request = RequestFactory::ConstructTimeRequest(fake_params);
-	StringVector* file_names_p_ = FileNames::ConstructFileNames(*request);
-	MonthFileManager* manager = new MonthFileManager(file_names_p_->at(0));
+	StringVector* file_names_p = FileNames::ConstructFileNames(*request);
+	MonthFileManager* manager = new MonthFileManager(file_names_p->at(0));
 
 	FinanceEntry new_entry;
 	AEntryModificator* modificator = EntryModificatorFactory::Construct(params);
@@ -118,6 +118,11 @@ void GlobalManager::AddEntry(std::string& params)
 	manager->SortBuffer();
 	manager->RewriteFileFromBuffer();
 
+	ConfigFileManager::AdjustBalance(new_entry.GetSum());
+
+	delete modificator;
+	delete manager;
+	delete file_names_p;
 	delete request;
 }
 

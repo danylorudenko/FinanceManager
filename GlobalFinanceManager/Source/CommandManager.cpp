@@ -3,18 +3,6 @@
 #include "..\Include\Application.h"
 #include <iostream>
 
-const std::string CommandManager::help_command_ = "help";
-
-const std::string CommandManager::balance_command_ = "balance";
-const std::string CommandManager::get_command_ = "get";
-const std::string CommandManager::add_command_ = "add";
-const std::string CommandManager::edit_command_ = "edit";
-
-const std::string CommandManager::balance_command_reference_ = "HOW TO USE BALANCE";
-const std::string CommandManager::get_command_reference_ = "HOW TO USE GET";
-const std::string CommandManager::add_command_reference_ = "HOW TO USE ADD";
-const std::string CommandManager::edit_command_refernce_ = "HOW TO USE EDIT";
-
 const std::map<std::string, CommandManager::ManagerDelegate> CommandManager::commands_delegates_
 {
 	{ balance_command_, &GlobalManager::DisplayBalance },

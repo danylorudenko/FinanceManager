@@ -1,17 +1,17 @@
 #include <iostream>
 
 #include "..\Include\Util\CommandParametersExtractor.h"
-#include "..\Include\Util\Request\RequestFactory.h"
+#include "..\Include\Managers\CommandManager.h"
 #include "..\Include\Entry\EntryModificator\CategoryModificator.h"
 #include "..\Include\Entry\EntryModificator\SumModificator.h"
 #include "..\Include\Entry\EntryModificator\DescriptionModificator.h"
 #include "..\Include\Entry\EntryModificator\EntryModificatorFactory.h"
 
-const std::map<std::string, EntryModificatorFactory::EntryModificatorCreator> EntryModificatorFactory::creators_map_ =
+const std::map<std::string, EntryModificatorFactory::EntryModificatorCreator> EntryModificatorFactory::creators_map_
 {
-	{ RequestFactory::category_argument_prefix_,	EntryModificatorFactory::ConstructCategoryModificator },
-	{ RequestFactory::sum_argument_prefix_,			EntryModificatorFactory::ConstructSumModificator },
-	{ RequestFactory::description_argument_prefix_, EntryModificatorFactory::ConstructDescriptionModificator }
+	{ CommandManager::category_argument_prefix_,	EntryModificatorFactory::ConstructCategoryModificator },
+	{ CommandManager::description_argument_prefix_, EntryModificatorFactory::ConstructDescriptionModificator },
+	{ CommandManager::sum_argument_prefix_,			EntryModificatorFactory::ConstructSumModificator }
 };
 
 AEntryModificator* EntryModificatorFactory::Construct(std::string& params)
@@ -30,7 +30,7 @@ AEntryModificator* EntryModificatorFactory::Construct(std::string& params)
 				modificator = modificator_creator(std::string(param_content));
 			}
 			else {
-				modificator->Decorate(modificator_creator(params));
+				modificator->Decorate(modificator_creator(std::string(param_content)));
 			}
 		}
 		catch (std::out_of_range e) {

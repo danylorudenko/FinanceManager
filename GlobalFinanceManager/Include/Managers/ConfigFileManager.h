@@ -21,6 +21,9 @@ public:
 	// The time will be written if it is earlier than time in the file
 	static void TryWriteNewTime(const TimeHolder& time);
 
+	// Adding passed value to the balance in the config file
+	static void AdjustBalance(const int to_add);
+
 protected:
 	// Reading configuration data directly from the file + updating local config data
 	static ConfigInfo* ReadConfigFromFile();

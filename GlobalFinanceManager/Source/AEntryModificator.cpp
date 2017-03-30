@@ -13,5 +13,10 @@ AEntryModificator::~AEntryModificator()
 
 void AEntryModificator::Decorate(AEntryModificator* next_component) 
 {
-	next_component_ = next_component;
+	if (next_component_ == nullptr) {
+		next_component_ = next_component;
+	}
+	else {
+		next_component_->Decorate(next_component);
+	}
 }

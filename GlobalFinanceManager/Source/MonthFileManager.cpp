@@ -82,10 +82,9 @@ void MonthFileManager::RewriteFileFromBuffer()
 {
 	std::fstream file_stream(file_name_, std::ios_base::trunc | std::ios_base::out);
 
-	std::fstream *file_stream_pointer = &file_stream;
-	std::for_each(entries_buffer_.begin(), entries_buffer_.end(), [&, file_stream_pointer](FinanceEntry entry) 
+	std::for_each(entries_buffer_.begin(), entries_buffer_.end(), [&](FinanceEntry& entry) 
 	{
-		*file_stream_pointer << entry.Serialize() << std::endl;
+		file_stream << entry.Serialize() << std::endl;
 	});
 
 	file_stream.close();

@@ -102,6 +102,18 @@ void ConfigFileManager::TryWriteNewTime(const TimeHolder& time)
 	}
 }
 
+void ConfigFileManager::AdjustBalance(const int to_add)
+{
+	const ConfigInfo& config_info = ConfigFileManager::GetConfigInfo();
+	int current_balance = config_info.GetCurrentBalance();
+	int new_balance = current_balance + to_add;
+
+	const std::string* config_string = ConfigFileManager::ConstructConfigString(config_info.GetFirstEdge(), new_balance);
+	ConfigFileManager::RewriteConfigFile(config_string);
+
+	delete config_string;
+}
+
 void ConfigFileManager::RewriteConfigFile(const std::string* string)
 {
 	std::ofstream* out_stream = new std::ofstream(config_file_name_, std::ios_base::out | std::ios_base::trunc);
