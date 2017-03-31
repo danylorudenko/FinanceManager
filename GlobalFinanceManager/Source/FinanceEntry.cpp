@@ -19,12 +19,12 @@ FinanceEntry::FinanceEntry(const std::string& source_string)
 		"(\\.)"						//5		  These sould be passed as a single string to the TimeHolder contstructor
 		"(\\d{3})"  				//6	      These sould be passed as a single string to the TimeHolder contstructor
 		"(\\|)"						//7
-		"(.+)"						//8
+		"(.*)"						//8
 		"(\\|)"						//9
 		"(-?)"						//10
 		"(\\d+)"					//11
 		"(\\|)"						//12
-		"(.+)"						//13
+		"(.*)"						//13
 		"(\\])"						//14
 	);
 	std::cmatch result;

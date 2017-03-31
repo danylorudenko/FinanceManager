@@ -104,7 +104,6 @@ void GlobalManager::EditEntry(std::string& params)
 
 void GlobalManager::AddEntry(std::string& params)
 {
-	CloseManagers();
 	std::string fake_params("/tm:0");
 	Request* request = RequestFactory::ConstructTimeRequest(fake_params);
 	StringVector* file_names_p = FileNames::ConstructFileNames(*request);
@@ -145,7 +144,7 @@ void GlobalManager::CloseManagers()
 
 void GlobalManager::DeleteEmptyFiles()
 {
-	/*std::experimental::filesystem::directory_iterator dir_iter(FileNames::data_folder_name);
+	std::experimental::filesystem::directory_iterator dir_iter(FileNames::data_folder_name);
 
 	std::ifstream stream;
 	std::string buffer;
@@ -157,7 +156,7 @@ void GlobalManager::DeleteEmptyFiles()
 		if (buffer.size() == 0) {
 			remove(dir_iter);
 		}
-	}*/
+	}
 }
 
 void GlobalManager::SortBuffers()
