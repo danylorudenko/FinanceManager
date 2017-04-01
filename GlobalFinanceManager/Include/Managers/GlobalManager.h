@@ -56,6 +56,9 @@ protected:
 	// Displaying buffers of the opened managers
 	void DisplayManagersBuffers(const Request& request);
 
+	// Editing entry by the id from the last-displayed list
+	void EditEntryByDisplayedId(const Request& prev_request, const int id, std::string& params);
+
 	static void FormatDisplayEntry(const FinanceEntry& entry);
 
 protected:

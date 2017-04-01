@@ -25,21 +25,20 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 			<< " UAH\n";
 	}
 	else {
-		const Request* request = RequestFactory::ConstructTimeRequest(params_string);
-		if (request == nullptr) {
-			delete request;
-			std::cout << "Can't construct request wit the given arguments.\n";
+		delete prev_request_;
+		prev_request_ = RequestFactory::ConstructTimeRequest(params_string);
+		if (prev_request_ == nullptr) {
+			std::cout << "Can't construct request with the given arguments.\n";
 			return;
 		}
 
-		OpenManagers(*request);
+		OpenManagers(*prev_request_);
 		SortBuffers();
-		DisplayManagersBuffers(*request);
+		DisplayManagersBuffers(*prev_request_);
 
-		int balance = CountBalanceByTime(*request);
+		int balance = CountBalanceByTime(*prev_request_);
 		std::cout << "Balance: " << balance << " UAH\n";
 
-		delete request;
 		CloseManagers();
 	}
 }
@@ -57,8 +56,8 @@ void GlobalManager::DisplayManagersBuffers(const Request& request)
 
 		for (auto j = iter_begin; j != iter_end; ++j) {
 			std::cout
-				<< counter << ":\t"
-				<< (*j).Serialize() << std::endl;
+				<< counter << ":\t";
+			FormatDisplayEntry(*j);
 			++counter;
 		}
 	}
@@ -67,31 +66,50 @@ void GlobalManager::DisplayManagersBuffers(const Request& request)
 
 void GlobalManager::FormatDisplayEntry(const FinanceEntry& entry)
 {
-	std::ostringstream formatted_entry;
-
 	// ============ Date:
-
 	// Day
 	int day = entry.GetTime().GetDay();
-	if (day > 9) {
-		formatted_entry << '0';
+	if (day < 10) {
+		std::cout << '0';
 	}
 
-	formatted_entry << day << '.';
+	std::cout << day << '.';
 
 	// Month
+	int month = MonthConverter::MonthToInt(entry.GetTime().GetMonth());
+	if (month < 10) {
+		std::cout << '0';
+	}
+	std::cout << (month + 1) << '.';
 
-	formatted_entry << MonthConverter::MonthToString(entry.GetTime().GetMonth());
-
+	// Year
+	std::cout
+		<< (entry.GetTime().GetYear() + 1900);
+	// ============
 
 	// ============ Sum:
 	int major_currency_amount = entry.GetSum() / 100;
 	int minor_currency_amount = entry.GetSum() % 100;
+	
+	std::cout
+		<< std::setw(6)
+		<< std::right
+		<< major_currency_amount
+		<< ','
+		<< (minor_currency_amount < 10 ? "0" : "")
+		<< minor_currency_amount
+		<< " UAH,";
 
 	// ============ Category:
 
+	std::cout.width(13);
+	std::cout
+		<< entry.GetCategory()
+		<< ", ";
+
 	// ============ Description:
-	
+	std::cout << entry.GetDescription();
+	std::cout << std::endl;
 }
 
 int GlobalManager::CountBalanceByTime(const Request& request)
@@ -112,6 +130,35 @@ int GlobalManager::CountBalanceByTime(const Request& request)
 	return balance;
 }
 
+void GlobalManager::EditEntryByDisplayedId(const Request& prev_request, const int id, std::string& params)
+{
+	OpenManagers(prev_request);
+	
+	AEntryModificator* modificator = EntryModificatorFactory::Construct(params);
+	int counter = 0;
+
+	auto managers_end = month_managers_.end();
+	for (auto i = month_managers_.begin(); i != managers_end; ++i) {
+		auto iter_begin = i->Begin(&prev_request);
+		auto iter_end = i->End(&prev_request);
+
+		for (auto j = iter_begin; j != iter_end; ++j) {
+			if ((counter + 1) == id) {
+				modificator->Modify(*j);
+				DisplayManagersBuffers(prev_request);
+				CloseManagers();
+				delete modificator;
+				return;
+			}
+			++counter;
+		}
+	}
+
+	std::cout << "Your id didn't match any entry!\n";
+	delete modificator;
+	CloseManagers();
+}
+
 void GlobalManager::GetRecords(std::string& params)
 {
 	delete prev_request_;
@@ -130,7 +177,18 @@ void GlobalManager::GetRecords(std::string& params)
 
 void GlobalManager::EditEntry(std::string& params)
 {
-	std::cout << "EditEntry\n";
+	if (prev_request_ == nullptr) {
+		return;
+	}
+	std::regex regex("\\d+");
+	std::smatch result;
+	if(std::regex_search(params, result, regex)) {
+		int id = std::stoi(result.str());
+		int digits = id / 10;
+		params.erase(0, (digits + 1));
+
+		EditEntryByDisplayedId(*prev_request_, id, params);
+	}
 }
 
 void GlobalManager::AddEntry(std::string& params)
@@ -200,6 +258,7 @@ void GlobalManager::SortBuffers()
 
 GlobalManager::~GlobalManager()
 {
+	CloseManagers();
 	delete prev_request_;
 	prev_request_ = nullptr;
 	DeleteEmptyFiles();
