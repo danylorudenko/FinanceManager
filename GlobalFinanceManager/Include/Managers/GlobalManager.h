@@ -19,13 +19,19 @@ class MonthFileManager;
 class GlobalManager
 {
 public:
-	// Counds and displays total balance of all records or of period of time
+	// Counds and displays total balance of all entries or of period of time.
 	void DisplayBalance(std::string& params);
 
+	// Displaying numerated list of records based on the user request.
 	void GetRecords(std::string& params);
 
+	// Works only if previous command was "get".
+	// First argument is a number of entry to be changed.
+	// Other params are the properties to be changed.
 	void EditEntry(std::string& params);
 
+	// Adding entry with the current date.
+	// User can specify new entry properties with the params.
 	void AddEntry(std::string& params);
 
 	~GlobalManager();
@@ -50,11 +56,17 @@ protected:
 	// Displaying buffers of the opened managers
 	void DisplayManagersBuffers(const Request& request);
 
+	static void FormatDisplayEntry(const FinanceEntry& entry);
+
 protected:
-	const static std::string balance_all_argument_;
+	constexpr static char* balance_all_argument_ = "all";
 
 	// List of month managers
 	std::list<MonthFileManager> month_managers_;
+
+	// Pointer to previously used request
+	// Usually filled by "get" command
+	Request* prev_request_;
 };
 
 #endif

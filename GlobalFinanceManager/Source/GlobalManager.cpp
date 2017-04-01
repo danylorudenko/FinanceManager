@@ -5,16 +5,19 @@
 #include "..\Include\Util\CommandParametersExtractor.h"
 #include "..\Include\Entry\EntryModificator\EntryModificatorFactory.h"
 #include "..\Include\Entry\EntryModificator\AEntryModificator.h"
+#include "..\Include\Time\MonthConverter.h"
 
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <algorithm>
 #include <filesystem>
 
-const std::string GlobalManager::balance_all_argument_ = "all";
-
 void GlobalManager::DisplayBalance(std::string& params_string)
 {
+	delete prev_request_;
+	prev_request_ = nullptr;
+	
 	if (params_string == "all") {
 		std::cout
 			<< "Current balance: "
@@ -62,6 +65,35 @@ void GlobalManager::DisplayManagersBuffers(const Request& request)
 	std::cout << std::endl;
 }
 
+void GlobalManager::FormatDisplayEntry(const FinanceEntry& entry)
+{
+	std::ostringstream formatted_entry;
+
+	// ============ Date:
+
+	// Day
+	int day = entry.GetTime().GetDay();
+	if (day > 9) {
+		formatted_entry << '0';
+	}
+
+	formatted_entry << day << '.';
+
+	// Month
+
+	formatted_entry << MonthConverter::MonthToString(entry.GetTime().GetMonth());
+
+
+	// ============ Sum:
+	int major_currency_amount = entry.GetSum() / 100;
+	int minor_currency_amount = entry.GetSum() % 100;
+
+	// ============ Category:
+
+	// ============ Description:
+	
+}
+
 int GlobalManager::CountBalanceByTime(const Request& request)
 {
 	int balance = 0;
@@ -82,19 +114,18 @@ int GlobalManager::CountBalanceByTime(const Request& request)
 
 void GlobalManager::GetRecords(std::string& params)
 {
-	Request* request = RequestFactory::ConstructRequest(params);
+	delete prev_request_;
+	prev_request_ = RequestFactory::ConstructRequest(params);
 
-	if (request == nullptr) {
+	if (prev_request_ == nullptr) {
 		std::cout << "Can't construct request: invalid parameters\n";
 		return;
 	}
 
-	OpenManagers(*request);
+	OpenManagers(*prev_request_);
 	SortBuffers();
-	DisplayManagersBuffers(*request);
+	DisplayManagersBuffers(*prev_request_);
 	CloseManagers();
-
-	delete request;
 }
 
 void GlobalManager::EditEntry(std::string& params)
@@ -150,11 +181,11 @@ void GlobalManager::DeleteEmptyFiles()
 	std::string buffer;
 
 	for (auto& file : dir_iter) {
-		stream.open(dir_iter->path());
+		stream.open(file.path());
 		std::getline(stream, buffer);
 		stream.close();
 		if (buffer.size() == 0) {
-			remove(dir_iter);
+			remove(file.path());
 		}
 	}
 }
@@ -169,5 +200,7 @@ void GlobalManager::SortBuffers()
 
 GlobalManager::~GlobalManager()
 {
+	delete prev_request_;
+	prev_request_ = nullptr;
 	DeleteEmptyFiles();
 }

@@ -6,11 +6,14 @@
 #include "..\..\Include\Time\TimeHolder.h"
 
 /*
-	Class represents basic finance entry
+	Class represents basic finance entry.
+	Sum is stored in an integer, not in float:
+	last two digits represent a minor currency (2500 == 25.00 UAH)
 */
 class FinanceEntry
 {
 public:
+
 	FinanceEntry() = default;
 	FinanceEntry(const FinanceEntry& anotherEntry) = default;
 	FinanceEntry(const std::string& category, const int sum,  const std::string& description);

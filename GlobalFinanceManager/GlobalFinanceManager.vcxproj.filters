@@ -39,6 +39,7 @@
     <ClCompile Include="Source\SumModificator.cpp" />
     <ClCompile Include="Source\CategoryModificator.cpp" />
     <ClCompile Include="Source\EntryModificatorFactory.cpp" />
+    <ClCompile Include="Tests\filySystemTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Enums\Month.h" />
