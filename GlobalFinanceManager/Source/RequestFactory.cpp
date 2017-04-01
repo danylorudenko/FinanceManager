@@ -55,6 +55,9 @@ Request* RequestFactory::ConstructTimeRequest(std::string& params_string)
 		const std::string& days_string = arguments_extractor_p->TryGetArgument(CommandManager::time_argument_prefix_);
 
 		AComplexPredicate* time_predicate = BuildTimeEdgePredicate(days_string);
+		if (time_predicate == nullptr) {
+			return nullptr;
+		}
 
 		delete arguments_extractor_p;
 		return new Request(dynamic_cast<TimeEdgePredicate*>(time_predicate));
@@ -68,7 +71,13 @@ Request* RequestFactory::ConstructTimeRequest(std::string& params_string)
 
 AComplexPredicate* RequestFactory::BuildTimeEdgePredicate(const std::string& param)
 {
-	int days = std::stoi(param);
+	int days = 0;
+	try {
+		int days = std::stoi(param);
+	}
+	catch (std::exception) {
+		return nullptr;
+	}
 	return TimeEdgePredicate::LastDays(days);
 }
 

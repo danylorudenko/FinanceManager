@@ -25,7 +25,7 @@ const ConfigInfo& ConfigFileManager::GetConfigInfo()
 			return *local_config_info_;
 		}
 		catch (std::exception e) {
-			std::cout << e.what() << std::endl;
+			//std::cout << e.what() << std::endl;
 
 			// Writing today time to the config file
 			const std::string* valid_config_string = ConstructConfigString(TimeHolder(), 0);

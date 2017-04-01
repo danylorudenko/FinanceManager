@@ -15,13 +15,17 @@
 
 void GlobalManager::DisplayBalance(std::string& params_string)
 {
-	delete prev_request_;
-	prev_request_ = nullptr;
-	
 	if (params_string == "all") {
+		int balance_source_int = ConfigFileManager::GetConfigInfo().GetCurrentBalance();
+		int major_currency = balance_source_int / 100;
+		int minor_currency = balance_source_int % 100;
+		
 		std::cout
 			<< "Current balance: "
-			<< ConfigFileManager::GetConfigInfo().GetCurrentBalance()
+			<< major_currency
+			<< ','
+			<< (minor_currency < 10 ? "0" : "")
+			<< minor_currency
 			<< " UAH\n";
 	}
 	else {
@@ -36,8 +40,17 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 		SortBuffers();
 		DisplayManagersBuffers(*prev_request_);
 
-		int balance = CountBalanceByTime(*prev_request_);
-		std::cout << "Balance: " << balance << " UAH\n";
+		int balance_source_int = CountBalanceByTime(*prev_request_);;
+		int major_currency = balance_source_int / 100;
+		int minor_currency = balance_source_int % 100;
+
+		std::cout
+			<< "Balance by time: "
+			<< major_currency
+			<< ','
+			<< (minor_currency < 10 ? "0" : "")
+			<< minor_currency
+			<< " UAH\n";
 
 		CloseManagers();
 	}
@@ -132,9 +145,14 @@ int GlobalManager::CountBalanceByTime(const Request& request)
 
 void GlobalManager::EditEntryByDisplayedId(const Request& prev_request, const int id, std::string& params)
 {
+	AEntryModificator* modificator = EntryModificatorFactory::Construct(params);
+	if (modificator == nullptr) {
+		std::cout << "Invalid parameters to edit entry!" << std::endl;
+		return;
+	}
+
 	OpenManagers(prev_request);
 	
-	AEntryModificator* modificator = EntryModificatorFactory::Construct(params);
 	int counter = 0;
 
 	auto managers_end = month_managers_.end();
@@ -144,7 +162,16 @@ void GlobalManager::EditEntryByDisplayedId(const Request& prev_request, const in
 
 		for (auto j = iter_begin; j != iter_end; ++j) {
 			if ((counter + 1) == id) {
+				// Modifing entry in the buffer
+				int prev_entry_sum = (*j).GetSum();
 				modificator->Modify(*j);
+
+				// Adjusting config data with the sum difference
+				int new_entry_sum = (*j).GetSum();
+				int difference = new_entry_sum - prev_entry_sum;
+				ConfigFileManager::AdjustBalance(difference);
+
+				// Displaying result, rewriting files
 				DisplayManagersBuffers(prev_request);
 				CloseManagers();
 				delete modificator;
@@ -178,6 +205,7 @@ void GlobalManager::GetRecords(std::string& params)
 void GlobalManager::EditEntry(std::string& params)
 {
 	if (prev_request_ == nullptr) {
+		std::cout << "There was no valid previous request." << std::endl;
 		return;
 	}
 	std::regex regex("\\d+");
@@ -200,8 +228,26 @@ void GlobalManager::AddEntry(std::string& params)
 
 	FinanceEntry new_entry;
 	AEntryModificator* modificator = EntryModificatorFactory::Construct(params);
-	modificator->Modify(new_entry);
+	if (modificator == nullptr) {
+		std::cout << "Invalid arguments to modify entry." << std::endl;
 
+		delete manager;
+		delete file_names_p;
+		delete request;
+		return;
+	}
+	try {
+		modificator->Modify(new_entry);
+	}
+	catch (std::exception) {
+		std::cout << "Unable to modify entry! You must have provided invalid argumetns." << std::endl;
+		
+		delete manager;
+		delete file_names_p;
+		delete request;
+		return;
+	}
+	
 	manager->AddEntryToBuffer(new_entry);
 	manager->SortBuffer();
 	manager->RewriteFileFromBuffer();

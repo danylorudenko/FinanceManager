@@ -34,7 +34,12 @@ AEntryModificator* EntryModificatorFactory::Construct(std::string& params)
 			}
 		}
 		catch (std::out_of_range e) {
-			std::cout << e.what() << std::endl;
+			std::cout
+				<< e.what()
+				<< std::endl
+				<< "You must have provided argument which can't be applied to modify entry.\n"
+				<< "This error was silently taken care of, entry will be modified by parameters which can be applied."
+				<< std::endl;
 		}
 	}
 
