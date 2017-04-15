@@ -23,13 +23,14 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 		std::cout
 			<< "Current balance: "
 			<< major_currency
-			<< ','
+			<< '.'
 			<< (minor_currency < 10 ? "0" : "")
 			<< minor_currency
 			<< " UAH\n";
 	}
 	else {
 		delete prev_request_;
+		prev_request_ = nullptr;
 		prev_request_ = RequestFactory::ConstructTimeRequest(params_string);
 		if (prev_request_ == nullptr) {
 			std::cout << "Can't construct request with the given arguments.\n";
@@ -108,7 +109,7 @@ void GlobalManager::FormatDisplayEntry(const FinanceEntry& entry)
 		<< std::setw(6)
 		<< std::right
 		<< major_currency_amount
-		<< ','
+		<< '.'
 		<< (minor_currency_amount < 10 ? "0" : "")
 		<< minor_currency_amount
 		<< " UAH,";
@@ -164,7 +165,13 @@ void GlobalManager::EditEntryByDisplayedId(const Request& prev_request, const in
 			if ((counter + 1) == id) {
 				// Modifing entry in the buffer
 				int prev_entry_sum = (*j).GetSum();
-				modificator->Modify(*j);
+				try {
+					modificator->Modify(*j);
+				}
+				catch (std::exception& e) {
+					std::cerr << e.what() << std::endl
+						<< "Unable to modify entry. You must have provided invalid arguments." << std::endl;
+				}
 
 				// Adjusting config data with the sum difference
 				int new_entry_sum = (*j).GetSum();
@@ -188,7 +195,11 @@ void GlobalManager::EditEntryByDisplayedId(const Request& prev_request, const in
 
 void GlobalManager::GetRecords(std::string& params)
 {
-	delete prev_request_;
+	if (prev_request_ != nullptr) {
+		delete prev_request_;
+		prev_request_ = nullptr;
+	}
+	
 	prev_request_ = RequestFactory::ConstructRequest(params);
 
 	if (prev_request_ == nullptr) {
@@ -239,8 +250,9 @@ void GlobalManager::AddEntry(std::string& params)
 	try {
 		modificator->Modify(new_entry);
 	}
-	catch (std::exception) {
-		std::cout << "Unable to modify entry! You must have provided invalid argumetns." << std::endl;
+	catch (std::exception& e) {
+		std::cerr << e.what() 
+			<< "Unable to modify entry! You must have provided invalid argumetns." << std::endl;
 		
 		delete manager;
 		delete file_names_p;
@@ -304,8 +316,11 @@ void GlobalManager::SortBuffers()
 
 GlobalManager::~GlobalManager()
 {
+	if (prev_request_ != nullptr) {
+		delete prev_request_;
+		prev_request_ = nullptr;
+	}
+
 	CloseManagers();
-	delete prev_request_;
-	prev_request_ = nullptr;
 	DeleteEmptyFiles();
 }

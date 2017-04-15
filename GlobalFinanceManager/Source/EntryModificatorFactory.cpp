@@ -40,6 +40,11 @@ AEntryModificator* EntryModificatorFactory::Construct(std::string& params)
 				<< "You must have provided argument which can't be applied to modify entry.\n"
 				<< "This error was silently taken care of, entry will be modified by parameters which can be applied."
 				<< std::endl;
+
+			if (modificator != nullptr) {
+				delete modificator;
+				modificator = nullptr;
+			}
 		}
 	}
 

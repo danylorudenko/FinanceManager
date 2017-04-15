@@ -19,6 +19,9 @@ Request* RequestFactory::ConstructRequest(std::string& params_string)
 {
 	// Constructing request with only time decorator
 	Request* request = RequestFactory::ConstructTimeRequest(params_string);
+	if (request == nullptr) {
+		return nullptr;
+	}
 
 	// Removing time argument form the string
 	size_t time_prefix_pos = params_string.find(CommandManager::time_argument_prefix_);
@@ -73,7 +76,7 @@ AComplexPredicate* RequestFactory::BuildTimeEdgePredicate(const std::string& par
 {
 	int days = 0;
 	try {
-		int days = std::stoi(param);
+		days = std::stoi(param);
 	}
 	catch (std::exception) {
 		return nullptr;

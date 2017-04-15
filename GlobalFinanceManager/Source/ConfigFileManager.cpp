@@ -7,7 +7,7 @@
 #include <regex>
 #include <iostream>
 
-const char* ConfigFileManager::config_file_name_ = "test_config_file.txt";
+const char* ConfigFileManager::config_file_name_ = "config_file.txt";
 
 bool ConfigFileManager::local_up_to_date_ = false;
 

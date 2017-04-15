@@ -48,7 +48,7 @@ bool CommandManager::GetUserCommand(GlobalManager& manager)
 			return AdvancedHelpHandler(result[3]);
 		}
 
-		return Invoke(manager, result[1], result[3].str());
+		return Invoke(manager, result[1].str(), result[3].str());
 	}
 
 	std::cout << "Invalid format of command.\n";

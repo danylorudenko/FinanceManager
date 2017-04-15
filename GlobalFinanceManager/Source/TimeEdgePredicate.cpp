@@ -30,7 +30,7 @@ TimeEdgePredicate* TimeEdgePredicate::LastDays(int days)
 
 	AugmentFirstEdgeByConfig(&temp_first_edge);
 
-	return new TimeEdgePredicate(temp_first_edge, TimeHolder());
+	return new TimeEdgePredicate(temp_first_edge, today);
 }
 
 TimeEdgePredicate* TimeEdgePredicate::LastWeeks(int weeks)
