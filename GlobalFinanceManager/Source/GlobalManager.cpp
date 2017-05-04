@@ -18,7 +18,7 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 	if (params_string == "all") {
 		int balance_source_int = ConfigFileManager::GetConfigInfo().GetCurrentBalance();
 		int major_currency = balance_source_int / 100;
-		int minor_currency = balance_source_int % 100;
+		int minor_currency = std::abs(balance_source_int % 100);
 		
 		std::cout
 			<< "Current balance: "
@@ -43,7 +43,7 @@ void GlobalManager::DisplayBalance(std::string& params_string)
 
 		int balance_source_int = CountBalanceByTime(*prev_request_);;
 		int major_currency = balance_source_int / 100;
-		int minor_currency = balance_source_int % 100;
+		int minor_currency = std::abs(balance_source_int % 100);
 
 		std::cout
 			<< "Balance by time: "
@@ -103,7 +103,7 @@ void GlobalManager::FormatDisplayEntry(const FinanceEntry& entry)
 
 	// ============ Sum:
 	int major_currency_amount = entry.GetSum() / 100;
-	int minor_currency_amount = entry.GetSum() % 100;
+	int minor_currency_amount = std::abs(entry.GetSum() % 100);
 	
 	std::cout
 		<< std::setw(6)

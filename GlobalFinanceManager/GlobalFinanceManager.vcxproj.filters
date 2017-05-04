@@ -73,4 +73,7 @@
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="NatvisVisualizers\time_holder.natvis" />
+  </ItemGroup>
 </Project>

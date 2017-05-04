@@ -183,6 +183,9 @@
   <ItemGroup>
     <None Include="TestExpencesTest.bin" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="NatvisVisualizers\time_holder.natvis" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
